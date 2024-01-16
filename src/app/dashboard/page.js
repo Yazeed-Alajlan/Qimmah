@@ -57,21 +57,25 @@ export default function Home() {
           {
             id: "home",
             name: "Home",
+            icon: <FaHeart />, // Replace with your icon component
             render: () => <div>Home Content</div>,
           },
           {
             id: "blog",
             name: "Blog",
+            icon: <FaHeart />, // Replace with your icon component
             render: () => <div>Blog Content</div>,
           },
           {
             id: "projects",
             name: "Projects",
+            icon: <FaHeart />, // Replace with your icon component
             render: () => <div>Projects Content</div>,
           },
           {
             id: "arts",
             name: "Arts",
+            icon: <FaHeart />, // Replace with your icon component
             render: () => <div>Arts Content</div>,
           },
         ]}

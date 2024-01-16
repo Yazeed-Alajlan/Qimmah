@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 export const SlidingTabs = ({ tabs, getIndex }) => {
   const tabsRef = useRef([]);
-  const [activeTabIndex, setActiveTabIndex] = useState(null);
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
 
@@ -43,11 +43,12 @@ export const SlidingTabs = ({ tabs, getIndex }) => {
             <button
               key={index}
               ref={(el) => (tabsRef.current[index] = el)}
-              className={`${
+              className={`flex justify-center items-center  ${
                 isActive ? `` : `hover:text-neutral-300`
               } my-auto cursor-pointer select-none rounded-full px-4 text-center font-light text-white`}
               onClick={() => handleTabClick(index)}
             >
+              {tab.icon && <span className="mr-2">{tab.icon}</span>}
               {tab.name}
             </button>
           );

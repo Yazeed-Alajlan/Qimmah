@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "apexcharts": "^3.45.1",
     "chartjs": "^0.3.24",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
