@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const Chart = ({ data, chartType, chartOptions }) => {
+const Chart = ({ data, chartType, chartOptions, height, width }) => {
   const [mergedOptions, setMergedOptions] = useState({});
 
   // Default chart options
@@ -73,10 +73,13 @@ const Chart = ({ data, chartType, chartOptions }) => {
       },
       // Add more default options as needed
     };
-    const newMergedOptions = { ...defaultOptions, ...chartOptions };
-    setMergedOptions(newMergedOptions);
+    if (typeof window !== "undefined") {
+      const newMergedOptions = { ...defaultOptions, ...chartOptions };
+      setMergedOptions(newMergedOptions);
+    }
+
     console.log(chartType);
-  }, [chartType]);
+  }, [chartType, chartOptions, data]);
 
   // Merge default options with user-provided options
 
@@ -86,7 +89,8 @@ const Chart = ({ data, chartType, chartOptions }) => {
         options={mergedOptions}
         series={data.series}
         type={chartType}
-        height={350}
+        height={height}
+        width={width}
       />
     </div>
   );

@@ -2,7 +2,7 @@
 
 import ButtonLink from "@/components/utils/buttons/ButtonLink";
 import { Button } from "@/components/utils/buttons/Button";
-import { Card } from "@/components/utils/cards/card";
+import { Card } from "@/components/utils/cards/Card";
 import { FaHeart, FaInfoCircle, FaArrowRight } from "react-icons/fa";
 import { Tab, Tabs } from "@/components/utils/tabs/tabs";
 import { SlidingTabs } from "@/components/utils/tabs/SlidingTabs";

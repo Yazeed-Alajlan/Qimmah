@@ -1,6 +1,6 @@
 import React from "react";
 
-const Button = ({ bgColor, color, size, type, children, isPill }) => {
+const ButtonOLD = ({ bgColor, color, size, type, children, isPill }) => {
   var buttonClass =
     "select-none font-sans text-xs font-bold uppercase transition-all align-middle ";
 
@@ -52,4 +52,4 @@ const Button = ({ bgColor, color, size, type, children, isPill }) => {
   );
 };
 
-export default Button;
+export default ButtonOLD;

@@ -1,4 +1,4 @@
-import Chart from "@/components/charts/chart";
+import Chart from "@/components/charts/Chart";
 import YourReactComponent from "@/components/charts/test";
 import Test from "./Test";
 
