@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Card } from "./Card";
 import Chart from "@/components/charts/Chart";
@@ -6,8 +8,8 @@ import { FaHeart } from "react-icons/fa";
 import { ButtonGroupSlidingIndicator } from "../buttons/ButtonGroupSlidingIndicator";
 
 const ChartCard = () => {
-  const [chartType, setChartType] = useState("line");
-  const [activeButtonIndex, setActiveButtonIndex] = useState(1);
+  const [chartType, setChartType] = useState("bar");
+  const [activeButtonIndex, setActiveButtonIndex] = useState(0);
 
   const handleButtonClick = ({ index, value, label }) => {
     setChartType(value);
@@ -17,7 +19,7 @@ const ChartCard = () => {
   const buttons = [
     { label: "Bar", value: "bar", icon: <FaHeart /> },
     { label: "Line", value: "line", icon: <FaHeart /> },
-    { label: "scatter", value: "scatter", icon: <FaHeart /> },
+    { label: "Scatter", value: "scatter", icon: <FaHeart /> },
     // Add more buttons as needed
   ];
 
@@ -39,11 +41,12 @@ const ChartCard = () => {
 
   return (
     <Card>
-      <Chart data={data} chartType={chartType} width={600} />
+      <Chart key={chartType} data={data} chartType={chartType} width={600} />
       <ButtonGroupSlidingIndicator
         buttons={buttons}
         activeButtonIndex={activeButtonIndex}
         onButtonClick={handleButtonClick}
+        iconsOnly={false}
       />
     </Card>
   );
