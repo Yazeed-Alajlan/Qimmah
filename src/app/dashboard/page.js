@@ -19,14 +19,7 @@ export default function Home() {
         icon={<FaHeart />}
         onClick={() => console.log("Button clicked")}
       />
-      <Button variant="default" size="default">
-        Click me
-      </Button>
-      <Button variant="danger">Click me</Button>
-      <Button variant="outline">Click me</Button>
-      <Button variant="subtle">Click me</Button>
-      <Button variant="ghost">Click me</Button>
-      <Button variant="link">Click me</Button>
+
       <Card size="lg" header="Large Card" subHeader="A bigger card">
         <p>Some other content here...sssssssssss</p>
         <ButtonLink

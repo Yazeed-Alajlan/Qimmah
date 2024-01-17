@@ -1,98 +1,93 @@
 "use client";
+import React, { useEffect, useState } from "react";
+import ReactApexChart from "react-apexcharts";
 
-import React, { useEffect } from "react";
-import ApexCharts from "apexcharts";
+const Chart = ({ data, chartType, chartOptions }) => {
+  const [mergedOptions, setMergedOptions] = useState({});
 
-const Chart = ({ chartData, chartType }) => {
+  // Default chart options
   useEffect(() => {
-    let options = {
-      tooltip: {
-        enabled: true,
-        x: {
-          show: true,
-        },
-        y: {
-          show: true,
-        },
-      },
-      grid: {
-        show: false,
-        strokeDashArray: 4,
-        padding: {
-          left: 2,
-          right: 2,
-          top: -26,
-        },
-      },
-      series: chartData.series,
+    const defaultOptions = {
       chart: {
-        height: "100%",
-        maxWidth: "100%",
-        type: chartType, // Dynamically set the chart type
-        fontFamily: "Inter, sans-serif",
-        dropShadow: {
-          enabled: false,
-        },
-        toolbar: {
-          show: false,
-        },
+        id: "basic-chart",
+      },
+      fill: {
+        opacity: 0.8,
       },
       legend: {
         show: true,
         position: "bottom",
       },
-      fill: {
-        opacity: 0.8,
-      },
       dataLabels: {
         enabled: false,
       },
-      stroke: {
-        width: 2,
+      tooltip: {
+        shared: true,
+        intersect: false,
+      },
+      grid: {
+        show: true,
+        strokeDashArray: 4,
+        padding: {},
+      },
+      plotOptions: {
+        bar: {
+          columnWidth: "100%",
+          borderRadiusApplication: "end",
+          borderRadius: 2,
+          dataLabels: {
+            position: "top",
+          },
+        },
+      },
+      yaxis: {
+        labels: {
+          show: true,
+          style: {
+            fontFamily: "Inter, sans-serif",
+            cssClass: "text-xs font-normal fill-gray-500 dark:fill-gray-400",
+          },
+          // formatter: function (value) {
+          //   return "$" + value;
+          // },
+        },
       },
       xaxis: {
-        categories: chartData.categories,
         labels: {
+          show: true,
+          style: {
+            fontFamily: "Inter, sans-serif",
+            cssClass: "text-xs font-normal fill-gray-500 dark:fill-gray-400",
+          },
+          // formatter: function (value) {
+          //   return "$" + value;
+          // },
+        },
+        axisTicks: {
           show: false,
         },
         axisBorder: {
           show: false,
         },
-        axisTicks: {
-          show: false,
-        },
+        categories: data.categories.map((item) => item),
       },
-      yaxis: {
-        show: false,
-        labels: {
-          formatter: function (value) {
-            return "$" + value;
-          },
-        },
-      },
+      // Add more default options as needed
     };
+    const newMergedOptions = { ...defaultOptions, ...chartOptions };
+    setMergedOptions(newMergedOptions);
+    console.log(chartType);
+  }, [chartType]);
 
-    const tooltipChartElement = document.getElementById("tooltip-chart");
-
-    // Clear previous chart if it exists
-    if (tooltipChartElement && tooltipChartElement.innerHTML !== "") {
-      tooltipChartElement.innerHTML = "";
-    }
-
-    const chart = new ApexCharts(tooltipChartElement, options);
-    chart.render();
-
-    // Clean up chart on component unmount
-    return () => {
-      if (chart) {
-        chart.destroy();
-      }
-    };
-  }, [chartData, chartType]);
+  // Merge default options with user-provided options
 
   return (
-    <div className="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-      <div id="tooltip-chart"></div>
+    <div>
+      <ReactApexChart
+        options={mergedOptions}
+        series={data.series}
+        type={chartType}
+        height={350}
+      />
     </div>
   );
 };
