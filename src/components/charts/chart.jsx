@@ -85,13 +85,15 @@ const Chart = ({ data, chartType, chartOptions, height, width }) => {
 
   return (
     <div>
-      <ReactApexChart
-        options={mergedOptions}
-        series={data.series}
-        type={chartType}
-        height={height}
-        width={width}
-      />
+      {typeof window !== "undefined" && (
+        <ReactApexChart
+          options={mergedOptions}
+          series={data.series}
+          type={chartType}
+          height={height}
+          width={width}
+        />
+      )}
     </div>
   );
 };
