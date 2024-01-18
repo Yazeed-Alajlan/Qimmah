@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.p-sm {
+    @apply p-1;
+}
+
+.p-md {
+    @apply p-2;
+}
+
+.p-lg {
+    @apply p-3;
+}
+
+
+::-webkit-scrollbar {
+    width: 4px;
+    /* Set the width of the scrollbar */
+    height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Color of the scrollbar track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    /* Color of the scrollbar handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Color of the scrollbar handle on hover */
+}
