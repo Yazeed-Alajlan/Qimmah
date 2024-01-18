@@ -97,7 +97,8 @@ const FinancialMetricsTable = ({
               )}
               {filterBy && (
                 <InputSelect
-                  label={"القطاع"}
+                  label={"Sector"}
+                  className={"w-1/2"}
                   placeholder="تصفية حسب القطاع"
                   value={filterOption}
                   options={[
@@ -110,6 +111,7 @@ const FinancialMetricsTable = ({
                     setFilterOption(e && e.value);
                   }}
                   isSearchable={true}
+                  labelDirection="hr"
                 />
               )}
             </form>
@@ -122,13 +124,13 @@ const FinancialMetricsTable = ({
                 : ""
             }`}
           >
-            <table
-              {...getTableProps()}
-              className="table-auto  border-collapse border  "
-            >
+            <table {...getTableProps()} className="">
               <thead className="sticky top-0 bg-gray-100">
                 {headerGroups.map((headerGroup) => (
-                  <tr className="p-10" {...headerGroup.getHeaderGroupProps()}>
+                  <tr
+                    className="p-10 border-b-2"
+                    {...headerGroup.getHeaderGroupProps()}
+                  >
                     {headerGroup.headers.map((column) => (
                       <th
                         {...column.getHeaderProps(
@@ -157,10 +159,13 @@ const FinancialMetricsTable = ({
                 {dataToMap.map((row) => {
                   prepareRow(row);
                   return (
-                    <tr {...row.getRowProps()}>
+                    <tr
+                      {...row.getRowProps()}
+                      className="border-b-2 hover:bg-slate-50"
+                    >
                       {row.cells.map((cell, index) => (
                         <td
-                          className="px-4"
+                          className="px-4 "
                           {...cell.getCellProps()}
                           key={index}
                         >
