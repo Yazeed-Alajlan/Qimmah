@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useContext } from "react";
 import axios from "axios";
 
@@ -8,10 +9,6 @@ export function usePytohnServer() {
 }
 
 export function PytohnServerProvider({ children }) {
-  const [filteredStocks, setFilteredStocks] = useState();
-  const [selectedIndicators, setSelectedIndicators] = useState([]);
-  const [selectedStock, setSelectedStock] = useState();
-
   async function consolidatingStocksFilter({
     numberOfCandles,
     percentageRange,
@@ -77,14 +74,9 @@ export function PytohnServerProvider({ children }) {
   }
 
   const value = {
-    filteredStocks,
-    setFilteredStocks,
     consolidatingStocksFilter,
     japaneseCandlestickFilter,
-    selectedIndicators,
-    setSelectedIndicators,
-    selectedStock,
-    setSelectedStock,
+
     japaneseCandlestickMarkers,
     correlationMatrix,
   };

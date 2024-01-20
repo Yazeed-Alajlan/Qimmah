@@ -1,5 +1,3 @@
-import Chart from "@/components/charts/Chart";
-import YourReactComponent from "@/components/charts/test";
 import Test from "./Test";
 
 export default function Home() {

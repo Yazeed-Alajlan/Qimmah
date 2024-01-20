@@ -1,21 +1,59 @@
 // Test.jsx
 "use client";
-import React, { useState } from "react";
-import { Button } from "@/components/utils/buttons/Button";
-import Dropdown from "@/components/utils/inputs/Dropdown";
-import { FaHeart } from "react-icons/fa";
-// import ChartCard from "@/components/utils/cards/ChartCard";
-import Drawer from "@/components/utils/drawer/Drawer";
-import Table from "@/components/utils/table/Table";
-import InputSelect from "@/components/utils/inputs/InputSelect";
-import FinancialMetricsTable from "@/components/utils/table/FinancialMetricsTable";
-import Input from "@/components/utils/inputs/Input";
-import YourComponent from "@/components/test/API";
 
+import StocksTable from "@/components/utils/table/StocksTable";
+import { usePytohnServer } from "@/context/pytohnServerContext";
+import React, { useState, useEffect } from "react";
 const Test = () => {
+  const [stockData, setStockData] = useState(null);
+  const { correlationMatrix } = usePytohnServer();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/stocks");
+        console.log(response);
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const data = await response.json();
+        setStockData(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array to run the effect only once on mount
   return (
-    <div className="grid grid-cols-2 gap-28 ">
-      <YourComponent />
+    <div className="w-3/4  ">
+      {stockData ? (
+        <StocksTable
+          tableData={stockData}
+          tableColumns={[
+            {
+              Header: "Company Name",
+              accessor: "symbol",
+              maxWidth: 400,
+              minWidth: 140,
+              width: 400,
+            },
+            {
+              Header: "Sector",
+              accessor: "tradingNameAr",
+              maxWidth: 400,
+              minWidth: 140,
+              width: 200,
+            },
+          ]}
+          // isScrollable
+          filterBy={"sectorNameAr"}
+          searchBy={"tradingNameAr"}
+        />
+      ) : (
+        <p>loading...</p>
+      )}
     </div>
   );
 };
