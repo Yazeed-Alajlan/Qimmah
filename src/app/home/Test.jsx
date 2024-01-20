@@ -10,9 +10,14 @@ import Table from "@/components/utils/table/Table";
 import InputSelect from "@/components/utils/inputs/InputSelect";
 import FinancialMetricsTable from "@/components/utils/table/FinancialMetricsTable";
 import Input from "@/components/utils/inputs/Input";
+import YourComponent from "@/components/test/API";
 
 const Test = () => {
-  return <div className="grid grid-cols-2 gap-28 "></div>;
+  return (
+    <div className="grid grid-cols-2 gap-28 ">
+      <YourComponent />
+    </div>
+  );
 };
 
 export default Test;
