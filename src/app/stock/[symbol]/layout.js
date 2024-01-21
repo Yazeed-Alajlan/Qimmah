@@ -40,7 +40,7 @@ const StockLayout = ({ children }) => {
       path: "financials",
       icon: TbBook,
       name: "القوائم المالية",
-      to: `/stock/${symbol}/test`,
+      to: `/stock/${symbol}/financials`,
 
       // to: `/companies/${sector}/${symbol}/financials`,
     },
@@ -48,7 +48,7 @@ const StockLayout = ({ children }) => {
       path: "chart",
       icon: TbChartHistogram,
       name: "تحركات السهم",
-      to: `/stock/${symbol}/information`,
+      to: `/stock/${symbol}/chart`,
 
       // to: `/companies/${sector}/${symbol}/chart`,
     },
@@ -56,7 +56,7 @@ const StockLayout = ({ children }) => {
       path: "dividend",
       icon: TbReportMoney,
       name: "التوزيعات",
-      to: `/stock/${symbol}/information`,
+      to: `/stock/${symbol}/profits_and_distributions`,
 
       // to: `/companies/${sector}/${symbol}/dividend`,
     },
@@ -64,7 +64,7 @@ const StockLayout = ({ children }) => {
       path: "analysis",
       icon: TbDeviceAnalytics,
       name: "تحليل",
-      to: `/stock/${symbol}/information`,
+      to: `/stock/${symbol}/analysis`,
 
       // to: `/companies/${sector}/${symbol}/analysis`,
     },

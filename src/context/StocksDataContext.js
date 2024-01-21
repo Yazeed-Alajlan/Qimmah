@@ -17,7 +17,6 @@ export function StocksDataProvider({ children }) {
       try {
         const response = await fetch("/api/stocks");
         const data = await response.json();
-
         console.log("fetch data");
         console.log(data);
         setStocksData(data);
@@ -30,7 +29,7 @@ export function StocksDataProvider({ children }) {
 
   function getStockFinancialData(symbol) {
     return axios
-      .get(`http://localhost:5000/api/stock-financials/${symbol}`)
+      .get(`/api/financials/${symbol}`)
       .then((response) => response.data)
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -40,9 +39,7 @@ export function StocksDataProvider({ children }) {
   async function getStockInformationData(symbol) {
     let response;
     try {
-      response = await axios.get(
-        `http://localhost:5000/api/stock-inforamtion/${symbol}`
-      );
+      response = await axios.get(`/api/stocks/${symbol}`);
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -53,9 +50,8 @@ export function StocksDataProvider({ children }) {
   async function getStockPriceData(symbol) {
     let response;
     try {
-      response = await axios.get(
-        `http://localhost:5000/api/stock-price/${symbol}`
-      );
+      response = await axios.get(`/api/prices/${symbol}`);
+
       // console.log(response.data);
     } catch (error) {
       console.error("Error fetching stock data:", error);
