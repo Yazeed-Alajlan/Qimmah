@@ -28,6 +28,31 @@ const Test = () => {
   }, []); // Empty dependency array to run the effect only once on mount
   return (
     <div className="w-3/4  ">
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
+      <div>FUCK TOY</div>
       {stockData ? (
         <StocksTable
           tableData={stockData}

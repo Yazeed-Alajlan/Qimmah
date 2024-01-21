@@ -7,6 +7,7 @@ import SearchInput from "../inputs/SearchInput";
 import { Button } from "../buttons/Button";
 import Divider from "../Divider";
 import Badge from "../Badge";
+import Link from "next/link";
 
 const StocksTable = ({
   header,
@@ -200,9 +201,10 @@ const StocksTable = ({
                             }
                           >
                             {index === 0 ? (
-                              <a
+                              <Link
+                                href={`/companies/${row.original.sectorNameAr}/${symbol}/information`}
                                 className=""
-                                to={`/companies/${row.original.sectorNameAr}/${symbol}/information`}
+                                // to={`/companies/${row.original.sectorNameAr}/${symbol}/information`}
                                 // onClick={() => {
                                 //   setSelectedStock({
                                 //     value: symbol,
@@ -211,13 +213,16 @@ const StocksTable = ({
                                 //   });
                                 // }}
                               >
-                                <Badge
-                                  className="fw-bold me-2"
-                                  variant="blue"
-                                  text={symbol}
-                                />
+                                <span>
+                                  <Badge
+                                    className="fw-bold me-2"
+                                    variant="primary" // Use variant instead of color
+                                    text={symbol}
+                                  />
+                                </span>
+
                                 <span>{name}</span>
-                              </a>
+                              </Link>
                             ) : (
                               cell.render("Cell")
                             )}
