@@ -1,7 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/utils/routing/Header";
-import { PytohnServerProvider } from "@/context/pytohnServerContext";
+import { StocksDataProvider } from "@/context/StocksDataContext";
+import { PytohnServerProvider } from "@/context/PytohnServerContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,13 +13,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`flex flex-col ${inter.className}`}>
-        <PytohnServerProvider>
-          <Header>
-            <div>sdssd</div>
-          </Header>
-          {children}
-        </PytohnServerProvider>
+      <body dir="rtl" className={`flex flex-col ${inter.className}`}>
+        <StocksDataProvider>
+          <PytohnServerProvider>
+            <Header>
+              <div>sdssd</div>
+            </Header>
+            {children}
+          </PytohnServerProvider>
+        </StocksDataProvider>
       </body>
     </html>
   );

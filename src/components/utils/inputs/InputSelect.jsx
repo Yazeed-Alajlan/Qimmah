@@ -30,7 +30,11 @@ const InputSelect = ({
   };
 
   return (
-    <div className={`flex w-full ${isHorizontal ? "" : "flex-col"} gap-2`}>
+    <div
+      className={`flex justify-end w-full ${
+        isHorizontal ? "" : "flex-col"
+      } gap-2`}
+    >
       <p className="text-lg my-auto whitespace-nowrap font-semibold">{label}</p>
       <Select
         components={animatedComponents}
