@@ -1,6 +1,9 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
-import DynamicChart from "components/utils/charts/DynamicChart";
-import InputSelect from "components/utils/inputs/InputSelect";
+import InputSelect from "@/components/utils/inputs/InputSelect";
+import ChartCard from "@/components/utils/cards/ChartCard";
+import DynamicChart from "@/components/utils/charts/DynamicChart";
 
 const FinancialsChart = ({ stockFinancialData }) => {
   const balanceSheetKeys =
@@ -53,6 +56,7 @@ const FinancialsChart = ({ stockFinancialData }) => {
     } else {
       setChartData([]);
     }
+    console.log("HIIHIIHIHIHHI");
   }, [selectedOptions, stockFinancialData]);
 
   const handleSelectChange = (selected) => {
@@ -73,7 +77,7 @@ const FinancialsChart = ({ stockFinancialData }) => {
         onChange={handleSelectChange}
         defaultValue={selectedOptions}
       />
-      {chartData && <DynamicChart data={chartData} />}
+      {chartData && <ChartCard type={"bar"} data={chartData} />}
     </div>
   );
 };

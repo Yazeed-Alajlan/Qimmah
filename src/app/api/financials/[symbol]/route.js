@@ -5,12 +5,8 @@ import { NextResponse } from "next/server";
 export async function GET(req, { params }) {
   try {
     await connectToDatabase();
-    // const searchParams = req.nextUrl.searchParams;
-    // const name = searchParams.get("symbol");
-
     const symbol = params.symbol;
     const stock = await StockFinancials.findOne({ symbol: symbol });
-
     if (!stock) {
       return new NextResponse({
         status: 404,
@@ -27,3 +23,6 @@ export async function GET(req, { params }) {
     });
   }
 }
+
+// const searchParams = req.nextUrl.searchParams;
+// const name = searchParams.get("symbol");

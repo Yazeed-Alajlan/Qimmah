@@ -2,9 +2,52 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const Chart = ({ data, chartType, chartOptions, height, width }) => {
+function getRandomColor() {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+function transformData(inputData) {
+  if (inputData == null || inputData.length === 0) {
+    return {
+      series: [],
+      categories: [],
+    };
+  }
+
+  console.log(inputData);
+  const series = Object.keys(inputData).map((key) => {
+    const color = "#31C48D"; // Function to generate random colors
+    const data = inputData[key].map((item) =>
+      parseInt(item.value.replace(/,/g, ""))
+    );
+    return {
+      name: key,
+      color: color,
+      data: data,
+    };
+  });
+
+  const categories = inputData[Object.keys(inputData)[0]].map(
+    (item) => item.year.split("-")[1]
+  );
+
+  const data = {
+    series: series,
+    categories: categories,
+  };
+
+  return data;
+}
+
+const ApexChart = ({ data, chartType, chartOptions, height, width }) => {
   const [mergedOptions, setMergedOptions] = useState({});
 
+  data = transformData(data);
   // Default chart options
   useEffect(() => {
     const defaultOptions = {
@@ -69,7 +112,7 @@ const Chart = ({ data, chartType, chartOptions, height, width }) => {
         axisBorder: {
           show: false,
         },
-        categories: data.categories.map((item) => item),
+        categories: data?.categories?.map((item) => item),
       },
       // Add more default options as needed
     };
@@ -85,7 +128,7 @@ const Chart = ({ data, chartType, chartOptions, height, width }) => {
 
   return (
     <div>
-      {typeof window !== "undefined" && (
+      {typeof window !== "undefined" && data && (
         <ReactApexChart
           options={mergedOptions}
           series={data.series}
@@ -98,4 +141,4 @@ const Chart = ({ data, chartType, chartOptions, height, width }) => {
   );
 };
 
-export default Chart;
+export default ApexChart;

@@ -2,28 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { BsArrowDown } from "react-icons/bs";
-import { useStocksData } from "@/context/StocksDataContext";
 import { Card } from "@/components/utils/cards/Card";
 import { useParams } from "next/navigation";
-
+import { getStockInformationData } from "@/services/StocksServices";
 const StockInformation = () => {
-  const { getStockInformationData } = useStocksData();
   const { symbol } = useParams();
-  const [stockInformationData, setStockInformationData] = useState(null);
+  const stockInformationData = getStockInformationData(symbol);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getStockInformationData(symbol);
-        setStockInformationData(data);
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching stock data:", error);
-      }
-    };
-
-    fetchData();
-  }, [getStockInformationData, symbol]);
   return (
     <>
       {stockInformationData ? (

@@ -7,7 +7,6 @@ export async function GET(req, { params }) {
     await connectToDatabase();
     const symbol = params.symbol;
     const stock = await StockInformation.findOne({ symbol: symbol });
-
     if (!stock) {
       return new NextResponse({
         status: 404,

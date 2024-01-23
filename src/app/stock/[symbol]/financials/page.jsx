@@ -1,19 +1,26 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import { CustomCard } from "components/utils/cards/CustomCard";
-import { useOutletContext } from "react-router-dom";
 import { BsCalendar3 } from "react-icons/bs";
 import { TbChartBar, TbTable } from "react-icons/tb";
-import { Container } from "react-bootstrap";
-import FinancialsTable from "./FinancialsTable";
-import ButtonsGroup from "components/utils/buttons/ButtonsGroup";
+
+// import FinancialsTable from "./FinancialsTable";
+// import ButtonsGroup from "components/utils/buttons/ButtonsGroup";
 import FinancialsChart from "./FinancialsChart";
-import Tabs from "components/utils/Tabs";
-import Tab from "components/utils/Tab";
+// import Tabs from "components/utils/Tabs";
+// import Tab from "components/utils/Tab";
+import { getStockFinancialData } from "@/services/StocksServices";
+import { Card } from "@/components/utils/cards/Card";
+import { useParams } from "next/navigation";
 
 const Financials = () => {
-  const { stockFinancialData } = useOutletContext();
+  const { symbol } = useParams();
+
+  const stockFinancialData = getStockFinancialData(symbol);
+
   const [displayAnnual, setDisplayAnnual] = useState(0);
-  const [financialData, setFinancialData] = useState(null);
+  const [financialData, setFinancialData] = useState(
+    getStockFinancialData(symbol)
+  );
 
   useEffect(() => {
     if (stockFinancialData) {
@@ -55,8 +62,10 @@ const Financials = () => {
   return (
     <div>
       {financialData ? (
-        <CustomCard header={"القوائم المالية"}>
-          <Container className="py-4">
+        <Card header={"القوائم المالية"}>
+          <FinancialsChart stockFinancialData={financialData} />
+
+          {/* <div className="py-4">
             <Tabs>
               <Tab icon={TbChartBar}>
                 <FinancialsChart stockFinancialData={financialData} />
@@ -90,8 +99,8 @@ const Financials = () => {
                 parentSetState={setDisplayAnnual}
               />
             </Tabs>
-          </Container>
-        </CustomCard>
+          </div> */}
+        </Card>
       ) : (
         <p>Loading...</p>
       )}
