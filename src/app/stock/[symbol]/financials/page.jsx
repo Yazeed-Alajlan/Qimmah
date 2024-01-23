@@ -11,6 +11,8 @@ import FinancialsChart from "./FinancialsChart";
 import { getStockFinancialData } from "@/services/StocksServices";
 import { Card } from "@/components/utils/cards/Card";
 import { useParams } from "next/navigation";
+import { Tab, Tabs } from "@/components/utils/tabs/tabs";
+import FinancialsTable from "./FinancialsTable";
 
 const Financials = () => {
   const { symbol } = useParams();
@@ -62,44 +64,40 @@ const Financials = () => {
   return (
     <div>
       {financialData ? (
-        <Card header={"القوائم المالية"}>
-          <FinancialsChart stockFinancialData={financialData} />
-
-          {/* <div className="py-4">
-            <Tabs>
-              <Tab icon={TbChartBar}>
-                <FinancialsChart stockFinancialData={financialData} />
-              </Tab>
-              <Tab icon={TbTable}>
-                <Tabs activeTab={1}>
-                  <Tab text={"المركز المالي"}>
-                    <FinancialsTable
-                      title={"المركز المالي"}
-                      data={financialData.balanceSheet}
-                    />
-                  </Tab>
-                  <Tab text={"قائمة الدخل"}>
-                    <FinancialsTable
-                      title={"قائمة الدخل"}
-                      data={financialData.incomeSheet}
-                    />
-                  </Tab>
-                  <Tab text={"التدفق النقدي"}>
-                    <FinancialsTable
-                      title={"التدفق النقدي"}
-                      data={financialData.cashFlow}
-                    />
-                  </Tab>
-                </Tabs>
-              </Tab>
-              <ButtonsGroup
+        <Card className={"w-full "} header={"القوائم المالية"}>
+          <Tabs>
+            <Tab label={"رسم بياني"} icon={TbChartBar}>
+              <FinancialsChart stockFinancialData={financialData} />
+            </Tab>
+            <Tab label={"جدول"} icon={TbTable}>
+              <Tabs activeTab={1}>
+                <Tab label={"المركز المالي"}>
+                  <FinancialsTable
+                    title={"المركز المالي"}
+                    data={financialData.balanceSheet}
+                  />
+                </Tab>
+                <Tab label={"قائمة الدخل"}>
+                  <FinancialsTable
+                    title={"قائمة الدخل"}
+                    data={financialData.incomeSheet}
+                  />
+                </Tab>
+                <Tab label={"التدفق النقدي"}>
+                  <FinancialsTable
+                    title={"التدفق النقدي"}
+                    data={financialData.cashFlow}
+                  />
+                </Tab>
+              </Tabs>
+            </Tab>
+            {/* <ButtonsGroup
                 label={"المدة"}
                 icon={<BsCalendar3 />}
                 buttons={periodButtons}
                 parentSetState={setDisplayAnnual}
-              />
-            </Tabs>
-          </div> */}
+              /> */}
+          </Tabs>
         </Card>
       ) : (
         <p>Loading...</p>

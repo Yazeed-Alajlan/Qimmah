@@ -53,13 +53,7 @@ const DynamicChart = ({ type, data }) => {
   const [chartType, setChartType] = useState(type);
   const [chartData, setChartData] = useState();
   const [modal, setModal] = useState(false);
-  const [activeButtonIndex, setActiveButtonIndex] = useState(0);
 
-  const handleButtonClick = ({ index, value, label }) => {
-    setChartType(value);
-    setActiveButtonIndex(index);
-    // Additional logic if needed
-  };
   const options = {
     scales: {
       y: {
@@ -100,13 +94,6 @@ const DynamicChart = ({ type, data }) => {
         transition={{ type: "spring", bounce: 0, duration: 0.4 }}
       >
         {chartData && <ChartComponent data={chartData} options={options} />}
-
-        {/* <ButtonGroupSlidingIndicator
-          buttons={chartTypeButtons}
-          activeButtonIndex={activeButtonIndex}
-          onButtonClick={handleButtonClick}
-          iconsOnly={false}
-        /> */}
       </motion.div>
     </>
   );

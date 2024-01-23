@@ -1,5 +1,4 @@
-import HoverGraph from "./HoverGraph";
-import { Container, Table } from "react-bootstrap";
+// import HoverGraph from "./HoverGraph";
 
 const FinancialsTable = ({ title, data, header }) => {
   const keys = data.length > 0 ? Object.keys(data[0]) : [];
@@ -11,8 +10,8 @@ const FinancialsTable = ({ title, data, header }) => {
   const firstRowValues = transposedData[0].values;
 
   return (
-    <Container>
-      <Table className="fs-5" responsive hover>
+    <div>
+      <table className="fs-5" responsive hover>
         <thead>
           {header ? (
             <tr>
@@ -42,11 +41,11 @@ const FinancialsTable = ({ title, data, header }) => {
               rowData.field !== "last_update_date" ? (
                 <>
                   <td>
-                    <HoverGraph
+                    {/* <HoverGraph
                       text={rowData.field}
                       data={rowData.values}
                       years={firstRowValues}
-                    />
+                    /> */}
                   </td>
                   {rowData.values.map((value, index) => (
                     <td
@@ -77,8 +76,8 @@ const FinancialsTable = ({ title, data, header }) => {
             </tr>
           ))}
         </tbody>
-      </Table>
-    </Container>
+      </table>
+    </div>
   );
 };
 
