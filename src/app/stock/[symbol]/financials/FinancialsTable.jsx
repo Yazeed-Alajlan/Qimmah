@@ -1,5 +1,9 @@
 // import HoverGraph from "./HoverGraph";
 
+import Overlay from "@/components/utils/Overlay";
+import Tooltip from "@/components/utils/Tooltip";
+import { Card } from "@/components/utils/cards/Card";
+
 const FinancialsTable = ({ title, data, header }) => {
   const keys = data.length > 0 ? Object.keys(data[0]) : [];
   // Transpose the data
@@ -11,22 +15,18 @@ const FinancialsTable = ({ title, data, header }) => {
 
   return (
     <div>
-      <table className="fs-5" responsive hover>
+      <table className="table-auto w-full text-center" responsive hover>
         <thead>
           {header ? (
-            <tr>
+            <tr className="border-b-4">
               <th>الشركة</th>
-              <th className="text-center" colSpan={2}>
-                {header[0]}
-              </th>
-              <th className="text-center" colSpan={2}>
-                {header[1]}
-              </th>
+              <th colSpan={2}>{header[0]}</th>
+              <th colSpan={2}>{header[1]}</th>
             </tr>
           ) : (
             <></>
           )}
-          <tr>
+          <tr className="border-b-4">
             <th>{title}</th>
             {firstRowValues.map((value, index) => (
               <th key={index}>{value}</th>
@@ -35,12 +35,29 @@ const FinancialsTable = ({ title, data, header }) => {
         </thead>
         <tbody>
           {transposedData.slice(1).map((rowData) => (
-            <tr key={rowData.field}>
+            <tr className=" border-b-2" key={rowData.field}>
               {rowData.field !== "all_figures_in" &&
               rowData.field !== "all_currency_in" &&
               rowData.field !== "last_update_date" ? (
                 <>
                   <td>
+                    {/* <Overlay direction={"right"}>
+                      {rowData.field}
+                      <p>This content is visible on hover.</p>
+                    </Overlay> */}
+                    <Tooltip
+                      orientation={"right"}
+                      tooltipContent={
+                        <Card>
+                          <div>HELLO</div>asdsd
+                        </Card>
+                      }
+                    >
+                      {rowData.field}
+                    </Tooltip>
+                    {/* <Tooltip orientation={"right"} tooltipText={"right"}>
+                      {rowData.field}
+                    </Tooltip> */}
                     {/* <HoverGraph
                       text={rowData.field}
                       data={rowData.values}
