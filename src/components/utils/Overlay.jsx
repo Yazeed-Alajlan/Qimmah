@@ -2,7 +2,7 @@ import React from "react";
 
 const Overlay = ({ children, direction }) => {
   return (
-    <div className=" inline-block text-center group ">
+    <div className=" text-center group ">
       {/* Content that is always visible */}
       <div>{children[0]}</div>
 

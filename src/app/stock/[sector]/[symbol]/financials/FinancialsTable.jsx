@@ -3,6 +3,7 @@
 import Overlay from "@/components/utils/Overlay";
 import Tooltip from "@/components/utils/Tooltip";
 import { Card } from "@/components/utils/cards/Card";
+import HoverGraph from "./HoverGraph";
 
 const FinancialsTable = ({ title, data, header }) => {
   const keys = data.length > 0 ? Object.keys(data[0]) : [];
@@ -46,11 +47,13 @@ const FinancialsTable = ({ title, data, header }) => {
                       <p>This content is visible on hover.</p>
                     </Overlay> */}
                     <Tooltip
-                      orientation={"right"}
+                      orientation={"left"}
                       tooltipContent={
-                        <Card>
-                          <div>HELLO</div>asdsd
-                        </Card>
+                        <HoverGraph
+                          text={rowData.field}
+                          data={rowData.values}
+                          years={firstRowValues}
+                        />
                       }
                     >
                       {rowData.field}
@@ -58,11 +61,6 @@ const FinancialsTable = ({ title, data, header }) => {
                     {/* <Tooltip orientation={"right"} tooltipText={"right"}>
                       {rowData.field}
                     </Tooltip> */}
-                    {/* <HoverGraph
-                      text={rowData.field}
-                      data={rowData.values}
-                      years={firstRowValues}
-                    /> */}
                   </td>
                   {rowData.values.map((value, index) => (
                     <td

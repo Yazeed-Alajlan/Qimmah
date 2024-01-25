@@ -40,20 +40,6 @@ const Financials = () => {
             ? stockFinancialData.cashFlow
             : stockFinancialData.cashFlowQuarterly,
       });
-      // setFinancialData({
-      //   balanceSheet: {
-      //     annual: stockFinancialData.balanceSheet,
-      //     quarterly: stockFinancialData.balanceSheetQuarterly,
-      //   },
-      //   incomeSheet: {
-      //     annual: stockFinancialData.incomeSheet,
-      //     quarterly: stockFinancialData.incomeSheetQuarterly,
-      //   },
-      //   cashFlow: {
-      //     annual: stockFinancialData.cashFlow,
-      //     quarterly: stockFinancialData.cashFlowQuarterly,
-      //   },
-      // });
     }
   }, [stockFinancialData, displayAnnual]);
 
@@ -62,9 +48,9 @@ const Financials = () => {
     { id: 2, text: "ربع سنوي" },
   ];
   return (
-    <div>
+    <>
       {financialData ? (
-        <Card className={"w-full "} header={"القوائم المالية"}>
+        <Card header={"القوائم المالية"}>
           <Tabs>
             <Tab label={"رسم بياني"} icon={TbChartBar}>
               <FinancialsChart stockFinancialData={financialData} />
@@ -102,7 +88,7 @@ const Financials = () => {
       ) : (
         <p>Loading...</p>
       )}
-    </div>
+    </>
   );
 };
 

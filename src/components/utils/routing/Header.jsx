@@ -31,7 +31,7 @@ const Header = ({ children }) => {
 
   return (
     <motion.header
-      className="flex justify-center items-center align-middle sticky top-0 w-full bg-light p-4"
+      className="flex justify-center items-center align-middle sticky top-0 w-full bg-white p-4"
       initial={{ height: "100px" }} // Adjust the original height
       animate={controls}
     >

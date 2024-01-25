@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body dir="rtl" className={`flex flex-col ${inter.className}`}>
+      <body dir="rtl" className={`flex flex-col bg-light ${inter.className}`}>
         <StocksDataProvider>
           <PytohnServerProvider>
             <Header>

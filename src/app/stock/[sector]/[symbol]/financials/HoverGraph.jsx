@@ -1,7 +1,8 @@
 import React from "react";
-import { OverlayTrigger, Card } from "react-bootstrap";
+// import { OverlayTrigger, Card } from "react-bootstrap";
 import { Bar, Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
+import { Card } from "@/components/utils/cards/Card";
 
 Chart.register(...registerables);
 const HoverGraph = ({ text, data, years }) => {
@@ -30,16 +31,14 @@ const HoverGraph = ({ text, data, years }) => {
       },
     },
   };
-  const renderTooltip = (props) => (
-    <Card className="w-25 p-2 " {...props}>
-      <Line data={chartData} options={chartOptions} />
-    </Card>
-  );
 
   return (
-    <OverlayTrigger placement="left" overlay={renderTooltip}>
-      <div className="hover-div">{text}</div>
-    </OverlayTrigger>
+    <div className="hover-div">
+      <Card className="w-25 p-2 ">
+        <Bar data={chartData} options={chartOptions} />
+      </Card>
+      {text}
+    </div>
   );
 };
 
