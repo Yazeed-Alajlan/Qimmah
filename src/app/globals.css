@@ -38,3 +38,27 @@
     background: #555;
     /* Color of the scrollbar handle on hover */
 }
+
+
+
+.link-line-indicator {
+    position: relative;
+    padding-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.link-line-indicator::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background-color: theme('colors.primary.500');;
+    bottom: 0;
+    left: 0;
+    transition: all 0.6s ease;
+}
+
+.link-line-indicator:hover::after {
+    width: 100%;
+    left: 0;
+}

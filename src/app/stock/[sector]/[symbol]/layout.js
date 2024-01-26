@@ -15,21 +15,6 @@ import StockPriceCard from "./utils/StockPriceCard";
 import Badge from "@/components/utils/Badge";
 import Divider from "@/components/utils/Divider";
 
-const ActiveMenuLink = ({ children, href }) => {
-  const pathname = usePathname();
-  const active = href === pathname;
-  return (
-    <Link
-      href={href}
-      className={`hover:bg-gray-100 p-2 rounded block text-sm ${
-        active ? "text-black font-semibold" : "text-gray-500"
-      }`}
-    >
-      {children}
-    </Link>
-  );
-};
-
 const StockLayout = ({ children }) => {
   const { symbol, sector } = useParams();
   const stockInformationData = getStockInformationData(symbol);
@@ -68,10 +53,10 @@ const StockLayout = ({ children }) => {
   ];
 
   return (
-    <div className="flex flex-col container px-24 py-8">
+    <div className="flex flex-col container p-2 md:p-8 lg:px-24 ">
       {stockInformationData ? (
-        <div className="flex ">
-          <div className="flex flex-col gap-4   basis-3/5">
+        <div className="flex flex-wrap ">
+          <div className="flex flex-col gap-4   md:basis-3/5">
             <div className="flex flex-col gap-4">
               <div className="flex gap-4">
                 <Link className="text-decoration-none" href={"/companies/all"}>
@@ -105,7 +90,7 @@ const StockLayout = ({ children }) => {
             </div>
           </div>
 
-          <div className="my-auto w-full basis-2/5">
+          <div className="my-auto w-full md:basis-2/5">
             <StockPriceCard
               open={
                 stockInformationData.summary[
@@ -145,20 +130,3 @@ const StockLayout = ({ children }) => {
 };
 
 export default StockLayout;
-
-{
-  /* <nav>
-          <ul className="grid gap-3">
-            <li>
-              <ActiveMenuLink href={`/stock/${symbol}/information`}>
-                info
-              </ActiveMenuLink>
-            </li>
-            <li>
-              <ActiveMenuLink href={`/stock/${symbol}/test`}>
-                test
-              </ActiveMenuLink>
-            </li>
-          </ul>
-        </nav> */
-}

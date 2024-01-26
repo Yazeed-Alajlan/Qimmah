@@ -9,10 +9,9 @@ const ActiveMenuLink = ({ children, href }) => {
   return (
     <Link
       href={href}
-      className={`flex justify-self-center items-center text-lg text-primary  gap-2 hover:bg-gray-100 p-2 rounded  ${
-        active ? "text-black font-semibold bg-slate-400" : "text-gray-500"
+      className={`link-line-indicator flex justify-self-center items-center text-lg text-primary  gap-2 hover:bg-gray-300 p-2 rounded  ${
+        active ? " font-semibold bg-gray-200 " : ""
       }`}
-      //   className=""
     >
       {children}
     </Link>
@@ -22,7 +21,7 @@ const ActiveMenuLink = ({ children, href }) => {
 export const SidebarSelection = ({ routes }) => {
   return (
     <Card>
-      <div className="">
+      <div>
         {routes.map((route, index) => (
           <ActiveMenuLink
             href={route.to} // Using the 'to' property from the route object
