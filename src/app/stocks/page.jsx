@@ -61,7 +61,7 @@ const StocksPage = () => {
               accessor: "change_value",
             },
             {
-              Header: "نسبة التغيير",
+              Header: "التغيير (%)",
               accessor: "change_ratio",
             },
             {

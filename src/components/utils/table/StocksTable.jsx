@@ -92,10 +92,9 @@ const StocksTable = ({
       {tableData && (
         <>
           {(filterBy || searchBy) && (
-            <div className=" flex  items-center  gap-4">
+            <div className=" flex flex-wrap  items-center   gap-4">
               {filterBy && (
                 <InputSelect
-                  className={""}
                   placeholder="تصفية حسب القطاع"
                   value={filterOption}
                   options={[
@@ -140,10 +139,10 @@ const StocksTable = ({
               {...getTableProps()}
               className=" whitespace-nowrap  text-gray-600 dark:text-gray-400"
             >
-              <thead className="sticky top-0 uppercase font-bold   text-gray-700  bg-white-200 dark:bg-gray-700 dark:text-gray-400">
+              <thead className="sticky top-0 uppercase font-bold   text-gray-700   dark:text-gray-400">
                 {headerGroups.map((headerGroup) => (
                   <tr
-                    className=" border-b-2"
+                    className=" border-b-4"
                     {...headerGroup.getHeaderGroupProps()}
                   >
                     {headerGroup.headers.map((column) => (
@@ -181,7 +180,7 @@ const StocksTable = ({
                   return (
                     <tr
                       {...row.getRowProps()}
-                      className="border-b-2 hover:bg-slate-50 text-sm "
+                      className="border-b-2 hover:bg-gray-200 text-sm "
                     >
                       {row.cells.map((cell, index) => {
                         console.log(row.original);
@@ -205,14 +204,6 @@ const StocksTable = ({
                               <Link
                                 href={`/stock/${row.original.sectorNameAr}/${symbol}/information`}
                                 className=""
-                                // to={`/companies/${row.original.sectorNameAr}/${symbol}/information`}
-                                // onClick={() => {
-                                //   setSelectedStock({
-                                //     value: symbol,
-                                //     label: `${name} (${symbol})`,
-                                //     sector: row.original.sectorNameAr,
-                                //   });
-                                // }}
                               >
                                 <span>
                                   <Badge
