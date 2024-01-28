@@ -42,5 +42,18 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newutilities = {
+        ".custom-class": {
+          // padding: "16px",
+          "@apply px-20": {}, // Use @apply inside the class definition
+        },
+        ".custom-class2": {
+          "@apply py-20": {}, // Use @apply inside the class definition
+        },
+      };
+      addUtilities(newutilities, ["responsive", "hover"]);
+    },
+  ],
 };
