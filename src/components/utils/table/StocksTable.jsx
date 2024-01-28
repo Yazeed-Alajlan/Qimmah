@@ -92,17 +92,10 @@ const StocksTable = ({
       {tableData && (
         <>
           {(filterBy || searchBy) && (
-            <div className=" flex justify-between items-center  gap-4">
-              {searchBy && (
-                <SearchInput
-                  placeholder={`Search by ${formatKey(searchBy)}`}
-                  value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                />
-              )}
+            <div className=" flex  items-center  gap-4">
               {filterBy && (
                 <InputSelect
-                  className={"w-2/3"}
+                  className={""}
                   placeholder="تصفية حسب القطاع"
                   value={filterOption}
                   options={[
@@ -116,6 +109,13 @@ const StocksTable = ({
                   }}
                   isSearchable={true}
                   labelDirection="hr"
+                />
+              )}
+              {searchBy && (
+                <SearchInput
+                  placeholder={`Search by ${formatKey(searchBy)}`}
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
                 />
               )}
               <Button
@@ -184,6 +184,7 @@ const StocksTable = ({
                       className="border-b-2 hover:bg-slate-50 text-sm "
                     >
                       {row.cells.map((cell, index) => {
+                        console.log(row.original);
                         const columnsToCheck = [5, 6]; // Define columns to check for color change
 
                         const isColored = columnsToCheck.includes(index); // Check if this column needs coloring
@@ -202,7 +203,7 @@ const StocksTable = ({
                           >
                             {index === 0 ? (
                               <Link
-                                href={`/companies/${row.original.sectorNameAr}/${symbol}/information`}
+                                href={`/stock/${row.original.sectorNameAr}/${symbol}/information`}
                                 className=""
                                 // to={`/companies/${row.original.sectorNameAr}/${symbol}/information`}
                                 // onClick={() => {

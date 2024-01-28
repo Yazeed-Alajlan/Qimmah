@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/utils/routing/Header";
+import Header from "@/components/routing/Header";
 import { StocksDataProvider } from "@/context/StocksDataContext";
 import { PytohnServerProvider } from "@/context/PytohnServerContext";
 
@@ -16,9 +16,7 @@ export default function RootLayout({ children }) {
       <body dir="rtl" className={`flex flex-col bg-light ${inter.className}`}>
         <StocksDataProvider>
           <PytohnServerProvider>
-            <Header>
-              <div>sdssd</div>
-            </Header>
+            <Header />
             {children}
           </PytohnServerProvider>
         </StocksDataProvider>

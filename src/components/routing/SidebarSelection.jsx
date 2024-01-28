@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Card } from "../cards/Card";
+import { Card } from "../utils/cards/Card";
 import { usePathname } from "next/navigation";
 
 const ActiveMenuLink = ({ children, href }) => {

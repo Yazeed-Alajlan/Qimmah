@@ -15,7 +15,7 @@ const Card = ({
   subHeader,
   ...props
 }) => {
-  const classes = `bg-white  rounded-lg  m-4 shadow-2xl ${cardVariants.size[size]} ${className}`;
+  const classes = `w-full bg-white  rounded-lg  m-4 shadow-2xl ${cardVariants.size[size]} ${className}`;
 
   return (
     <div className={classes} {...props}>

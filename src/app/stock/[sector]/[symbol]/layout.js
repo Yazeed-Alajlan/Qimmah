@@ -1,5 +1,5 @@
 "use client";
-import { SidebarSelection } from "@/components/utils/routing/SidebarSelection";
+import { SidebarSelection } from "@/components/routing/SidebarSelection";
 import { getStockInformationData } from "@/services/StocksServices";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

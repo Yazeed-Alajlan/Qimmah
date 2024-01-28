@@ -1,4 +1,5 @@
 "use client";
+import PageWrapper from "@/components/PageWrapper";
 import Divider from "@/components/utils/Divider";
 import { Card } from "@/components/utils/cards/Card";
 import StocksTable from "@/components/utils/table/StocksTable";
@@ -14,7 +15,7 @@ const StocksPage = () => {
       console.log(stocksData);
       const formattedData = stocksData.map((data) => ({
         company: data.symbol + " - " + data.tradingNameAr,
-        sectorNameAr: data.sectorNameAr,
+        sectorNameAr: data.sectorNameEn,
 
         ...data.summary[data.summary.length - 1],
       }));
@@ -24,10 +25,10 @@ const StocksPage = () => {
   }, [stocksData]);
 
   return (
-    <div className="flex flex-col justify-center items-center  gap-10  mt-4">
+    <PageWrapper>
       {filteredData && (
         <StocksTable
-          className=" w-3/4"
+          className="w-full"
           filterBy={"sectorNameAr"}
           searchBy={"company"}
           tableData={filteredData}
@@ -84,7 +85,7 @@ const StocksPage = () => {
           ]}
         />
       )}
-    </div>
+    </PageWrapper>
   );
 };
 
