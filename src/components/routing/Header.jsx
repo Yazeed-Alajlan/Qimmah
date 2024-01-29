@@ -4,22 +4,25 @@ import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  TbInfoCircle,
-  TbBook,
-  TbChartHistogram,
-  TbReportMoney,
-  TbDeviceAnalytics,
-} from "react-icons/tb";
+import { TbHome, TbTable, TbGitCompare } from "react-icons/tb";
+import StocksSearch from "../utils/inputs/StocksSearch";
+import { useStocksData } from "@/context/StocksDataContext";
 const ActiveMenuLink = ({ children, href }) => {
   const pathname = usePathname();
   const active = href === pathname;
+  const { selectedStock, setSelectedStock } = useStocksData();
+
   return (
     <Link
       href={href}
       className={`link-line-indicator flex justify-self-center items-center text-lg text-primary  gap-2 hover:bg-gray-300 p-2 rounded  ${
         active ? " font-semibold bg-gray-200 " : ""
       }`}
+      onClick={() => {
+        console.log("SET NULL");
+        console.log(selectedStock);
+        setSelectedStock(null);
+      }}
     >
       {children}
     </Link>
@@ -27,34 +30,19 @@ const ActiveMenuLink = ({ children, href }) => {
 };
 const routes = [
   {
-    path: "information",
-    icon: TbInfoCircle,
-    name: "معلومات السهم",
-    to: `/stocks/`,
+    icon: TbHome,
+    name: "الرئيسية",
+    to: `/`,
   },
   {
-    path: "financials",
-    icon: TbBook,
-    name: "القوائم المالية",
-    to: `/stocks/`,
+    icon: TbTable,
+    name: "السوق",
+    to: `/stocks`,
   },
   {
-    path: "chart",
-    icon: TbChartHistogram,
-    name: "تحركات السهم",
-    to: `/stocks/`,
-  },
-  {
-    path: "dividend",
-    icon: TbReportMoney,
-    name: "التوزيعات",
-    to: `/stocks/`,
-  },
-  {
-    path: "analysis",
-    icon: TbDeviceAnalytics,
-    name: "تحليل",
-    to: `/stocks/`,
+    icon: TbGitCompare,
+    name: "قارن",
+    to: `/comparison`,
   },
 ];
 const Header = ({ children }) => {
@@ -90,7 +78,7 @@ const Header = ({ children }) => {
 
   return (
     <motion.header
-      className="flex justify-center items-center align-middle sticky top-0 w-full bg-white p-4"
+      className="flex justify-evenly items-center align-middle gap-4 sticky top-0 w-full bg-white p-4"
       initial={{ height: "100px" }} // Adjust the original height
       animate={controls}
     >
@@ -104,7 +92,7 @@ const Header = ({ children }) => {
           </ActiveMenuLink>
         ))}
       </div>
-
+      <StocksSearch />
       {/* {children} */}
     </motion.header>
   );

@@ -28,7 +28,7 @@ const StocksPage = () => {
     <PageWrapper>
       {filteredData && (
         <StocksTable
-          className="w-full"
+          className="w-full z-10"
           filterBy={"sectorNameAr"}
           searchBy={"company"}
           tableData={filteredData}

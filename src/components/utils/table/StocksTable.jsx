@@ -92,39 +92,45 @@ const StocksTable = ({
       {tableData && (
         <>
           {(filterBy || searchBy) && (
-            <div className=" flex flex-wrap  items-center   gap-4">
+            <div className=" grid grid-cols-6 gap-4 ">
               {filterBy && (
-                <InputSelect
-                  placeholder="تصفية حسب القطاع"
-                  value={filterOption}
-                  options={[
-                    ...uniqueFilter.map((sector, index) => ({
-                      value: sector,
-                      label: sector,
-                    })),
-                  ]}
-                  onChange={(e) => {
-                    setFilterOption(e && e.value);
-                  }}
-                  isSearchable={true}
-                  labelDirection="hr"
-                />
+                <div className="col-span-2">
+                  <InputSelect
+                    placeholder="تصفية حسب القطاع"
+                    value={filterOption}
+                    options={[
+                      ...uniqueFilter.map((sector, index) => ({
+                        value: sector,
+                        label: sector,
+                      })),
+                    ]}
+                    onChange={(e) => {
+                      setFilterOption(e && e.value);
+                    }}
+                    isSearchable={true}
+                    labelDirection="hr"
+                  />
+                </div>
               )}
               {searchBy && (
-                <SearchInput
-                  placeholder={`Search by ${formatKey(searchBy)}`}
-                  value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                />
+                <div className="col-span-3">
+                  <SearchInput
+                    placeholder={`Search by ${formatKey(searchBy)}`}
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                  />
+                </div>
               )}
-              <Button
-                variant="danger"
-                text={"حذف"}
-                onClick={() => {
-                  setFilterOption("");
-                  setSearchText("");
-                }}
-              />
+              <div className="col-span-1 mx-auto ">
+                <Button
+                  variant="danger"
+                  text={"حذف"}
+                  onClick={() => {
+                    setFilterOption("");
+                    setSearchText("");
+                  }}
+                />
+              </div>
             </div>
           )}
           <Divider />
@@ -183,7 +189,6 @@ const StocksTable = ({
                       className="border-b-2 hover:bg-gray-200 text-sm "
                     >
                       {row.cells.map((cell, index) => {
-                        console.log(row.original);
                         const columnsToCheck = [5, 6]; // Define columns to check for color change
 
                         const isColored = columnsToCheck.includes(index); // Check if this column needs coloring
