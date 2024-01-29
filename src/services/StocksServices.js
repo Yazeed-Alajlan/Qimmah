@@ -6,7 +6,9 @@ function getStockInformationData(symbol) {
 }
 
 function getStockFinancialData(symbol) {
-  const { data, error, loading } = useFetch(`/api/financials/${symbol}`);
+  const { data, error, loading, refetch } = useFetch(
+    `/api/financials/${symbol}`
+  );
   return data;
 }
 
