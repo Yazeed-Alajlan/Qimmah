@@ -5,32 +5,29 @@ import InputSelect from "@/components/utils/inputs/InputSelect";
 import { useStocksData } from "@/context/StocksDataContext";
 import React, { useEffect, useState } from "react";
 import ComparisonChart from "./components/ComparisonChart";
-
+import { QueryClient, useQuery } from "react-query";
+import { fetchStockFinancialData } from "@/services/FetchServices";
 const page = () => {
   const { getStockFinancialData, stocksData } = useStocksData();
   const [selectedStocks, setSelectedStocks] = useState([]);
   const maxSelectedOptions = 4;
-  const [stockFinancialData, setStockFinancialData] = useState();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchedDataPromises = selectedStocks.map(async (option) => {
-          const symbol = option.value;
-          const financialData = await getStockFinancialData(symbol);
-          return financialData;
-        });
-        const fetchedData = await Promise.all(fetchedDataPromises);
-        setStockFinancialData(fetchedData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    if (selectedStocks.length > 0) {
-      fetchData();
+  const {
+    isError,
+    isSuccess,
+    isLoading,
+    data: stockFinancialData,
+    error,
+  } = useQuery(
+    ["stockFinancialData", selectedStocks],
+    () =>
+      Promise.all(
+        selectedStocks.map((option) => getStockFinancialData(option.value))
+      ),
+    {
+      enabled: selectedStocks.length > 0,
     }
-  }, [selectedStocks]);
+  );
+
   return (
     <PageWrapper>
       <Card>

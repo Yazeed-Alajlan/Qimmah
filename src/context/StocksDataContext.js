@@ -27,7 +27,7 @@ export function StocksDataProvider({ children }) {
     fetchData();
   }, []);
 
-  function getStockFinancialData(symbol) {
+  async function getStockFinancialData(symbol) {
     return axios
       .get(`/api/financials/${symbol}`)
       .then((response) => response.data)
