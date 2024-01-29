@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import InputSelect from "./InputSelect";
 import { useStocksData } from "@/context/StocksDataContext";

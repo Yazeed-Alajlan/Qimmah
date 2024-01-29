@@ -85,6 +85,7 @@ const Header = ({ children }) => {
       <div className="flex gap-4">
         {routes.map((route, index) => (
           <ActiveMenuLink
+            key={index}
             href={route.to} // Using the 'to' property from the route object
           >
             <route.icon />

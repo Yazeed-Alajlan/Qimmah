@@ -39,7 +39,6 @@ const InputSelect = ({
       <Select
         components={animatedComponents}
         styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-        menuPortalTarget={document.body}
         menuPosition={"fixed"}
         className={`w-full  ${className}`}
         placeholder={placeholder}
