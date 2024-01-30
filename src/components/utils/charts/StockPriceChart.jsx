@@ -39,7 +39,7 @@ const StockPriceChart = ({ symbol }) => {
   }, [isSuccess, stockPriceData]);
 
   return (
-    <Card>
+    <>
       <div
         className="relative"
         id={chartContainerId}
@@ -47,7 +47,7 @@ const StockPriceChart = ({ symbol }) => {
       ></div>
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error: {error.message}</p>}
-    </Card>
+    </>
   );
 };
 
