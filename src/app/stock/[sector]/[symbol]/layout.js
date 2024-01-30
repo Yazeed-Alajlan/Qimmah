@@ -16,11 +16,20 @@ import Badge from "@/components/utils/Badge";
 import Divider from "@/components/utils/Divider";
 import PageWrapper from "@/components/PageWrapper";
 import { NavBar } from "@/components/routing/NavBar";
+import { useQuery } from "react-query";
+import { fetchStockInformationData } from "@/services/FetchServices";
 
 const StockLayout = ({ children }) => {
   const { symbol, sector } = useParams();
-  const stockInformationData = getStockInformationData(symbol);
-
+  const {
+    isError,
+    isSuccess,
+    isLoading,
+    data: stockInformationData,
+    error,
+  } = useQuery(["stockInformationData", symbol], () =>
+    fetchStockInformationData(symbol)
+  );
   const myRoutes = [
     {
       path: "information",

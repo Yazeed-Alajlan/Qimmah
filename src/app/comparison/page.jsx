@@ -7,7 +7,8 @@ import React, { useEffect, useState } from "react";
 import ComparisonChart from "./components/ComparisonChart";
 import { useQuery } from "react-query";
 import { fetchStockFinancialData } from "@/services/FetchServices";
-const page = () => {
+
+const Page = () => {
   const { stocksData } = useStocksData();
   const [selectedStocks, setSelectedStocks] = useState([]);
   const maxSelectedOptions = 4;
@@ -74,4 +75,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
