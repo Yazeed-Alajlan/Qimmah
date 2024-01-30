@@ -67,7 +67,7 @@ const StockLayout = ({ children }) => {
     <PageWrapper className="">
       {stockInformationData ? (
         <div className="flex flex-wrap ">
-          <div className="flex flex-col gap-4   md:basis-3/5">
+          <div className="flex flex-col gap-4 ">
             <div className="flex flex-col gap-4">
               <div className="flex gap-4">
                 <Link className="text-decoration-none" href={"/companies/all"}>
@@ -101,7 +101,7 @@ const StockLayout = ({ children }) => {
             </div>
           </div>
 
-          <div className="my-auto w-full md:basis-2/5">
+          <div className="my-auto md:ms-auto mx-auto  ">
             <StockPriceCard
               open={
                 stockInformationData.summary[
@@ -133,7 +133,7 @@ const StockLayout = ({ children }) => {
       {/* <aside className="basis-1/5">
           <SidebarSelection routes={myRoutes} />
         </aside> */}
-      <div className=" basis-5/5 min-h-[300px]">{children}</div>
+      <>{children}</>
     </PageWrapper>
   );
 };

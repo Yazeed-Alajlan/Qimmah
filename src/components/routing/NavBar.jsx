@@ -27,8 +27,8 @@ export const NavBar = ({ routes }) => {
   };
 
   return (
-    <div>
-      <div className="flex flex-row relative gap-10 border-b-2    ">
+    <>
+      <div className="flex flex-row relative gap-10 border-b-2 overflow-auto    ">
         {routes.map((route, index) => {
           const isActive = activeTabIndex === index;
 
@@ -60,6 +60,6 @@ export const NavBar = ({ routes }) => {
           <div className="mt-4">{tabs[activeTabIndex].render()}</div>
         )} */}
       </div>
-    </div>
+    </>
   );
 };

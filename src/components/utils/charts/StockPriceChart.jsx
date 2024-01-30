@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { useQuery } from "react-query";
 import { fetchStockPriceData } from "@/services/FetchServices";
 import { createChart } from "lightweight-charts";
-import { Card } from "../cards/Card";
 import { formatCandlestickData, createTooltip } from "./StockChartServices";
 const StockPriceChart = ({ symbol }) => {
   const {
@@ -22,14 +21,25 @@ const StockPriceChart = ({ symbol }) => {
       const formattedData = formatCandlestickData(stockPriceData.quotes);
 
       // Create a new candlestick chart
-      const chart = createChart(chartContainerRef.current, {
-        width: 800,
-        height: 400,
-      });
+      const chart = createChart(chartContainerRef.current);
 
       // Add a candlestick series to the chart
       const candlestickSeries = chart.addCandlestickSeries();
       candlestickSeries.setData(formattedData);
+      // Make Chart Responsive with screen resize
+      // Make Chart Responsive with screen resize
+      new ResizeObserver((entries) => {
+        if (
+          entries.length === 0 ||
+          entries[0].target !== chartContainerRef.current
+        ) {
+          return;
+        }
+        const newRect = entries[0].contentRect;
+        console.log(newRect);
+
+        chart.applyOptions({ height: 400, width: newRect.width });
+      }).observe(chartContainerRef.current);
       createTooltip(chartContainerId, chart, candlestickSeries);
 
       return () => {
@@ -39,7 +49,7 @@ const StockPriceChart = ({ symbol }) => {
   }, [isSuccess, stockPriceData]);
 
   return (
-    <>
+    <div className="h-96">
       <div
         className="relative"
         id={chartContainerId}
@@ -47,7 +57,7 @@ const StockPriceChart = ({ symbol }) => {
       ></div>
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error: {error.message}</p>}
-    </>
+    </div>
   );
 };
 

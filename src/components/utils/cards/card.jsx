@@ -1,24 +1,41 @@
 import React from "react";
+import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
-const cardVariants = {
-  size: {
-    default: "p-4 ",
-    lg: "p-6 ",
-  },
+// Define variant styles using class-variance-authority
+const variants = {
+  sm: "p-2",
+  md: "p-4",
+  lg: "p-6",
+};
+
+// Define variant styles for background colors
+const variantColors = {
+  default: "bg-white text-black",
+  primary: "bg-blue-500 text-white",
+  secondary: "bg-green-500 text-white",
+  // Add more variants as needed
 };
 
 const Card = ({
-  className,
-  size = "default",
-  children,
+  variant,
+  size,
   header,
   subHeader,
-  ...props
+  children,
+  className: customClassName,
 }) => {
-  const classes = `w-full  bg-white  rounded-lg   md:m-4 m-2 shadow-2xl ${cardVariants.size[size]} ${className}`;
+  // Merge the size and variant styles using tailwind-merge
+  const cardStyles = twMerge(variants[size], variantColors[variant]);
 
   return (
-    <div className={classes} {...props}>
+    <div
+      className={clsx(
+        "w-full rounded-lg md:m-4 m-2 shadow-2xl",
+        cardStyles,
+        customClassName
+      )}
+    >
       <div
         className={`mb-4  border-b-2 ${header || subHeader ? "" : "hidden"}`}
       >
@@ -34,6 +51,9 @@ const Card = ({
   );
 };
 
-Card.displayName = "Card";
+Card.defaultProps = {
+  size: "md",
+  variant: "default",
+};
 
-export { Card, cardVariants };
+export { Card };

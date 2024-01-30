@@ -21,31 +21,40 @@ const StockPriceCard = ({ open, close, low, high }) => {
   }
 
   return (
-    <Card className="">
-      <div className="grid grid-cols-3">
-        <div>
-          <div>
-            الأعلى : <span className="text-primary fw-bold">{high}</span>
+    <Card className={"px-6"} size={"sm"}>
+      <div className="grid grid-cols-10">
+        <div className="col-span-3 ">
+          <div className="flex">
+            <div> الأعلى :</div>
+            <div className="text-primary fw-bold mx-auto">{high}</div>
           </div>
-          <div>
-            الأدنى :<span className="text-primary fw-bold">{low}</span>
-          </div>
-        </div>
-        <div>
-          <div>
-            الإفتتاح : <span className="text-primary fw-bold">{open}</span>
-          </div>
-          <div>
-            الإغلاق : <span className="text-primary fw-bold">{close}</span>
+          <div className="flex">
+            <div> الأدنى :</div>
+            <div className="text-primary fw-bold mx-auto">{low}</div>
           </div>
         </div>
-
-        <div className="border-s-4 ">
-          <div>
-            السعر : <span className="text-primary fs-5 fw-bold">{close}</span>
+        <div className="col-span-3">
+          <div className="flex">
+            <div> الإفتتاح :</div>
+            <div className="text-primary fw-bold mx-auto">{open}</div>
           </div>
-          <div className={textClass}>
-            {priceChange.toFixed(2)} ({percentageChange}%)
+          <div className="flex">
+            <div> الإغلاق :</div>
+            <div className="text-primary fw-bold mx-auto">{close}</div>
+          </div>
+        </div>
+        <div className="flex items-center justify-center  col-span-1">
+          <span className="bg-danger h-full w-1/12"></span>
+        </div>
+        <div className="col-span-3">
+          <div className="flex">
+            <div> السعر :</div>
+            <div className="text-primary fw-bold mx-auto">{close}</div>
+          </div>
+          <div className="flex">
+            <div className={textClass}>
+              {priceChange.toFixed(2)} ({percentageChange}%)
+            </div>
           </div>
         </div>
       </div>

@@ -14,10 +14,9 @@
     "chart.js": "^4.4.1",
     "chartjs": "^0.3.24",
     "class-variance-authority": "^0.7.0",
-    "lightweight-charts": "git+https://github.com/ntf/lightweight-charts.git",
-
     "classnames": "^2.5.1",
     "framer-motion": "^10.18.0",
+    "lightweight-charts": "git+https://github.com/ntf/lightweight-charts.git",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.0",
     "next": "14.0.4",
@@ -29,7 +28,8 @@
     "react-icons": "^5.0.1",
     "react-query": "^3.39.3",
     "react-select": "^5.8.0",
-    "react-table": "^7.8.0"
+    "react-table": "^7.8.0",
+    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
