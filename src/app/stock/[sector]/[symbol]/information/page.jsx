@@ -6,6 +6,8 @@ import { Card } from "@/components/utils/cards/Card";
 import { useParams } from "next/navigation";
 import { fetchStockInformationData } from "@/services/FetchServices";
 import { useQuery } from "react-query";
+import { Tab, Tabs } from "@/components/utils/tabs/TabsButtons";
+import { TbChartBar, TbTable } from "react-icons/tb";
 
 const StockInformation = () => {
   const { symbol } = useParams();
@@ -89,6 +91,24 @@ const StockInformation = () => {
               </div>
             </div>
           </div>
+          <Tabs>
+            <Tab text={"asdasdaaa"} icon={TbChartBar}>
+              000{" "}
+            </Tab>
+            <Tab text={"asdasdaaa"} icon={TbTable}>
+              <Tabs activeTab={1}>
+                <Tab text={"المركز ssالمالي"}>111</Tab>
+                <Tab text={"قائمة الدخل"}>222 </Tab>
+                <Tab text={"التدفق النقدي"}>333</Tab>
+              </Tabs>
+            </Tab>
+          </Tabs>
+          {/* <ButtonsGroup
+              label={"المدة"}
+              icon={<BsCalendar3 />}
+              buttons={periodButtons}
+              parentSetState={setDisplayAnnual}
+            /> */}
         </Card>
       ) : (
         <p>loading</p>
