@@ -3,27 +3,27 @@ import React from "react";
 const Divider = ({ text, button, direction, width, className }) => {
   return (
     <div className="w-full my-8">
-      <div class="inline-flex items-center justify-center w-full">
+      <div className="inline-flex items-center justify-center w-full">
         {!button && (
-          <hr class="w-full h-1  border-0 rounded bg-gray-200 dark:bg-gray-700" />
+          <hr className="w-full h-1  border-0 rounded bg-gray-200 dark:bg-gray-700" />
         )}
         {text && (
-          <span class="absolute px-3 font-medium rounded text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">
+          <span className="absolute px-3 font-medium rounded text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">
             {text}
           </span>
         )}
         {button && (
-          <div class="inline-flex items-center justify-center w-full">
-            <span class="flex-grow bg-gray-200 rounded h-1"></span>
+          <div className="inline-flex items-center justify-center w-full">
+            <span className="flex-grow bg-gray-200 rounded h-1"></span>
             <button
               type="button"
-              class="flex items-center rounded-full border border-gray-300 bg-secondary-50 px-3 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100"
+              className="flex items-center rounded-full border border-gray-300 bg-secondary-50 px-3 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
-                class="mr-1 h-4 w-4"
+                className="mr-1 h-4 w-4"
               >
                 <path
                   fill-rule="evenodd"
@@ -33,7 +33,7 @@ const Divider = ({ text, button, direction, width, className }) => {
               </svg>
               View More
             </button>
-            <span class="flex-grow bg-gray-200 rounded h-1"></span>
+            <span className="flex-grow bg-gray-200 rounded h-1"></span>
           </div>
         )}
       </div>

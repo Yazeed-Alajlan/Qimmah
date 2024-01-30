@@ -4,11 +4,20 @@ import { motion } from "framer-motion";
 import { BsArrowDown } from "react-icons/bs";
 import { Card } from "@/components/utils/cards/Card";
 import { useParams } from "next/navigation";
-import { getStockInformationData } from "@/services/StocksServices";
+import { fetchStockInformationData } from "@/services/FetchServices";
+import { useQuery } from "react-query";
+
 const StockInformation = () => {
   const { symbol } = useParams();
-  const stockInformationData = getStockInformationData(symbol);
-
+  const {
+    isError,
+    isSuccess,
+    isLoading,
+    data: stockInformationData,
+    error,
+  } = useQuery(["stockInformationData", symbol], () =>
+    fetchStockInformationData(symbol)
+  );
   return (
     <>
       {stockInformationData ? (

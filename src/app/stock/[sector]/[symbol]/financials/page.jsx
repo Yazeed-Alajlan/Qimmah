@@ -8,21 +8,27 @@ import { TbChartBar, TbTable } from "react-icons/tb";
 import FinancialsChart from "./FinancialsChart";
 // import Tabs from "components/utils/Tabs";
 // import Tab from "components/utils/Tab";
-import { getStockFinancialData } from "@/services/StocksServices";
 import { Card } from "@/components/utils/cards/Card";
 import { useParams } from "next/navigation";
-import { Tab, Tabs } from "@/components/utils/tabs/tabs";
+import { Tab, Tabs } from "@/components/utils/tabs/Tabs";
 import FinancialsTable from "./FinancialsTable";
+import { fetchStockFinancialData } from "@/services/FetchServices";
+import { useQuery } from "react-query";
 
 const Financials = () => {
   const { symbol } = useParams();
-
-  const stockFinancialData = getStockFinancialData(symbol);
+  const {
+    isError,
+    isSuccess,
+    isLoading,
+    data: stockFinancialData,
+    error,
+  } = useQuery(["stockFinancialData", symbol], () =>
+    fetchStockFinancialData(symbol)
+  );
 
   const [displayAnnual, setDisplayAnnual] = useState(0);
-  const [financialData, setFinancialData] = useState(
-    getStockFinancialData(symbol)
-  );
+  const [financialData, setFinancialData] = useState();
 
   useEffect(() => {
     if (stockFinancialData) {

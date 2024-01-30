@@ -15,6 +15,7 @@ import StockPriceCard from "./utils/StockPriceCard";
 import Badge from "@/components/utils/Badge";
 import Divider from "@/components/utils/Divider";
 import PageWrapper from "@/components/PageWrapper";
+import { NavBar } from "@/components/routing/NavBar";
 
 const StockLayout = ({ children }) => {
   const { symbol, sector } = useParams();
@@ -54,7 +55,7 @@ const StockLayout = ({ children }) => {
   ];
 
   return (
-    <PageWrapper className=" ">
+    <PageWrapper className="">
       {stockInformationData ? (
         <div className="flex flex-wrap ">
           <div className="flex flex-col gap-4   md:basis-3/5">
@@ -119,13 +120,11 @@ const StockLayout = ({ children }) => {
       ) : (
         <p>loading</p>
       )}
-      <Divider />
-      <div className="flex gap-8 ">
-        <aside className="basis-1/5">
+      <NavBar routes={myRoutes} />
+      {/* <aside className="basis-1/5">
           <SidebarSelection routes={myRoutes} />
-        </aside>
-        <div className=" basis-4/5 min-h-[300px]">{children}</div>
-      </div>
+        </aside> */}
+      <div className=" basis-5/5 min-h-[300px]">{children}</div>
     </PageWrapper>
   );
 };

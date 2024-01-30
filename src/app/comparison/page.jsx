@@ -5,23 +5,23 @@ import InputSelect from "@/components/utils/inputs/InputSelect";
 import { useStocksData } from "@/context/StocksDataContext";
 import React, { useEffect, useState } from "react";
 import ComparisonChart from "./components/ComparisonChart";
-import { QueryClient, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { fetchStockFinancialData } from "@/services/FetchServices";
 const page = () => {
-  const { getStockFinancialData, stocksData } = useStocksData();
+  const { stocksData } = useStocksData();
   const [selectedStocks, setSelectedStocks] = useState([]);
   const maxSelectedOptions = 4;
   const {
     isError,
     isSuccess,
     isLoading,
-    data: stockFinancialData,
+    data: stocksFinancialData,
     error,
   } = useQuery(
     ["stockFinancialData", selectedStocks],
     () =>
       Promise.all(
-        selectedStocks.map((option) => getStockFinancialData(option.value))
+        selectedStocks.map((option) => fetchStockFinancialData(option.value))
       ),
     {
       enabled: selectedStocks.length > 0,
@@ -56,15 +56,14 @@ const page = () => {
           maxMenuHeight={200}
           value={selectedStocks}
           onChange={(selected) => {
-            console.log(selectedStocks);
             if (selected.length <= maxSelectedOptions) {
               setSelectedStocks(selected);
             }
           }}
         />
-        {stockFinancialData && (
+        {stocksFinancialData && (
           <>
-            <ComparisonChart stockFinancialData={stockFinancialData} />
+            <ComparisonChart stockFinancialData={stocksFinancialData} />
             {/* <br />
             <br />
             <ComparisonTable /> */}

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 export const SlidingTabs = ({ tabs, getIndex }) => {
   const tabsRef = useRef([]);
+
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);

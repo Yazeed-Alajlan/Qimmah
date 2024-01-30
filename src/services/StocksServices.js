@@ -14,26 +14,9 @@ function getStockFinancialData(symbol) {
   return { data, error, loading, refetch };
 }
 
-async function getStockFinancialDataAsync(symbol) {
-  axios
-    .get(`/api/financials/${symbol}`)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((err) => {})
-    .finally(() => {});
-
-  const { data, error, loading } = useFetch(``);
-}
-
 function getStockPriceData(symbol) {
   const { data, error, loading } = useFetch(`/api/prices/${symbol}`);
   return data;
 }
 
-export {
-  getStockInformationData,
-  getStockFinancialData,
-  getStockPriceData,
-  getStockFinancialDataAsync,
-};
+export { getStockInformationData, getStockFinancialData, getStockPriceData };
