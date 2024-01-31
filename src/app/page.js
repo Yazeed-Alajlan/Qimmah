@@ -9,12 +9,10 @@ export default function Home() {
     {
       text: "Option 1",
       icon: "🔍",
-      onClick: () => settext("HI"),
     },
     {
       text: "Option 2",
       icon: "🔄",
-      onClick: () => settext("HELLI"),
     },
     // Add more buttons as needed
   ];
