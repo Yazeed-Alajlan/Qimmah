@@ -96,7 +96,7 @@ const StockInformation = () => {
               000{" "}
             </Tab>
             <Tab text={"asdasdaaa"} icon={TbTable}>
-              <Tabs activeTab={1}>
+              <Tabs>
                 <Tab text={"المركز ssالمالي"}>111</Tab>
                 <Tab text={"قائمة الدخل"}>222 </Tab>
                 <Tab text={"التدفق النقدي"}>333</Tab>

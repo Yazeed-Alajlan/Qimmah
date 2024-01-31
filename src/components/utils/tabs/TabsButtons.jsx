@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../buttons/Button";
 
-const Tabs = ({ children, activeTab }) => {
+const Tabs = ({ children, activeTab, variant }) => {
   const [active, setActive] = useState(activeTab || 1);
 
   const changeTab = (tab) => {
@@ -16,15 +16,15 @@ const Tabs = ({ children, activeTab }) => {
       const { text, icon } = child.props;
       tabElements.push(
         <Button
+          // type={`${active === index + 1 ? "filled " : "outline_rounded"}`}
+          type={`outline`}
           key={index}
           text={text}
           icon={icon}
           onClick={() => changeTab(index + 1)}
           className={`${
-            active === index + 1
-              ? "bg-blue-500 text-white"
-              : "bg-white text-blue-500 border border-blue-500"
-          } px-4 py-2 rounded`}
+            active === index + 1 ? "bg-primary-500 font-bold " : "NOT selected"
+          } selected`}
         >
           {child}
         </Button>
@@ -60,12 +60,8 @@ const Tabs = ({ children, activeTab }) => {
   );
 };
 
-const Tab = ({ children, isActive }) => {
-  return (
-    <div style={{ display: isActive ? "block" : "none" }}>
-      <span>{children}</span>
-    </div>
-  );
+const Tab = ({ children, isActive, text, icon }) => {
+  return <div style={{ display: isActive ? "block" : "none" }}>{children}</div>;
 };
 
 export { Tabs, Tab };
