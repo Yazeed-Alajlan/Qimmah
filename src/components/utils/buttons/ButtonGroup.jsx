@@ -1,19 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-const ButtonGroup = ({ buttons, type }) => {
+const ButtonGroup = ({ buttons, type, setState }) => {
   const [selectedButtons, setSelectedButtons] = useState([]);
 
-  useEffect(() => {
-    // Trigger the onClick callback when selectedButtons change
-    selectedButtons.forEach((button) => {
-      if (button.onClick) {
-        button.onClick();
-      }
-    });
-  }, [selectedButtons]);
-
   const handleButtonClick = (button) => {
+    console.log(selectedButtons);
     if (type === "checkbox") {
       // Toggle the selected state for checkboxes
       setSelectedButtons((prevSelected) =>
@@ -21,9 +13,16 @@ const ButtonGroup = ({ buttons, type }) => {
           ? prevSelected.filter((b) => b !== button)
           : [...prevSelected, button]
       );
+      button.onClick();
     } else if (type === "radio") {
+      button.onClick();
+
       // Select only one for radio buttons
       setSelectedButtons([button]);
+    }
+    // setState("HELLO FROM CHILD" + type);
+    console.log("HELLO");
+    if (button.onClick) {
     }
   };
 

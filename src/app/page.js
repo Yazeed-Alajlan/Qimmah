@@ -1,18 +1,42 @@
 "use client";
 import ButtonGroup from "@/components/utils/buttons/ButtonGroup";
+import Button from "@/components/utils/buttons/CustomButtonOLD";
 import StocksSearch from "@/components/utils/inputs/StocksSearch";
 import { useState } from "react";
 
 export default function Home() {
-  const [text, settext] = useState();
+  const [text, setText] = useState("HEL");
   const buttons = [
     {
       text: "Option 1",
       icon: "🔍",
+      onClick: () => {
+        setText("CEHCK BOX OPT1");
+      },
     },
     {
       text: "Option 2",
       icon: "🔄",
+      onClick: () => {
+        setText("CEHCK BOX OPT2");
+      },
+    },
+    // Add more buttons as needed
+  ];
+  const buttons2 = [
+    {
+      text: "Option 1 RAD",
+      icon: "🔍",
+      onClick: () => {
+        setText("RAD OP!");
+      },
+    },
+    {
+      text: "Option 2 RAD",
+      icon: "🔄",
+      onClick: () => {
+        setText("RAD OP2");
+      },
     },
     // Add more buttons as needed
   ];
@@ -21,13 +45,16 @@ export default function Home() {
       <div className=" h-screen">
         <div>
           <h2>Checkbox Button Group</h2>
-          <ButtonGroup buttons={buttons} type="checkbox" />
+          <ButtonGroup buttons={buttons} type="checkbox" setState={setText} />
 
           <h2>Radio Button Group</h2>
-          <ButtonGroup buttons={buttons} type="radio" />
-        </div>{" "}
+          <ButtonGroup buttons={buttons2} type="radio" />
+        </div>
         {text}
-        <StocksSearch />
+        <Button variant="primary">Primary Button</Button>
+
+        {/* Outline Button */}
+        <Button variant="primary-outline">Primary Button</Button>
       </div>
     </main>
   );

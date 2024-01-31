@@ -1,55 +1,56 @@
-import React from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
-const ButtonOLD = ({ bgColor, color, size, type, children, isPill }) => {
-  var buttonClass =
-    "select-none font-sans text-xs font-bold uppercase transition-all align-middle ";
+const variants = {
+  primary: {
+    base: "bg-blue-500 hover:bg-blue-400 focus:ring-blue-300 text-white",
+  },
+  "primary-outline": {
+    base: "text-blue-500 border-[1px] border-blue-500 hover:bg-blue-500 hover:text-white focus:ring-blue-500",
+  },
+  secondary: {
+    base: "bg-slate-500 hover:bg-slate-400 focus:ring-slate-300 text-white",
+  },
+  "secondary-outline": {
+    base: "text-slate-500 border-[1px] border-slate-500 hover:bg-slate-500 hover:text-white focus:ring-slate-500",
+  },
+  // ... add more variants as needed
+};
 
-  const colorClass = bgColor || "bg-primary"; // Default color if not provided
+const Button = ({ className, children, rounded, variant, ...props }) => {
+  const variantStyles = variants[variant] || variants.primary;
 
-  // Apply color class to the button
-  buttonClass += colorClass;
-  // Set size classes based on the size prop
-  switch (size) {
-    case "small":
-      buttonClass += " text-xs py-2 px-4";
-      break;
-    case "large":
-      buttonClass += " text-lg py-4 px-8";
-      break;
-    default:
-      // Default size if size prop is not recognized
-      buttonClass += " text-sm py-3 px-6";
-  }
-
-  // Check the button type and set appropriate styles
-  switch (type) {
-    case "outlined":
-      buttonClass +=
-        buttonClass += ` border border-${color}-900 text-${color}-900 hover:opacity-75 focus:ring focus:ring-${color}-300 active:opacity-[0.85]`;
-      break;
-    case "text":
-      buttonClass += ` bg-transparent text-${colorClass}-900 hover:${colorClass} active:bg-${bgColor}-900/20`;
-      break;
-    default:
-      // Default to a filled button if type prop is not recognized
-      buttonClass +=
-        " rounded-lg shadow-md hover:shadow-lg focus:opacity-[0.85] active:opacity-[0.85]";
-  }
-  console.log(buttonClass);
-  // Add pill-shaped style if isPill prop is true
-  if (isPill) {
-    buttonClass += " rounded-full";
-  }
+  const baseClasses = clsx(
+    "px-4 py-2 cursor-pointer select-none [outline:none] shadow-md focus:ring-[1px] disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-100 disabled:shadow-inner",
+    rounded && "rounded",
+    variantStyles.base,
+    className
+  );
 
   return (
-    <button
-      className={buttonClass}
-      type="button"
-      disabled={type === "disabled"}
-    >
+    <button className={twMerge(baseClasses)} {...props}>
       {children}
     </button>
   );
 };
 
-export default ButtonOLD;
+Button.defaultProps = {
+  rounded: true,
+  variant: "primary",
+};
+
+Button.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  rounded: PropTypes.bool.isRequired,
+  variant: PropTypes.oneOf([
+    "primary",
+    "primary-outline",
+    "secondary",
+    "secondary-outline",
+    // Add more variants as needed
+  ]),
+};
+
+export default Button;
