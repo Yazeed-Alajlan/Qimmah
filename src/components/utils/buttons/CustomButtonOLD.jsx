@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
@@ -32,6 +31,9 @@ const variants = {
     outline:
       "text-yellow-500 border-[1px] border-yellow-500 hover:bg-yellow-500 hover:text-black focus:ring-yellow-500",
   },
+  transparent: {
+    filled: "bg-transparent text-white",
+  },
 };
 
 const sizeVariants = {
@@ -54,7 +56,7 @@ const Button = ({
   const variantStyles = variants[variant] || variants.primary;
   //focus:ring-[1px]
   const baseClasses = clsx(
-    "cursor-pointer select-none [outline:none] shadow-md disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-100 disabled:shadow-inner",
+    "flex jsutify-center items-center gap-2 text-lg  select-none [outline:none] shadow-md disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-100 disabled:shadow-inner",
     rounded && "rounded-md",
     variantStyles[type],
     sizeVariants[size],
@@ -69,6 +71,8 @@ const Button = ({
     >
       <button onClick={onClick} className={twMerge(baseClasses)}>
         {children}
+        {Icon && <span className="text-xl"> {Icon}</span>}
+        {text && <span> {text}</span>}
       </button>
     </motion.div>
   );
@@ -79,19 +83,6 @@ Button.defaultProps = {
   variant: "primary",
   type: "filled",
   size: "md",
-};
-
-Button.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  rounded: PropTypes.bool.isRequired,
-  variant: PropTypes.oneOf([
-    "primary",
-    "primary-outline",
-    "secondary",
-    "secondary-outline",
-    // Add more variants as needed
-  ]),
 };
 
 export default Button;

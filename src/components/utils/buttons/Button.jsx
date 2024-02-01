@@ -47,7 +47,6 @@ const Button = ({
     colorVariants[color],
     typeVariants[type]
   );
-  console.log(buttonStyles);
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}
