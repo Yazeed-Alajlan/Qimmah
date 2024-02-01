@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [text, setText] = useState("HEL");
+  const [index, setIndex] = useState(false);
   const buttons = [
     {
       text: "Option 1",
@@ -51,7 +52,15 @@ export default function Home() {
           <ButtonGroup buttons={buttons2} type="radio" />
         </div>
         {text}
-        <Button variant="primary" type="tag" className="">
+        <Button
+          variant="primary"
+          type="tag"
+          onClick={() => {
+            setIndex(!index);
+            setText(index === false ? "FALSE" : "TRUE");
+          }}
+          className={` ${index === false ? "bg-red-800" : ""}`}
+        >
           Primary Button
         </Button>
         <Button variant="danger" type="tag" className="">
