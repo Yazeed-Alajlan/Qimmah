@@ -51,10 +51,12 @@ export default function Home() {
           <ButtonGroup buttons={buttons2} type="radio" />
         </div>
         {text}
-        <Button variant="primary">Primary Button</Button>
-
-        {/* Outline Button */}
-        <Button variant="primary-outline">Primary Button</Button>
+        <Button variant="primary" type="tag" className="">
+          Primary Button
+        </Button>
+        <Button variant="danger" type="tag" className="">
+          Primary Button
+        </Button>
       </div>
     </main>
   );
