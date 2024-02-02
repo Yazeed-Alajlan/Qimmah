@@ -1,7 +1,5 @@
 import { Card } from "@/components/utils/cards/Card";
 import React from "react";
-import { IconContext } from "react-icons";
-import { FiChevronDown } from "react-icons/fi";
 
 const StockPriceCard = ({ open, close, low, high }) => {
   const priceChange = close - open;

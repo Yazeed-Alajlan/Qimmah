@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "../buttons/Button";
+import Button from "../buttons/Button";
 
 const Tabs = ({ children, activeTab, variant }) => {
   const [active, setActive] = useState(activeTab || 1);
@@ -14,16 +14,20 @@ const Tabs = ({ children, activeTab, variant }) => {
   React.Children.forEach(children, (child, index) => {
     if (React.isValidElement(child) && child.type.name === "Tab") {
       const { text, icon } = child.props;
+      console.log(icon);
       tabElements.push(
         <Button
           // type={`${active === index + 1 ? "filled " : "outline_rounded"}`}
-          type={`outline`}
+          variant={"primary"}
+          type={"outline"}
           key={index}
           text={text}
           icon={icon}
           onClick={() => changeTab(index + 1)}
           className={`${
-            active === index + 1 ? "bg-primary-500 font-bold " : "NOT selected"
+            active === index + 1
+              ? " font-bold bg-violet-500 text-white "
+              : "NOT selected"
           } selected`}
         >
           {child}
@@ -46,7 +50,7 @@ const Tabs = ({ children, activeTab, variant }) => {
           if (React.isValidElement(child)) {
             if (
               React.isValidElement(child) &&
-              child.type.name === "ButtonsGroup"
+              child.type.name === "ButtonGroup"
             )
               return null;
             return React.cloneElement(child, {
@@ -60,7 +64,7 @@ const Tabs = ({ children, activeTab, variant }) => {
   );
 };
 
-const Tab = ({ children, isActive, text, icon }) => {
+const Tab = ({ children, isActive }) => {
   return <div style={{ display: isActive ? "block" : "none" }}>{children}</div>;
 };
 

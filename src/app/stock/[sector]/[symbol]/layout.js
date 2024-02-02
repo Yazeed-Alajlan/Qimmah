@@ -101,7 +101,7 @@ const StockLayout = ({ children }) => {
             </div>
           </div>
 
-          <div className="my-auto md:ms-auto mx-auto  ">
+          <div className="my-auto ms-auto">
             <StockPriceCard
               open={
                 stockInformationData.summary[

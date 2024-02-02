@@ -1,9 +1,8 @@
 // import HoverGraph from "./HoverGraph";
 
-import Overlay from "@/components/utils/Overlay";
 import Tooltip from "@/components/utils/Tooltip";
-import { Card } from "@/components/utils/cards/Card";
 import HoverGraph from "./HoverGraph";
+import { Card } from "@/components/utils/cards/Card";
 
 const FinancialsTable = ({ title, data, header }) => {
   const keys = data.length > 0 ? Object.keys(data[0]) : [];
@@ -15,8 +14,8 @@ const FinancialsTable = ({ title, data, header }) => {
   const firstRowValues = transposedData[0].values;
 
   return (
-    <div>
-      <table className="table-auto w-full text-center" responsive hover>
+    <div className="w-full  overflow-x-auto">
+      <table className="w-full text-center h-min  text-lg">
         <thead>
           {header ? (
             <tr className="border-b-4">
@@ -42,10 +41,6 @@ const FinancialsTable = ({ title, data, header }) => {
               rowData.field !== "last_update_date" ? (
                 <>
                   <td>
-                    {/* <Overlay direction={"right"}>
-                      {rowData.field}
-                      <p>This content is visible on hover.</p>
-                    </Overlay> */}
                     <Tooltip
                       orientation={"left"}
                       tooltipContent={
@@ -58,9 +53,6 @@ const FinancialsTable = ({ title, data, header }) => {
                     >
                       {rowData.field}
                     </Tooltip>
-                    {/* <Tooltip orientation={"right"} tooltipText={"right"}>
-                      {rowData.field}
-                    </Tooltip> */}
                   </td>
                   {rowData.values.map((value, index) => (
                     <td

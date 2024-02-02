@@ -6,6 +6,8 @@ import { Card } from "@/components/utils/cards/Card";
 
 Chart.register(...registerables);
 const HoverGraph = ({ text, data, years }) => {
+  console.log(data);
+  console.log(years);
   const chartData = {
     labels: years,
 
@@ -33,8 +35,8 @@ const HoverGraph = ({ text, data, years }) => {
   };
 
   return (
-    <div className="hover-div">
-      <Card className="w-25 p-2 ">
+    <div className="w-96 h-min p-4">
+      <Card>
         <Bar data={chartData} options={chartOptions} />
       </Card>
       {text}

@@ -4,7 +4,7 @@ import { Card } from "../cards/Card";
 import InputSelect from "../inputs/InputSelect";
 import { TbSortAscending, TbSortDescending } from "react-icons/tb";
 import SearchInput from "../inputs/SearchInput";
-import { Button } from "../buttons/Button";
+import Button from "../buttons/Button";
 import Divider from "../Divider";
 import Badge from "../Badge";
 import Link from "next/link";

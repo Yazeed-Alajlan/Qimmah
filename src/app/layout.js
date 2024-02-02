@@ -14,7 +14,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body dir="rtl" className={`flex flex-col bg-light ${inter.className}`}>
+      <body
+        dir="rtl"
+        className={`flex flex-col justify-center items-center content-center   bg-light ${inter.className}`}
+      >
         <ReactQueryProvider>
           <StocksDataProvider>
             <PytohnServerProvider>

@@ -78,7 +78,7 @@ const Header = ({ children }) => {
 
   return (
     <motion.header
-      className="flex justify-evenly items-center align-middle gap-4 sticky top-0 w-full bg-white p-4"
+      className="flex justify-evenly container items-center align-middle gap-4 sticky top-0 w-full bg-white p-4"
       initial={{ height: "100px" }} // Adjust the original height
       animate={controls}
     >

@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Card } from "./Card";
-import { Button } from "../buttons/Button";
 import { FaHeart } from "react-icons/fa";
 import { ButtonGroupSlidingIndicator } from "../buttons/ButtonGroupSlidingIndicator";
 import DynamicChart from "../charts/DynamicChart";

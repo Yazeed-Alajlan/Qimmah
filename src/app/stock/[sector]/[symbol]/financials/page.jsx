@@ -10,10 +10,11 @@ import FinancialsChart from "./FinancialsChart";
 // import Tab from "components/utils/Tab";
 import { Card } from "@/components/utils/cards/Card";
 import { useParams } from "next/navigation";
-import { Tab, Tabs } from "@/components/utils/tabs/Tabs";
+import { Tab, Tabs } from "@/components/utils/tabs/TabsButtons";
 import FinancialsTable from "./FinancialsTable";
 import { fetchStockFinancialData } from "@/services/FetchServices";
 import { useQuery } from "react-query";
+import ButtonGroup from "@/components/utils/buttons/ButtonGroup";
 
 const Financials = () => {
   const { symbol } = useParams();
@@ -50,32 +51,45 @@ const Financials = () => {
   }, [stockFinancialData, displayAnnual]);
 
   const periodButtons = [
-    { id: 1, text: "سنوي" },
-    { id: 2, text: "ربع سنوي" },
+    {
+      label: "سنوي",
+      icon: TbChartBar,
+      onClick: () => {
+        setDisplayAnnual(0);
+      },
+    },
+    {
+      label: "ربع سنوي",
+      icon: TbChartBar,
+      onClick: () => {
+        setDisplayAnnual(1);
+      },
+    },
   ];
+
   return (
     <>
       {financialData ? (
         <Card header={"القوائم المالية"}>
           <Tabs>
-            <Tab label={"رسم بياني"} icon={TbChartBar}>
+            <Tab text={"رسم بياني"} icon={TbChartBar}>
               <FinancialsChart stockFinancialData={financialData} />
             </Tab>
-            <Tab label={"جدول"} icon={TbTable}>
+            <Tab text={"جدول"} icon={TbTable}>
               <Tabs activeTab={1}>
-                <Tab label={"المركز المالي"}>
+                <Tab text={"المركز المالي"}>
                   <FinancialsTable
                     title={"المركز المالي"}
                     data={financialData.balanceSheet}
                   />
                 </Tab>
-                <Tab label={"قائمة الدخل"}>
+                <Tab text={"قائمة الدخل"}>
                   <FinancialsTable
                     title={"قائمة الدخل"}
                     data={financialData.incomeSheet}
                   />
                 </Tab>
-                <Tab label={"التدفق النقدي"}>
+                <Tab text={"التدفق النقدي"}>
                   <FinancialsTable
                     title={"التدفق النقدي"}
                     data={financialData.cashFlow}
@@ -83,12 +97,12 @@ const Financials = () => {
                 </Tab>
               </Tabs>
             </Tab>
-            {/* <ButtonsGroup
-                label={"المدة"}
-                icon={<BsCalendar3 />}
-                buttons={periodButtons}
-                parentSetState={setDisplayAnnual}
-              /> */}
+            <ButtonGroup
+              label={"المدة"}
+              icon={BsCalendar3}
+              buttons={periodButtons}
+              parentSetState={setDisplayAnnual}
+            />
           </Tabs>
         </Card>
       ) : (

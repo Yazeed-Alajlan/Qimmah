@@ -31,7 +31,7 @@ const Card = ({
   return (
     <div
       className={clsx(
-        "w-full rounded-lg md:m-4 m-2 shadow-2xl",
+        " container rounded-lg shadow-2xl",
         cardStyles,
         customClassName
       )}
