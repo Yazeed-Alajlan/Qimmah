@@ -164,7 +164,21 @@ const StocksTable = ({
                           width: column.width,
                         }}
                       >
-                        {/* ... your existing JSX */}
+                        <span className="flex gap-2">
+                          {" "}
+                          {column.render("Header")}
+                          <span>
+                            {column.isSorted ? (
+                              column.isSortedDesc ? (
+                                <TbSortDescending />
+                              ) : (
+                                <TbSortAscending />
+                              )
+                            ) : (
+                              ""
+                            )}
+                          </span>
+                        </span>
                       </th>
                     ))}
                   </tr>

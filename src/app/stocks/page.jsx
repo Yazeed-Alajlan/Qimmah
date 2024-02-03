@@ -80,8 +80,6 @@ const StocksPage = () => {
               Header: "الأدنى آخر 52 أسبوع",
               accessor: "fifty_two_week_low",
             },
-
-            // Add more columns as needed
           ]}
         />
       )}

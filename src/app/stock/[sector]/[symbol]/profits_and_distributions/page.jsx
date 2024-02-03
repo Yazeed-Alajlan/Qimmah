@@ -1,40 +1,60 @@
+"use client";
 import React from "react";
-import { useOutletContext } from "react-router-dom";
-import SelectionTitle from "components/utils/SelectionTitle";
-import { CustomCard } from "components/utils/cards/CustomCard";
-import { Container, Table } from "react-bootstrap";
-import GeneralTable from "components/utils/GeneralTable";
-
+import Table from "@/components/utils/table/Table";
+import { Card } from "@/components/utils/cards/Card";
+import { fetchStockFinancialData } from "@/services/FetchServices";
+import { useQuery } from "react-query";
+import { useParams } from "next/navigation";
 const Dividend = () => {
-  const { stockFinancialData } = useOutletContext();
+  const { symbol } = useParams();
+  const {
+    isError,
+    isSuccess,
+    isLoading,
+    data: stockFinancialData,
+    error,
+  } = useQuery(["stockFinancialData", symbol], () =>
+    fetchStockFinancialData(symbol)
+  );
+  console.log(stockFinancialData);
   return (
     <>
       {stockFinancialData ? (
-        <CustomCard header={"الأرباح و التوزيعات"}>
-          {/* <Table className="fs-5" responsive hover>
-            <thead>
-              <tr>
-                <th>تاريخ الإعلان </th>
-                <th>تاريخ الإستحقاق </th>
-                <th>تاريخ التوزيع </th>
-                <th>طريقة التوزيع </th>
-                <th>الربح الموزع</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stockFinancialData.dividends.map((dividend, index) => (
-                <tr key={index}>
-                  <td>{dividend.announced_date}</td>
-                  <td>{dividend.eligibility_date}</td>
-                  <td>{dividend.distribution_date}</td>
-                  <td>{dividend.distribution_way}</td>
-                  <td>{dividend.dividend_per_share}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table> */}
-          <GeneralTable tableData={stockFinancialData.dividends} />
-        </CustomCard>
+        <Card header={"الأرباح و التوزيعات"}>
+          {stockFinancialData && (
+            <>
+              <Table
+                className=" w-full"
+                isScrollable
+                // filterBy={"sectorNameAr"}
+                searchBy={"announced_date"}
+                tableData={stockFinancialData.dividends}
+                tableColumns={[
+                  {
+                    Header: "announced_date",
+                    accessor: "announced_date",
+                  },
+                  {
+                    Header: "distribution_date",
+                    accessor: "distribution_date",
+                  },
+                  {
+                    Header: "الأعلى",
+                    accessor: "distribution_way",
+                  },
+                  {
+                    Header: "الأدنى",
+                    accessor: "dividend_per_share",
+                  },
+                  {
+                    Header: "الإغلاق",
+                    accessor: "eligibility_date",
+                  },
+                ]}
+              />
+            </>
+          )}
+        </Card>
       ) : (
         <p>loading</p>
       )}

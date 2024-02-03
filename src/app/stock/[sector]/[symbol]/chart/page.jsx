@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import { useQuery } from "react-query";
 import { stockPriceSummary } from "@/services/PythonServices";
 import MonthlyReturnTable from "./MonthlyReturnTable";
+import DynamicChart from "@/components/utils/charts/DynamicChart";
 
 const Page = () => {
   const { symbol } = useParams();
@@ -23,14 +24,22 @@ const Page = () => {
       <Card header={"تحركات السهم"}>
         <StockPriceChart symbol={symbol} />
       </Card>
-      <Card>
-        {priceSummary && (
-          <>
+      {priceSummary && (
+        <>
+          <Card header={"العوائد الشهرية"}>
             <MonthlyReturnTable data={priceSummary["monthly_returns"]} />
-          </>
-        )}
-        {/* <MonthlyReturnTable data={priceSummary["monthly_returns"]} /> */}
-      </Card>
+          </Card>
+          <Card header={"متوسط العوائد الشهرية"}>
+            <DynamicChart
+              type={"bar"}
+              data={priceSummary["monthly_returns_average"]}
+            />
+          </Card>
+          <Card header={"توزيع عدد الشموع"}>
+            <DynamicChart type={"bar"} data={priceSummary["price_change"]} />
+          </Card>
+        </>
+      )}
     </div>
   );
 };
