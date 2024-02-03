@@ -72,11 +72,45 @@ async function addVolumeHistogram(chart, series) {
     },
   });
   volumeSeries.setData(
-    formatCandleStickData(series).map((data) => ({
+    formatCandlestickData(series).map((data) => ({
       time: data.time,
       value: data.volume,
     }))
   );
+  return volumeSeries;
+}
+async function addLegend(chart, setLegend, candlestickSeries, volumeSeries) {
+  const resolvedVolumeSeries = await volumeSeries;
+  chart.subscribeCrosshairMove((param) => {
+    let closePrice = "";
+    let openPrice = "";
+    let highPrice = "";
+    let lowPrice = "";
+    let volume = "";
+
+    if (param.time) {
+      const candlestickData = param.seriesData.get(candlestickSeries);
+      const volumeData = param.seriesData.get(resolvedVolumeSeries);
+      if (candlestickData) {
+        closePrice = candlestickData.close.toFixed(2);
+        openPrice = candlestickData.open.toFixed(2);
+        highPrice = candlestickData.high.toFixed(2);
+        lowPrice = candlestickData.low.toFixed(2);
+      }
+
+      if (volumeData) {
+        volume = volumeData.value.toFixed(2);
+      }
+    }
+    setLegend({
+      close: closePrice,
+      open: openPrice,
+      high: highPrice,
+      low: lowPrice,
+      volume: volume,
+      changePercent: (((closePrice - openPrice) / openPrice) * 100).toFixed(2),
+    });
+  });
 }
 
 const formatCandlestickData = (data) => {
@@ -125,6 +159,7 @@ const formatIndicatorkData = (series) => {
 export {
   createTooltip,
   addVolumeHistogram,
+  addLegend,
   formatCandlestickData,
   formatLineData,
   formatIndicatorkData,

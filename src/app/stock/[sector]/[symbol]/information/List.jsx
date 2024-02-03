@@ -1,12 +1,10 @@
 import React from "react";
 
 const List = ({ data }) => {
-  console.log(data);
   return (
-    <div className="overflow-y-auto h-80">
+    <div className="overflow-y-auto h-96">
       {data &&
         data.map((item, index) => {
-          // Add a unique "key" prop based on the item or index
           return (
             <div
               key={index}

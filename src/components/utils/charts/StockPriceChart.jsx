@@ -1,9 +1,22 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { fetchStockPriceData } from "@/services/FetchServices";
 import { createChart } from "lightweight-charts";
-import { formatCandlestickData, createTooltip } from "./StockChartServices";
+import {
+  formatCandlestickData,
+  createTooltip,
+  addVolumeHistogram,
+  addLegend,
+} from "./StockChartServices";
 const StockPriceChart = ({ symbol }) => {
+  const [legend, setLegend] = useState(() => ({
+    close: "",
+    open: "",
+    high: "",
+    low: "",
+    volume: "",
+    changePercent: "",
+  }));
   const {
     isError,
     isSuccess,
@@ -19,9 +32,24 @@ const StockPriceChart = ({ symbol }) => {
   useEffect(() => {
     if (isSuccess && stockPriceData) {
       const formattedData = formatCandlestickData(stockPriceData.quotes);
-
+      console.log(stockPriceData.quotes);
       // Create a new candlestick chart
-      const chart = createChart(chartContainerRef.current);
+      const chart = createChart(chartContainerRef.current, {
+        grid: {
+          vertLines: {
+            visible: false,
+          },
+          horzLines: {
+            visible: false,
+          },
+        },
+        rightPriceScale: {
+          scaleMargins: {
+            top: 0, // Adjust top margin to remove the black line on the y-axis
+            bottom: 0,
+          },
+        },
+      });
 
       // Add a candlestick series to the chart
       const candlestickSeries = chart.addCandlestickSeries();
@@ -36,11 +64,12 @@ const StockPriceChart = ({ symbol }) => {
           return;
         }
         const newRect = entries[0].contentRect;
-        console.log(newRect);
 
         chart.applyOptions({ height: 400, width: newRect.width });
       }).observe(chartContainerRef.current);
       createTooltip(chartContainerId, chart, candlestickSeries);
+      const volumeSeries = addVolumeHistogram(chart, stockPriceData.quotes);
+      addLegend(chart, setLegend, candlestickSeries, volumeSeries);
 
       return () => {
         chart.remove();
@@ -49,7 +78,22 @@ const StockPriceChart = ({ symbol }) => {
   }, [isSuccess, stockPriceData]);
 
   return (
-    <div className="h-96">
+    <div className="h-full">
+      <div
+        className={`flex justify-center text-sm  gap-4 text-${
+          legend.open > legend.close ? "danger" : "success"
+        }`}
+      >
+        <span className="flex ">
+          التغيير (%):
+          {legend.changePercent === "NaN" ? "" : legend.changePercent}
+        </span>
+        <span className="flex ">L:{legend.low}</span>
+        <span className="flex ">H: {legend.high}</span>
+        <span className="flex ">O: {legend.open}</span>
+        <span className="flex ">C: {legend.close}</span>
+        <span className="flex ">Vol: {legend.volume}</span>
+      </div>
       <div
         className="relative"
         id={chartContainerId}

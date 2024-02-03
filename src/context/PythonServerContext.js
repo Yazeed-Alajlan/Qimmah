@@ -4,7 +4,7 @@ import axios from "axios";
 
 const PytohnServerContext = React.createContext();
 
-export function usePytohnServer() {
+export function usePythonServer() {
   return useContext(PytohnServerContext);
 }
 
@@ -22,7 +22,6 @@ export function PytohnServerProvider({ children }) {
       console.error("Error fetching data:", error);
     }
   }
-
   async function japaneseCandlestickFilter({ pattern }) {
     try {
       const response = await fetch(
@@ -76,7 +75,6 @@ export function PytohnServerProvider({ children }) {
   const value = {
     consolidatingStocksFilter,
     japaneseCandlestickFilter,
-
     japaneseCandlestickMarkers,
     correlationMatrix,
   };

@@ -96,7 +96,7 @@ const ButtonGroup = ({
         </div>
       </div>
 
-      {/* <div className="button-content">
+      <div className="button-content">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeButton.name || "empty"}
@@ -111,7 +111,7 @@ const ButtonGroup = ({
             {activeButton.render && activeButton.render()}
           </motion.div>
         </AnimatePresence>
-      </div> */}
+      </div>
     </div>
   );
 };

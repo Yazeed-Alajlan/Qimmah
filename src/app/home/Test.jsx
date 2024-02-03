@@ -2,7 +2,7 @@
 "use client";
 
 import StocksTable from "@/components/utils/table/StocksTable";
-import { usePytohnServer } from "@/context/PytohnServerContext";
+import { usePytohnServer } from "@/context/PythonServerContext";
 import React, { useState, useEffect } from "react";
 const Test = () => {
   const [stockData, setStockData] = useState(null);

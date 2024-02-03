@@ -1,6 +1,6 @@
 "use client";
 // Your React component file
-import { usePytohnServer } from "@/context/PytohnServerContext";
+import { usePytohnServer } from "@/context/PythonServerContext";
 import React, { useState, useEffect } from "react";
 
 const YourComponent = () => {
