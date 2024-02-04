@@ -19,7 +19,6 @@ const Table = ({
   isScrollable,
   className,
 }) => {
-  console.log(tableData);
   const columns = useMemo(() => {
     if (!tableData || tableData.length === 0) {
       return [];

@@ -8,12 +8,10 @@ import { useParams } from "next/navigation";
 import DynamicChart from "@/components/utils/charts/DynamicChart";
 
 function extractKeyValue(arr, key, value) {
-  return arr.map((obj) => {
-    const newObj = {};
-    newObj[key] = obj[key];
-    newObj[value] = obj[value];
-    return newObj;
-  });
+  return arr.reduce((result, obj) => {
+    result[obj[key]] = obj[value];
+    return result;
+  }, {});
 }
 
 const Dividend = () => {

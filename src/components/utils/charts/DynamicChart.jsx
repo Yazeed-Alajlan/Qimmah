@@ -49,7 +49,6 @@ const convertDataFormat = (data) => {
 };
 
 const DynamicChart = ({ type, data }) => {
-  console.log(data);
   const [chartType, setChartType] = useState(type);
   const [chartData, setChartData] = useState();
   const [modal, setModal] = useState(false);

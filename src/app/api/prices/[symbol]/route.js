@@ -7,6 +7,8 @@ export async function GET(req, { params }) {
     await connectToDatabase();
     const symbol = params.symbol;
     const stock = await StockPrices.findOne({ symbol: symbol });
+    const dateFrom = req.nextUrl.searchParams.get("dateFrom");
+    const dateEnd = req.nextUrl.searchParams.get("dateEnd");
 
     if (!stock) {
       return new NextResponse({
