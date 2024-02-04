@@ -18,14 +18,15 @@ const Page = () => {
     data: priceSummary,
     error,
   } = useQuery(["stockPriceSummary", symbol], () => stockPriceSummary(symbol));
-  console.log(priceSummary);
   return (
     <div className="flex flex-row flex-wrap gap-4 mb-10">
       <Card header={"تحركات السهم"}>
         <StockPriceChart symbol={symbol} />
       </Card>
+
       {priceSummary && (
         <>
+          {console.log(priceSummary["monthly_returns_average"])}
           <Card header={"العوائد الشهرية"}>
             <MonthlyReturnTable data={priceSummary["monthly_returns"]} />
           </Card>

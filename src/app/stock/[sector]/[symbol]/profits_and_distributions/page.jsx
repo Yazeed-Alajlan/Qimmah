@@ -5,6 +5,17 @@ import { Card } from "@/components/utils/cards/Card";
 import { fetchStockFinancialData } from "@/services/FetchServices";
 import { useQuery } from "react-query";
 import { useParams } from "next/navigation";
+import DynamicChart from "@/components/utils/charts/DynamicChart";
+
+function extractKeyValue(arr, key, value) {
+  return arr.map((obj) => {
+    const newObj = {};
+    newObj[key] = obj[key];
+    newObj[value] = obj[value];
+    return newObj;
+  });
+}
+
 const Dividend = () => {
   const { symbol } = useParams();
   const {
@@ -16,7 +27,6 @@ const Dividend = () => {
   } = useQuery(["stockFinancialData", symbol], () =>
     fetchStockFinancialData(symbol)
   );
-  console.log(stockFinancialData);
   return (
     <>
       {stockFinancialData ? (
@@ -31,26 +41,34 @@ const Dividend = () => {
                 tableData={stockFinancialData.dividends}
                 tableColumns={[
                   {
-                    Header: "announced_date",
+                    Header: "تاريخ الإعلان",
                     accessor: "announced_date",
                   },
                   {
-                    Header: "distribution_date",
+                    Header: "تاريخ الإستحقاق",
                     accessor: "distribution_date",
                   },
                   {
-                    Header: "الأعلى",
+                    Header: "تاريخ التوزيع",
                     accessor: "distribution_way",
                   },
                   {
-                    Header: "الأدنى",
+                    Header: "طريقة التوزيع",
                     accessor: "dividend_per_share",
                   },
                   {
-                    Header: "الإغلاق",
+                    Header: "الربح الموزع",
                     accessor: "eligibility_date",
                   },
                 ]}
+              />
+              <DynamicChart
+                type={"bar"}
+                data={extractKeyValue(
+                  stockFinancialData.dividends,
+                  "announced_date",
+                  "dividend_per_share"
+                )}
               />
             </>
           )}

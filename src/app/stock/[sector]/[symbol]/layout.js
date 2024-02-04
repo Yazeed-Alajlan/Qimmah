@@ -64,7 +64,7 @@ const StockLayout = ({ children }) => {
   ];
 
   return (
-    <PageWrapper className="">
+    <PageWrapper className="SECTOR SYMBOL LAYOUT">
       {stockInformationData ? (
         <div className="flex flex-wrap ">
           <div className="flex flex-col gap-4 ">

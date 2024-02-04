@@ -41,8 +41,8 @@ const ButtonGroup = ({
   });
 
   return (
-    <div className="flex flex-col">
-      <div className="flex gap-6 dsaasd">
+    <div className="flex flex-col gap-4">
+      <div className="flex ">
         <div className="flex gap-2 text-2xl   items-center">
           {Icon && (
             <>
@@ -80,16 +80,14 @@ const ButtonGroup = ({
               ) : (
                 <Button
                   onClick={(e) => handleClick(e, button, button.onClick)}
-                  variant={"primary"}
-                  type={"outline"}
+                  variant="primary"
+                  type="tag"
                   text={button.label}
                   icon={button.icon}
                   className={` ${
-                    isSelected(button) ? "bg-violet-500 text-white" : ""
+                    isSelected(button) ? "text-light bg-primary-700" : ""
                   }`}
-                >
-                  {/* {button.label} */}
-                </Button>
+                />
               )}
             </div>
           ))}

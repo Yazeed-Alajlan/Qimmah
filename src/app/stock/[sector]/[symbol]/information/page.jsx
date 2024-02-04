@@ -77,11 +77,11 @@ const StockInformation = () => {
 
   const periodButtons = [
     {
-      label: "سنوي",
+      label: "المؤشرات المالية",
       render: () => <List data={data} />,
     },
     {
-      label: "ربع سنوي",
+      label: "التغيير",
       render: () => <List data={data2} />,
     },
   ];
@@ -89,13 +89,17 @@ const StockInformation = () => {
   return (
     <>
       {stockInformationData ? (
-        <div className="flex gap-4">
-          <Card header="تحركات السهم">
-            <StockPriceChart symbol={symbol} />
-          </Card>
-          <Card>
-            <ButtonGroup buttons={periodButtons} />
-          </Card>
+        <div className="grid grid-cols-5 gap-4 ">
+          <div className="md:col-span-3 col-span-5">
+            <Card header="تحركات السهم">
+              <StockPriceChart symbol={symbol} />
+            </Card>
+          </div>
+          <div className="md:col-span-2 col-span-5">
+            <Card>
+              <ButtonGroup buttons={periodButtons} />
+            </Card>
+          </div>
         </div>
       ) : (
         <p>loading</p>

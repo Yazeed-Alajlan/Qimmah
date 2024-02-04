@@ -8,7 +8,7 @@ const variants = {
       "bg-violet-500 hover:bg-violet-400 focus:ring-violet-300 text-white",
     outline:
       "text-violet-500 border-[1px] border-violet-500 hover:bg-violet-500 hover:text-white focus:ring-violet-500",
-    tag: "text-black text-sm bg-violet-500/10 hover:bg-violet-900/20 active:bg-violet-900/30 rounded-xl transition-all select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none",
+    tag: "text-primary  bg-gray-600/10  rounded-xl ",
   },
   secondary: {
     filled: "bg-slate-500 hover:bg-slate-400 focus:ring-slate-300 text-white",
