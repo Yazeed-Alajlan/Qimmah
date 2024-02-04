@@ -95,7 +95,7 @@ const StockInformation = () => {
               <StockPriceChart symbol={symbol} />
             </Card>
           </div>
-          <div className="md:col-span-2 col-span-5">
+          <div className="md:col-span-2 col-span-5 ">
             <Card>
               <ButtonGroup buttons={periodButtons} />
             </Card>

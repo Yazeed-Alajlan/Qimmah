@@ -30,9 +30,29 @@ async function fetchStockPriceData(symbol) {
       throw error;
     });
 }
+async function getStockPriceDataByDate(symbol, date) {
+  return axios
+    .get(`/api/prices/${symbol}/?date=${date}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+      throw error;
+    });
+}
+async function getStockPriceDataByDateInterval(symbol, dateFrom, dateEnd) {
+  return axios
+    .get(`/api/prices/${symbol}/?date=${dateFrom}&dateEnd=${dateEnd}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+      throw error;
+    });
+}
 
 export {
   fetchStockInformationData,
   fetchStockFinancialData,
   fetchStockPriceData,
+  getStockPriceDataByDate,
+  getStockPriceDataByDateInterval,
 };
