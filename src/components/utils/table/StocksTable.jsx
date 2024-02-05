@@ -61,12 +61,10 @@ const StocksTable = ({
     return data;
   }, [tableData, searchText, filterOption]);
 
-  if (filterBy) {
-    const uniqueFilter = useMemo(() => {
-      const filters = [...new Set(tableData.map((row) => row[`${filterBy}`]))];
-      return filters.filter((filter) => filter);
-    }, [tableData]);
-  }
+  const uniqueFilter = useMemo(() => {
+    const filters = [...new Set(tableData.map((row) => row[`${filterBy}`]))];
+    return filters.filter((filter) => filter);
+  }, [tableData]);
 
   const {
     getTableProps,

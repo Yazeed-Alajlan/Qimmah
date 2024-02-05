@@ -5,7 +5,7 @@ import React from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import SidebarSelection from "./components/SidebarSelection";
 
-const page = () => {
+const Page = () => {
   const { selectedStock } = useTechnicalAnalysis();
 
   return (
@@ -40,4 +40,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
