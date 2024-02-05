@@ -193,7 +193,7 @@ const Table = ({
                       className="border-b-2 hover:bg-gray-200 text-sm "
                     >
                       {row.cells.map((cell, index) => {
-                        const columnsToCheck = [5, 6]; // Define columns to check for color change
+                        const columnsToCheck = []; // Define columns to check for color change
                         const isColored = columnsToCheck.includes(index); // Check if this column needs coloring
                         return (
                           <td

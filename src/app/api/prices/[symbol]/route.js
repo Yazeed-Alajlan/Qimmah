@@ -10,6 +10,9 @@ export async function GET(req, { params }) {
     const dateFrom = req.nextUrl.searchParams.get("dateFrom");
     const dateEnd = req.nextUrl.searchParams.get("dateEnd");
     const date = req.nextUrl.searchParams.get("date");
+    console.log(date);
+    console.log(dateFrom);
+    console.log(dateEnd);
     if (!stock) {
       return new NextResponse({
         status: 404,
@@ -25,6 +28,7 @@ export async function GET(req, { params }) {
         return quoteDate === formattedDate;
       });
       stock.quotes = filteredQuotes[0];
+      console.log(filteredQuotes[0]);
     }
 
     if (dateFrom && dateEnd) {

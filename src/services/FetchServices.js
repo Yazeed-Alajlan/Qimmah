@@ -31,6 +31,7 @@ async function fetchStockPriceData(symbol) {
     });
 }
 async function getStockPriceDataByDate(symbol, date) {
+  console.log(date);
   return axios
     .get(`/api/prices/${symbol}/?date=${date}`)
     .then((response) => response.data)
