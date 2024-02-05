@@ -85,6 +85,7 @@ const Table = ({
     useSortBy,
     usePagination
   );
+  const dataToMap = isScrollable ? rows : page;
 
   return (
     <>
@@ -183,8 +184,8 @@ const Table = ({
                   </tr>
                 ))}
               </thead>
-              <tbody className="" {...getTableBodyProps()}>
-                {page.map((row) => {
+              <tbody {...getTableBodyProps()}>
+                {dataToMap.map((row) => {
                   prepareRow(row);
                   return (
                     <tr

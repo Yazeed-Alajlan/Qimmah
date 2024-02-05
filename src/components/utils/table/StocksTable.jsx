@@ -17,8 +17,10 @@ const StocksTable = ({
   filterBy,
   removeFilterFromColumn,
   isScrollable,
+  handleRowClick,
   className,
 }) => {
+  console.log(tableData);
   const columns = useMemo(() => {
     if (!tableData || tableData.length === 0) {
       return [];
@@ -59,10 +61,12 @@ const StocksTable = ({
     return data;
   }, [tableData, searchText, filterOption]);
 
-  const uniqueFilter = useMemo(() => {
-    const filters = [...new Set(tableData.map((row) => row[`${filterBy}`]))];
-    return filters.filter((filter) => filter);
-  }, [tableData]);
+  if (filterBy) {
+    const uniqueFilter = useMemo(() => {
+      const filters = [...new Set(tableData.map((row) => row[`${filterBy}`]))];
+      return filters.filter((filter) => filter);
+    }, [tableData]);
+  }
 
   const {
     getTableProps,
@@ -90,7 +94,7 @@ const StocksTable = ({
   return (
     <Card className={className} header={header}>
       {tableData && (
-        <>
+        <div className="h-full">
           {(filterBy || searchBy) && (
             <div className=" grid grid-cols-6 gap-4 ">
               {filterBy && (
@@ -135,10 +139,8 @@ const StocksTable = ({
           )}
           <Divider />
           <div
-            className={`overflow-x-auto ${
-              isScrollable
-                ? "max-w-full overflow-x-auto max-h-96 overflow-y-auto"
-                : ""
+            className={`overflow-x-auto  ${
+              isScrollable ? "w-full max-h-96 overflow-auto" : ""
             }`}
           >
             <table
@@ -185,12 +187,13 @@ const StocksTable = ({
                 ))}
               </thead>
               <tbody className="" {...getTableBodyProps()}>
-                {page.map((row) => {
+                {dataToMap.map((row) => {
                   prepareRow(row);
                   return (
                     <tr
                       key={row.id} // Add key here
                       {...row.getRowProps()}
+                      onClick={() => handleRowClick(row.original.symbol)} // Pass symbol on row click
                       className="border-b-2 hover:bg-gray-200 text-sm "
                     >
                       {row.cells.map((cell, index) => {
@@ -259,7 +262,7 @@ const StocksTable = ({
               />
             </div>
           )}
-        </>
+        </div>
       )}
     </Card>
   );

@@ -28,7 +28,6 @@ export async function GET(req, { params }) {
         return quoteDate === formattedDate;
       });
       stock.quotes = filteredQuotes[0];
-      console.log(filteredQuotes[0]);
     }
 
     if (dateFrom && dateEnd) {

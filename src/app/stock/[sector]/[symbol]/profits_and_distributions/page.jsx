@@ -80,11 +80,15 @@ const Dividend = () => {
                     announcedDataClosePrice) *
                   100
                 ).toFixed(2);
-
+          const ratio = (
+            ((eligibilityDateClosePrice - announcedDataClosePrice) /
+              announcedDataClosePrice) *
+            100
+          ).toFixed(2);
           const updatedItem = {
             ...item,
             yield: announcedDataClosePrice + "---" + yieldValue,
-            diff: eligibilityDateClosePrice + "---" + announcedDataClosePrice,
+            ratio: ratio,
           };
 
           updatedDividends.push(updatedItem);
@@ -136,19 +140,19 @@ const Dividend = () => {
                     accessor: "yield",
                   },
                   {
-                    Header: "الفرق",
-                    accessor: "diff",
+                    Header: "التغيير",
+                    accessor: "ratio",
                   },
                 ]}
               />
-              <DynamicChart
+              {/* <DynamicChart
                 type={"bar"}
                 data={extractKeyValue(
                   stockFinancialData.dividends,
                   "announced_date",
                   "dividend_per_share"
                 )}
-              />
+              /> */}
             </>
           )}
         </Card>

@@ -5,6 +5,7 @@ import { StocksDataProvider } from "@/context/StocksDataContext";
 import { PytohnServerProvider } from "@/context/PythonServerContext";
 import ReactQueryProvider from "./providers/ReactQueryProvider";
 import Footer from "@/components/utils/footer/Footer";
+import { TechnicalAnalysisProvider } from "@/context/TechnicalAnalysisContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,9 +23,11 @@ export default function RootLayout({ children }) {
         <ReactQueryProvider>
           <StocksDataProvider>
             <PytohnServerProvider>
-              <Header />
-              {children}
-              <Footer />
+              <TechnicalAnalysisProvider>
+                <Header />
+                {children}
+                <Footer />
+              </TechnicalAnalysisProvider>
             </PytohnServerProvider>
           </StocksDataProvider>
         </ReactQueryProvider>

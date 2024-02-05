@@ -44,6 +44,16 @@ const routes = [
     name: "قارن",
     to: `/comparison`,
   },
+  {
+    icon: TbGitCompare,
+    name: "analysis",
+    to: `/technical-analysis`,
+  },
+  {
+    icon: TbGitCompare,
+    name: "chart",
+    to: `/chart`,
+  },
 ];
 const Header = ({ children }) => {
   const [scrolling, setScrolling] = useState(false);
