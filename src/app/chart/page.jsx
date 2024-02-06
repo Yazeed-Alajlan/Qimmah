@@ -4,6 +4,7 @@ import { useTechnicalAnalysis } from "@/context/TechnicalAnalysisContext";
 import React from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import SidebarSelection from "./components/SidebarSelection";
+import AdvancedChart from "./components/AdvancedChart";
 
 const Page = () => {
   const { selectedStock } = useTechnicalAnalysis();
@@ -12,11 +13,11 @@ const Page = () => {
     <PageWrapper fullPage>
       <div dir="ltr">
         <PanelGroup direction="horizontal" className="flex ">
-          <Panel minSizePercentage={70}>
+          <Panel minSizePercentage={75}>
             {selectedStock ? (
               <>
-                <div>{selectedStock}</div>
-                {/* <AdvancedChart /> */}
+                {/* <div>{selectedStock}</div> */}
+                <AdvancedChart />
               </>
             ) : (
               <>SELECT STOCK</>

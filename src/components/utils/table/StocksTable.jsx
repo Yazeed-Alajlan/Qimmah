@@ -92,7 +92,7 @@ const StocksTable = ({
   return (
     <div>
       {tableData && (
-        <div className="h-full TABLE DIV">
+        <div className=" TABLE DIV">
           {(filterBy || searchBy) && (
             <>
               <div className=" grid grid-cols-6 gap-4 ">
@@ -140,7 +140,7 @@ const StocksTable = ({
           )}
           <div
             className={`overflow-x-auto  ${
-              isScrollable ? "w-full h-screen  overflow-auto" : ""
+              isScrollable ? "w-full  h-screen  overflow-auto" : ""
             }`}
           >
             <table

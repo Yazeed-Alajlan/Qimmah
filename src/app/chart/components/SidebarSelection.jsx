@@ -29,8 +29,8 @@ const SidebarSelection = () => {
   }, [filteredStocks, stocksData]);
 
   return (
-    <div className="d-flex flex-column" style={{ height: "100vh" }}>
-      {/* <div className="filters d-flex justify-content-between">
+    <div className="flex flex-col gap-4 h-screen">
+      <div className="filters flex justify-between">
         <Button
           icon={TbFilter}
           hoverText={"Filter Stocks"}
@@ -42,9 +42,9 @@ const SidebarSelection = () => {
           hoverText={"Delete Filters"}
           onClick={() => setFilteredStocks("")}
         />
-      </div> */}
+      </div>
       {data && (
-        <div className="h-full">
+        <>
           <StocksTable
             className={"p-0 "}
             isScrollable={true}
@@ -90,7 +90,7 @@ const SidebarSelection = () => {
             ]}
             handleRowClick={handleRowClick}
           />
-        </div>
+        </>
       )}
     </div>
   );
