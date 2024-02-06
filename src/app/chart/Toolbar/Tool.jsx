@@ -1,10 +1,10 @@
-// Tool.js
-import IconButton from "components/utils/buttons/IconButton";
+"use client";
+import Button from "@/components/utils/buttons/Button";
 import React from "react";
 
 const Tool = ({ icon, hoverText, onClick }) => {
   return (
-    <IconButton
+    <Button
       icon={icon}
       hoverText={hoverText}
       onClick={onClick}

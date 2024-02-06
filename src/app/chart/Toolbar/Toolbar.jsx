@@ -1,18 +1,14 @@
-import IconButton from "components/utils/buttons/IconButton";
-import InputSelect from "components/utils/inputs/InputSelect";
-import GlobalModal from "components/utils/modals/GlobalModal";
+"use client";
+
+// import GlobalModal from "components/utils/modals/GlobalModal";
 import React, { useState } from "react";
 import SelectToolbar from "./SelectToolbar";
+import Button from "@/components/utils/buttons/Button";
 
 const Tool = ({ icon, text, hoverText, onClick, children }) => {
   return (
     <>
-      <IconButton
-        icon={icon}
-        hoverText={hoverText}
-        onClick={onClick}
-        text={text}
-      />
+      <Button icon={icon} hoverText={hoverText} onClick={onClick} text={text} />
       {children}
     </>
   );
@@ -77,35 +73,35 @@ const SelectTool = ({
   );
 };
 
-const ModalTool = ({
-  icon,
-  text,
-  hoverText,
-  title,
-  onClick,
-  size,
-  children,
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <span>
-      <Tool
-        icon={icon}
-        hoverText={hoverText}
-        onClick={() => setIsOpen((isModalOpen) => !isModalOpen)}
-        text={text}
-      />
-      <GlobalModal
-        isModalOpen={isOpen}
-        setIsModalOpen={setIsOpen}
-        title={title}
-        size={size}
-      >
-        {children}
-      </GlobalModal>
-    </span>
-  );
-};
+// const ModalTool = ({
+//   icon,
+//   text,
+//   hoverText,
+//   title,
+//   onClick,
+//   size,
+//   children,
+// }) => {
+//   const [isOpen, setIsOpen] = useState(false);
+//   return (
+//     <span>
+//       <Tool
+//         icon={icon}
+//         hoverText={hoverText}
+//         onClick={() => setIsOpen((isModalOpen) => !isModalOpen)}
+//         text={text}
+//       />
+//       <GlobalModal
+//         isModalOpen={isOpen}
+//         setIsModalOpen={setIsOpen}
+//         title={title}
+//         size={size}
+//       >
+//         {children}
+//       </GlobalModal>
+//     </span>
+//   );
+// };
 
 const Toolbar = ({ children }) => {
   const handleToolClick = (toolId) => {
@@ -128,5 +124,5 @@ export {
   ButtonTool,
   CehckBoxTool,
   SelectTool,
-  ModalTool,
+  // ModalTool,
 };
