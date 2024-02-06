@@ -83,7 +83,6 @@ const StocksPage = () => {
           ]}
         />
       )}
-      <div className="hover:custom-class">HELLO</div>
     </PageWrapper>
   );
 };

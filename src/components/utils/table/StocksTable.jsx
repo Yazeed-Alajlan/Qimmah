@@ -90,60 +90,62 @@ const StocksTable = ({
 
   const dataToMap = isScrollable ? rows : page;
   return (
-    <Card className={className} header={header}>
+    <div>
       {tableData && (
-        <div className="h-full">
+        <div className="h-full TABLE DIV">
           {(filterBy || searchBy) && (
-            <div className=" grid grid-cols-6 gap-4 ">
-              {filterBy && (
-                <div className="col-span-2">
-                  <InputSelect
-                    placeholder="تصفية حسب القطاع"
-                    value={filterOption}
-                    options={[
-                      ...uniqueFilter.map((sector, index) => ({
-                        value: sector,
-                        label: sector,
-                      })),
-                    ]}
-                    onChange={(e) => {
-                      setFilterOption(e && e.value);
+            <>
+              <div className=" grid grid-cols-6 gap-4 ">
+                {filterBy && (
+                  <div className="col-span-2">
+                    <InputSelect
+                      placeholder="تصفية حسب القطاع"
+                      value={filterOption}
+                      options={[
+                        ...uniqueFilter.map((sector, index) => ({
+                          value: sector,
+                          label: sector,
+                        })),
+                      ]}
+                      onChange={(e) => {
+                        setFilterOption(e && e.value);
+                      }}
+                      isSearchable={true}
+                      labelDirection="hr"
+                    />
+                  </div>
+                )}
+                {searchBy && (
+                  <div className="col-span-3">
+                    <SearchInput
+                      placeholder={`Search by ${formatKey(searchBy)}`}
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                    />
+                  </div>
+                )}
+                <div className="col-span-1 mx-auto ">
+                  <Button
+                    variant="danger"
+                    text={"حذف"}
+                    onClick={() => {
+                      setFilterOption("");
+                      setSearchText("");
                     }}
-                    isSearchable={true}
-                    labelDirection="hr"
                   />
                 </div>
-              )}
-              {searchBy && (
-                <div className="col-span-3">
-                  <SearchInput
-                    placeholder={`Search by ${formatKey(searchBy)}`}
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                  />
-                </div>
-              )}
-              <div className="col-span-1 mx-auto ">
-                <Button
-                  variant="danger"
-                  text={"حذف"}
-                  onClick={() => {
-                    setFilterOption("");
-                    setSearchText("");
-                  }}
-                />
               </div>
-            </div>
+              <Divider />
+            </>
           )}
-          <Divider />
           <div
             className={`overflow-x-auto  ${
-              isScrollable ? "w-full max-h-96 overflow-auto" : ""
+              isScrollable ? "w-full h-screen  overflow-auto" : ""
             }`}
           >
             <table
               {...getTableProps()}
-              className=" whitespace-nowrap  text-gray-600 dark:text-gray-400"
+              className="whitespace-nowrap w-full overflow-x-auto  text-gray-600 dark:text-gray-400 "
             >
               <thead className="sticky top-0 uppercase font-bold   text-gray-700   dark:text-gray-400">
                 {headerGroups.map((headerGroup, index) => (
@@ -165,7 +167,6 @@ const StocksTable = ({
                         }}
                       >
                         <span className="flex gap-2">
-                          {" "}
                           {column.render("Header")}
                           <span>
                             {column.isSorted ? (
@@ -246,7 +247,7 @@ const StocksTable = ({
                 disabled={!canPreviousPage}
                 text="Previous"
               />
-              <span className="">
+              <span>
                 Page
                 <strong>
                   {pageIndex + 1} of {Math.ceil(filteredData.length / 15)}
@@ -262,7 +263,7 @@ const StocksTable = ({
           )}
         </div>
       )}
-    </Card>
+    </div>
   );
 };
 

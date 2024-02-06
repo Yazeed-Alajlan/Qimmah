@@ -9,10 +9,10 @@ const Page = () => {
   const { selectedStock } = useTechnicalAnalysis();
 
   return (
-    <PageWrapper>
+    <PageWrapper fullPage>
       <div dir="ltr">
         <PanelGroup direction="horizontal" className="flex ">
-          <Panel minSizePercentage={80}>
+          <Panel minSizePercentage={70}>
             {selectedStock ? (
               <>
                 <div>{selectedStock}</div>
@@ -28,9 +28,9 @@ const Page = () => {
           />
 
           <Panel
-            collapsible={true}
-            collapsedSizePixels={20}
-            minSizePercentage={15}
+            // collapsible={true}
+            // collapsedSizePixels={40}
+            minSizePercentage={20}
           >
             <SidebarSelection />
           </Panel>

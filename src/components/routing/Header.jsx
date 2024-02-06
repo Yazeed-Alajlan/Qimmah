@@ -58,6 +58,7 @@ const routes = [
 const Header = ({ children }) => {
   const [scrolling, setScrolling] = useState(false);
   const controls = useAnimation();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -87,25 +88,27 @@ const Header = ({ children }) => {
   }, [scrolling, controls]);
 
   return (
-    <motion.header
-      className="flex justify-evenly container items-center align-middle gap-4 sticky top-0 w-full bg-white p-4"
-      initial={{ height: "100px" }} // Adjust the original height
-      animate={controls}
-    >
-      <div className="flex gap-4">
-        {routes.map((route, index) => (
-          <ActiveMenuLink
-            key={index}
-            href={route.to} // Using the 'to' property from the route object
-          >
-            <route.icon />
-            {route.name}
-          </ActiveMenuLink>
-        ))}
-      </div>
-      <StocksSearch />
-      {/* {children} */}
-    </motion.header>
+    <>
+      {pathname === "/chart" ? (
+        <></>
+      ) : (
+        <motion.header
+          className="flex justify-evenly container items-center align-middle gap-4 sticky top-0 w-full bg-white p-4"
+          initial={{ height: "100px" }}
+          animate={controls}
+        >
+          <div className="flex gap-4">
+            {routes.map((route, index) => (
+              <ActiveMenuLink key={index} href={route.to}>
+                <route.icon />
+                {route.name}
+              </ActiveMenuLink>
+            ))}
+          </div>
+          <StocksSearch />
+        </motion.header>
+      )}
+    </>
   );
 };
 

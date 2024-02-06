@@ -2,11 +2,11 @@
 "use client";
 
 import StocksTable from "@/components/utils/table/StocksTable";
-import { usePytohnServer } from "@/context/PythonServerContext";
+import { usePythonServer } from "@/context/PythonServerContext";
 import React, { useState, useEffect } from "react";
 const Test = () => {
   const [stockData, setStockData] = useState(null);
-  const { correlationMatrix } = usePytohnServer();
+  const { correlationMatrix } = usePythonServer();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,31 +28,6 @@ const Test = () => {
   }, []); // Empty dependency array to run the effect only once on mount
   return (
     <div className="w-3/4  ">
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
-      <div>FUCK TOY</div>
       {stockData ? (
         <StocksTable
           tableData={stockData}
