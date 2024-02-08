@@ -1,7 +1,8 @@
+"use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-import SettingsButton from "components/utils/buttons/SettingsButton";
+import Button from "@/components/utils/buttons/Button";
 
 const PatternsSelection = ({ title, settings, setSettings }) => {
   const [selectedType, setSelectedType] = useState("");
@@ -22,7 +23,7 @@ const PatternsSelection = ({ title, settings, setSettings }) => {
         <Panel defaultSizePercentage={25} minSizePercentage={20}>
           <div className="d-flex flex-column">
             {Object.keys(settings).map((type) => (
-              <SettingsButton
+              <Button
                 text={type}
                 key={type}
                 onClick={() => setSelectedType(type)}
@@ -30,7 +31,7 @@ const PatternsSelection = ({ title, settings, setSettings }) => {
                 icon={settings[type].icon}
               >
                 {type}
-              </SettingsButton>
+              </Button>
             ))}
           </div>
         </Panel>

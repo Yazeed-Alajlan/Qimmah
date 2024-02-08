@@ -1,9 +1,7 @@
-import IconButton from "components/utils/buttons/IconButton";
-import IndicatorSettingsModal from "components/utils/modals/IndicatorSettingsModal";
+"use client";
+import Button from "@/components/utils/buttons/Button";
 import React, { useState } from "react";
-import { ListGroup } from "react-bootstrap";
 import { TbX, TbSettings } from "react-icons/tb";
-import IndicatorsList from "../../utils/IndicatorsList";
 
 const Indicators = ({ indicators, onDelete }) => {
   const [hoverIndex, setHoverIndex] = useState(null);
@@ -36,24 +34,24 @@ const Indicators = ({ indicators, onDelete }) => {
               transition: "opacity 0.3s",
             }}
           >
-            <IconButton
+            <Button
               icon={TbX}
               size={"sm"}
               onClick={() => onDelete(indicator.name, indicator.pane, index)}
             />
-            <IconButton
+            <Button
               icon={TbSettings}
               size={"sm"}
               onClick={() => handleToggleModal(index)}
             />
 
-            <IndicatorSettingsModal
+            {/* <IndicatorSettingsModal
               key={index} // Ensure each modal has a unique key
               indicatorName={indicator.name}
               indicator={indicator}
               showModal={showModalIndex === index}
               handleClose={() => setShowModalIndex(null)}
-            />
+            /> */}
           </span>
         </div>
       ))}

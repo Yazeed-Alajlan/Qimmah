@@ -1,9 +1,9 @@
 "use client";
 
-// import GlobalModal from "components/utils/modals/GlobalModal";
 import React, { useState } from "react";
-import SelectToolbar from "./SelectToolbar";
 import Button from "@/components/utils/buttons/Button";
+import Dropdown from "@/components/utils/inputs/Dropdown";
+import Modal from "@/components/utils/modal/Modal";
 
 const Tool = ({ icon, text, hoverText, onClick, children }) => {
   return (
@@ -57,8 +57,8 @@ const SelectTool = ({
 }) => {
   return (
     <span>
-      {/* <Tool icon={icon} hoverText={hoverText} onClick={onClick} text={text} /> */}
-      <SelectToolbar
+      <Tool icon={icon} hoverText={hoverText} onClick={onClick} text={text} />
+      <Dropdown
         options={options}
         defaultValue={defaultValue}
         onSelectFunction={onSelectFunction}
@@ -73,35 +73,35 @@ const SelectTool = ({
   );
 };
 
-// const ModalTool = ({
-//   icon,
-//   text,
-//   hoverText,
-//   title,
-//   onClick,
-//   size,
-//   children,
-// }) => {
-//   const [isOpen, setIsOpen] = useState(false);
-//   return (
-//     <span>
-//       <Tool
-//         icon={icon}
-//         hoverText={hoverText}
-//         onClick={() => setIsOpen((isModalOpen) => !isModalOpen)}
-//         text={text}
-//       />
-//       <GlobalModal
-//         isModalOpen={isOpen}
-//         setIsModalOpen={setIsOpen}
-//         title={title}
-//         size={size}
-//       >
-//         {children}
-//       </GlobalModal>
-//     </span>
-//   );
-// };
+const ModalTool = ({
+  icon,
+  text,
+  hoverText,
+  title,
+  onClick,
+  size,
+  children,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <span>
+      <Tool
+        icon={icon}
+        hoverText={hoverText}
+        onClick={() => setIsOpen((isModalOpen) => !isModalOpen)}
+        text={text}
+      />
+      <Modal
+        isModalOpen={isOpen}
+        setIsModalOpen={setIsOpen}
+        title={title}
+        size={size}
+      >
+        {children}
+      </Modal>
+    </span>
+  );
+};
 
 const Toolbar = ({ children }) => {
   const handleToolClick = (toolId) => {
@@ -110,7 +110,7 @@ const Toolbar = ({ children }) => {
   };
 
   return (
-    <div className="toolbar d-flex justify-content-center align-content-center align-items-center flex-wrap border-bottom p-0 border-3">
+    <div className="toolbar flex justify-center align-center items-center flex-wrap border-b-2 m pb-4 ">
       {React.Children.map(children, (child, index) =>
         React.cloneElement(child)
       )}
@@ -124,5 +124,5 @@ export {
   ButtonTool,
   CehckBoxTool,
   SelectTool,
-  // ModalTool,
+  ModalTool,
 };

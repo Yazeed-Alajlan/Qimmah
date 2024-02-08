@@ -1,7 +1,8 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import { createChart } from "lightweight-charts";
-import Indicators from "./Toolbar/Indicators";
-import { useTechnicalAnalysis } from "contexts/TechnicalAnalysisContext";
+import Indicators from "../Toolbar/Indicators";
+import { useTechnicalAnalysis } from "@/context/TechnicalAnalysisContext";
 
 const CandlestickAndIndicatorsChart = ({
   series,
@@ -204,8 +205,9 @@ const CandlestickAndIndicatorsChart = ({
   }
 
   const formatCandleStickData = (series) => {
+    console.log(series);
     if (!series) return [];
-    return series
+    return series.quotes
       .map((quote) => {
         if (!quote) return null; // Check if quote is null or undefined
 
@@ -254,8 +256,8 @@ const CandlestickAndIndicatorsChart = ({
     <>
       {series ? (
         <>
-          <div className="position-relative" id={chartContainerId}>
-            <span className=" d-inline-flex flex-column position-absolute z-3 top-0 start-0 mx-3">
+          <div className="relative h-96" id={chartContainerId}>
+            <span className=" inline-flex flex-col absolute z-3 top-0 start-0 mx-3">
               <Indicators indicators={indicators} onDelete={handleDelete} />
             </span>
           </div>

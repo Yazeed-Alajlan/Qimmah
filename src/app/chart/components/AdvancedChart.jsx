@@ -1,4 +1,4 @@
-import SelectionTabs from "components/routing/SelectionTabs";
+"use client";
 import React, { useEffect, useState } from "react";
 import {
   Toolbar,
@@ -7,7 +7,7 @@ import {
   SelectTool,
   ModalTool,
   CehckBoxTool,
-} from "./Toolbar/Toolbar";
+} from "../Toolbar/Toolbar";
 import {
   TbChartHistogram,
   TbSearch,
@@ -16,18 +16,14 @@ import {
   TbChartCandle,
   TbFlag,
 } from "react-icons/tb";
-import { useStocksData } from "contexts/StocksDataContext";
-import CandlestickAndIndicatorsChart from "./CandlestickAndIndicatorsChart";
-import { useNavigate } from "react-router-dom";
-import { useTechnicalAnalysis } from "contexts/TechnicalAnalysisContext";
 import IndicatorsList from "../utils/IndicatorsList";
-import IndicatorsSelection from "./Toolbar/IndicatorsSelection";
-import PatternsSelection from "./Toolbar/PatternsSelection";
+import { useStocksData } from "@/context/StocksDataContext";
+import { useTechnicalAnalysis } from "@/context/TechnicalAnalysisContext";
+import CandlestickAndIndicatorsChart from "./CandlestickAndIndicatorsChart";
 import candlestick_patterns from "../utils/candlestickPatterns";
-import MultiChartComponent from "../MultiChartComponent";
+import IndicatorsSelection from "../Toolbar/IndicatorsSelection";
+import PatternsSelection from "../Toolbar/PatternsSelection";
 const AdvancedChart = () => {
-  const navigate = useNavigate();
-
   const [stockPriceData, setStockPriceData] = useState();
   const [markers, setMarkers] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
@@ -121,15 +117,9 @@ const AdvancedChart = () => {
     }
   };
   return (
-    <div className="d-flex flex-column" style={{ height: "100vh" }}>
+    <div className="flex flex-col h-screen">
       <Toolbar>
-        <ButtonTool
-          icon={TbHome}
-          hoverText="Home"
-          onClick={() => {
-            navigate("/");
-          }}
-        />
+        <ButtonTool icon={TbHome} hoverText="Home" />
 
         <ToolSeparator />
         <ModalTool
@@ -191,85 +181,6 @@ const AdvancedChart = () => {
         />
       </Toolbar>
       <div id="responsive-chart" className="h-100 ">
-        {/* <MultiChartComponent
-          data={[
-            {
-              pane: 0,
-              type: "candlestick",
-              data: [
-                {
-                  time: "2023-01-01",
-                  open: 100,
-                  high: 120,
-                  low: 90,
-                  close: 110,
-                },
-                {
-                  time: "2023-01-02",
-                  open: 110,
-                  high: 125,
-                  low: 95,
-                  close: 115,
-                },
-                {
-                  time: "2023-01-03",
-                  open: 115,
-                  high: 130,
-                  low: 100,
-                  close: 120,
-                },
-                {
-                  time: "2023-01-04",
-                  open: 115,
-                  high: 130,
-                  low: 100,
-                  close: 120,
-                },
-              ],
-              color: "blue",
-              chartOptions: {
-                width: 600,
-                height: 150,
-                layout: {
-                  textColor: "black",
-                  background: { type: "solid", color: "white" },
-                },
-                rightPriceScale: {
-                  scaleMargins: {
-                    top: 0.4,
-                    bottom: 0.15,
-                  },
-                },
-                crosshair: {
-                  horzLine: {
-                    visible: false,
-                    labelVisible: false,
-                  },
-                },
-                grid: {
-                  vertLines: {
-                    visible: false,
-                  },
-                  horzLines: {
-                    visible: false,
-                  },
-                },
-              },
-            },
-            {
-              pane: 1,
-              color: "red",
-              type: "line",
-
-              data: [
-                { time: "2023-01-01", value: 0.5 },
-                { time: "2023-01-02", value: 0.7 },
-                { time: "2023-01-03", value: 0.6 },
-                { time: "2023-01-04", value: 0.65 },
-              ],
-            },
-          ]}
-        /> */}
         <CandlestickAndIndicatorsChart
           series={stockPriceData}
           indicators={selectedIndicators}
