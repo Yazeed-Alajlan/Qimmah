@@ -34,6 +34,7 @@ const AdvancedChart = () => {
     setSelectedIndicators,
     japaneseCandlestickMarkers,
   } = useTechnicalAnalysis();
+
   const [indicatorsSettings, setIndicatorsSettings] = useState({
     Indicators: {
       icon: TbChartHistogram,
@@ -58,6 +59,7 @@ const AdvancedChart = () => {
       options: transformIndicatorsToList(IndicatorsList),
     },
   });
+
   const [patternsSettings, setPatternsSettings] = useState({
     "Japanese Candlestick": {
       icon: TbChartCandle,
@@ -71,7 +73,6 @@ const AdvancedChart = () => {
       onSelectFunction: async (pattern) => {
         console.log(pattern);
       },
-      // options: transformIndicatorsToList(candlestick_patterns),
     },
   });
 
@@ -140,7 +141,6 @@ const AdvancedChart = () => {
           size={"lg"}
         >
           <IndicatorsSelection
-            title={"Filter Data"}
             settings={indicatorsSettings}
             setSettings={setIndicatorsSettings}
           />

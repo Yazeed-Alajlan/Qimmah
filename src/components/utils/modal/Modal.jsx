@@ -14,7 +14,7 @@ const Modal = ({
 }) => {
   return (
     <div
-      className={`MODAL fixed  inset-0 flex justify-center items-center content-center  ${
+      className={`MODAL fixed backdrop-brightness-50 inset-0 flex justify-center items-center content-center  ${
         isModalOpen ? "flex" : "hidden"
       } `}
       style={{ zIndex: isModalOpen ? 1000 : -1 }}
@@ -28,7 +28,7 @@ const Modal = ({
       >
         <div
           className={`bg-white ${
-            size === "lg" ? "max-w-3xl" : "max-w-md"
+            size === "lg" ? "w-3/4" : "w-1/2"
           } p-6 rounded shadow-md`}
         >
           <div className="flex justify-between items-center border-b-4 pb-2">

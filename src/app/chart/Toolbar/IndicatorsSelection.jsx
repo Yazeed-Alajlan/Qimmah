@@ -2,11 +2,10 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-
 import Button from "@/components/utils/buttons/Button";
 
-const IndicatorsSelection = ({ title, settings, setSettings }) => {
-  const [selectedType, setSelectedType] = useState("");
+const IndicatorsSelection = ({ settings, setSettings }) => {
+  const [selectedType, setSelectedType] = useState("Indicators");
 
   return (
     <motion.div
@@ -17,17 +16,16 @@ const IndicatorsSelection = ({ title, settings, setSettings }) => {
     >
       <PanelGroup direction="horizontal">
         <Panel defaultSizePercentage={25} minSizePercentage={20}>
-          <div className="d-flex flex-column">
+          <div className="flex justify-center items-center flex-col">
             {Object.keys(settings).map((type) => (
               <Button
+                variant={"text"}
                 text={type}
                 key={type}
                 onClick={() => setSelectedType(type)}
                 isActive={type === selectedType}
                 icon={settings[type].icon}
-              >
-                {type}
-              </Button>
+              />
             ))}
           </div>
         </Panel>
@@ -36,22 +34,19 @@ const IndicatorsSelection = ({ title, settings, setSettings }) => {
           style={{ width: "3px" }}
         />
         <Panel minSizePercentage={70}>
-          <div style={{ maxHeight: "200px", overflowY: "auto" }}>
+          <div className="overflow-auto max-h-60">
             {selectedType && (
-              <div className="d-flex flex-column">
+              <div className="flex flex-col">
                 {settings[selectedType]?.options?.map((option) => (
                   <div
                     key={option.value}
-                    className="p-1 "
+                    className="p-1 cursor-pointer "
                     onClick={() =>
                       settings[selectedType].onSelectFunction(option.value)
                     }
-                    style={{
-                      cursor: "pointer",
-                    }}
                     onMouseEnter={(e) => {
                       e.target.style.backgroundColor = "lightgray";
-                    }} // Change background color on hover
+                    }}
                     onMouseLeave={(e) => {
                       e.target.style.backgroundColor = "white";
                     }}

@@ -4,13 +4,8 @@ import { motion } from "framer-motion";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import Button from "@/components/utils/buttons/Button";
 
-const PatternsSelection = ({ title, settings, setSettings }) => {
+const PatternsSelection = ({ settings, setSettings }) => {
   const [selectedType, setSelectedType] = useState("");
-
-  const handleClick = async (selectedType) => {
-    // Do something with selectedType and inputValues
-    console.log(selectedType);
-  };
 
   return (
     <motion.div

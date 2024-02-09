@@ -35,6 +35,10 @@ const variants = {
   transparent: {
     filled: "bg-transparent text-black",
   },
+  text: {
+    filled:
+      " px-4 py-2 font-sans text-xs font-bold text-center text-gray-900 transition-all rounded-lg select-none  hover:bg-gray-900/10 active:bg-gray-900/20",
+  },
 };
 
 const sizeVariants = {
