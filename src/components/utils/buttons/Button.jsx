@@ -37,7 +37,7 @@ const variants = {
   },
   text: {
     filled:
-      " px-4 py-2 font-sans text-xs font-bold text-center text-gray-900 transition-all rounded-lg select-none  hover:bg-gray-900/10 active:bg-gray-900/20",
+      "flex  items-center gap-2  px-4 py-2 font-sans  font-bold text-center text-gray-900 transition-all rounded-lg select-none  hover:bg-gray-900/10 active:bg-gray-900/20",
   },
 };
 
@@ -54,6 +54,8 @@ const Button = ({
   variant,
   size,
   type,
+  isDefault,
+  fullWidth,
   icon: Icon,
   text,
   onClick,
@@ -61,8 +63,10 @@ const Button = ({
   const variantStyles = variants[variant] || variants.primary;
   //focus:ring-[1px]
   const baseClasses = clsx(
-    "flex jsutify-center items-center gap-2 text-lg  select-none [outline:none] shadow-md disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-100 disabled:shadow-inner",
+    isDefault &&
+      "flex jsutify-center items-center gap-2 text-lg  select-none [outline:none] shadow-md disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-100 disabled:shadow-inner",
     rounded && "rounded-md",
+    fullWidth && "w-full",
     variantStyles[type],
     sizeVariants[size],
     className
@@ -71,6 +75,7 @@ const Button = ({
     <motion.div
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
+      className={`${fullWidth ? "w-full" : ""} inline-flex`}
       style={{ display: "inline-flex" }} // Set to inline-flex to avoid block behavior
     >
       <button onClick={onClick} className={twMerge(baseClasses)}>
@@ -88,6 +93,7 @@ Button.defaultProps = {
   variant: "primary",
   type: "filled",
   size: "md",
+  isDefault: true,
 };
 
 export default Button;

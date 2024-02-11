@@ -20,10 +20,13 @@ const IndicatorsSelection = ({ settings, setSettings }) => {
             {Object.keys(settings).map((type) => (
               <Button
                 variant={"text"}
+                isDefault={false}
+                fullWidth
                 text={type}
                 key={type}
                 onClick={() => setSelectedType(type)}
                 isActive={type === selectedType}
+                className={type === selectedType ? "bg-gray-500/10" : ""}
                 icon={settings[type].icon}
               />
             ))}

@@ -6,7 +6,7 @@ const PageWrapper = ({ children, className, fullPage }) => {
   const containerClasses = clsx({
     "flex flex-col gap-6  ": true,
     "full-page w-full ": fullPage,
-    "page  md:mx-auto md:w-5/6 w-full mt-10 md:px-4 px-2": !fullPage,
+    "page  md:mx-auto md:w-5/6 w-full mt-10 mb-20 md:px-4 px-2": !fullPage,
   });
 
   console.log(containerClasses);

@@ -5,17 +5,17 @@ const StockPriceCard = ({ open, close, low, high }) => {
   const priceChange = close - open;
   const percentageChange = ((priceChange / open) * 100).toFixed(2);
 
-  let textClass, borderClass;
+  let textClass, bgClass;
 
   if (priceChange > 0) {
     textClass = "text-success";
-    borderClass = "border-success";
+    bgClass = "bg-success";
   } else if (priceChange < 0) {
     textClass = "text-danger";
-    borderClass = "border-danger";
+    bgClass = "bg-danger";
   } else {
-    textClass = "text-secondary";
-    borderClass = "border-secondary";
+    textClass = "text-gray-500";
+    bgClass = "bg-gray-500";
   }
 
   return (
@@ -42,7 +42,7 @@ const StockPriceCard = ({ open, close, low, high }) => {
           </div>
         </div>
         <div className="flex items-center justify-center  col-span-1">
-          <span className="bg-danger h-full w-1/12"></span>
+          <span className={"h-full w-1/12 " + bgClass}></span>
         </div>
         <div className="col-span-3">
           <div className="flex">
