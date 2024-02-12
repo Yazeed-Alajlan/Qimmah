@@ -141,7 +141,7 @@ const FinancialMetricsTable = ({
           )}
           <div
             className={`overflow-x-auto  ${
-              isScrollable ? "w-full  h-60  overflow-auto" : ""
+              isScrollable ? "w-full  h-80  overflow-auto" : ""
             }`}
           >
             <table
