@@ -22,7 +22,7 @@ const Page = () => {
         <StockPriceChart symbol={"2222"} />
       </Card>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-16">
         {earningsData && (
           <div>
             <Card header={"ربحية السهم الأساسية الأساسية"}>

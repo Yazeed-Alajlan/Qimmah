@@ -166,7 +166,7 @@ const StocksTable = ({
                           width: column.width,
                         }}
                       >
-                        <span className="flex gap-2">
+                        <span className="flex items-center gap-2">
                           {column.render("Header")}
                           <span>
                             {column.isSorted ? (

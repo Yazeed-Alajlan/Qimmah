@@ -31,9 +31,9 @@ const InputSelect = ({
 
   return (
     <div
-      className={`flex justify-end w-full ${
-        isHorizontal ? "" : "flex-col"
-      } gap-2`}
+      className={`flex justify-end w-full ${isHorizontal ? "" : "flex-col"} ${
+        label ? "gap-2" : ""
+      }`}
     >
       <p className="text-lg my-auto whitespace-nowrap font-semibold">{label}</p>
       <Select

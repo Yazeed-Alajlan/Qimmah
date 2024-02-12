@@ -1,23 +1,18 @@
-import React, { useMemo, useState } from "react";
-import { useTable, useSortBy, usePagination } from "react-table";
-import InputSelect from "../inputs/InputSelect";
-import { TbSortAscending, TbSortDescending } from "react-icons/tb";
-import SearchInput from "../inputs/SearchInput";
-import Button from "../buttons/Button";
-import Divider from "../Divider";
-import Badge from "../Badge";
-import Link from "next/link";
+"use client";
 
-const FinancialMetricsTable = ({
+import Divider from "@/components/utils/Divider";
+import InputSelect from "@/components/utils/inputs/InputSelect";
+import React, { useMemo, useState } from "react";
+import { TbSortAscending, TbSortDescending } from "react-icons/tb";
+import { useTable, useSortBy, usePagination } from "react-table";
+
+const FinancialMetricsComparisonTable = ({
   tableData,
   tableColumns,
   searchBy,
   filterBy,
   removeFilterFromColumn,
   isScrollable,
-  deleteButton = true,
-  divider = true,
-  className,
 }) => {
   const columns = useMemo(() => {
     if (!tableData || tableData.length === 0) {
@@ -33,9 +28,26 @@ const FinancialMetricsTable = ({
       Header: formatKey(key),
       accessor: key,
     }));
-
     return generatedColumns;
-  }, [tableData, tableColumns]);
+  }, [tableData]);
+
+  const [selectedColumns, setSelectedColumns] = useState(tableColumns || []);
+
+  const handleColumnChange = (selected) => {
+    setSelectedColumns(selected);
+  };
+
+  const generateColumnOptions = () => {
+    return columns.map((column) => ({
+      value: column.accessor,
+      label: column.Header,
+    }));
+  };
+
+  const visibleColumns = useMemo(
+    () => columns.filter((column) => selectedColumns.includes(column.accessor)),
+    [columns, selectedColumns]
+  );
 
   const [searchText, setSearchText] = useState("");
   const [filterOption, setFilterOption] = useState("");
@@ -78,74 +90,68 @@ const FinancialMetricsTable = ({
     state: { pageIndex },
   } = useTable(
     {
-      columns: tableColumns ? tableColumns : columns,
+      columns: visibleColumns, // Use visibleColumns instead of tableColumns
       data: filteredData,
-      initialState: { pageIndex: 0, pageSize: 5 },
+      initialState: { pageIndex: 0 },
     },
     useSortBy,
     usePagination
   );
 
   const dataToMap = isScrollable ? rows : page;
+
   return (
-    <div>
-      {tableData && (
-        <div className="">
-          {(filterBy || searchBy) && (
-            <>
-              <div className=" grid grid-cols-6 gap-4 my-6 ">
-                {filterBy && (
-                  <div className="col-span-2">
-                    <InputSelect
-                      placeholder="تصفية حسب القطاع"
-                      value={filterOption}
-                      options={[
-                        ...uniqueFilter.map((sector, index) => ({
-                          value: sector,
-                          label: sector,
-                        })),
-                      ]}
-                      onChange={(e) => {
-                        setFilterOption(e && e.value);
-                      }}
-                      isSearchable={true}
-                      labelDirection="hr"
-                    />
-                  </div>
-                )}
-                {searchBy && (
-                  <div className="col-span-3">
-                    <SearchInput
-                      placeholder={`Search by ${formatKey(searchBy)}`}
-                      value={searchText}
-                      onChange={(e) => setSearchText(e.target.value)}
-                    />
-                  </div>
-                )}
-                {deleteButton && (
-                  <div className="col-span-1 mx-auto ">
-                    <Button
-                      variant="danger"
-                      text={"حذف"}
-                      onClick={() => {
-                        setFilterOption("");
-                        setSearchText("");
-                      }}
-                    />
-                  </div>
-                )}
+    <>
+      {(filterBy || searchBy) && (
+        <>
+          <div className=" grid grid-cols-4 justify-center items-center content-center gap-4 ">
+            <div className="col-span-2">
+              <InputSelect
+                placeholder="إختر الأعمدة"
+                value={selectedColumns}
+                options={generateColumnOptions()}
+                isMulti
+                onChange={(selected) =>
+                  handleColumnChange(selected.map((item) => item.value))
+                }
+                isSearchable={true}
+              />
+            </div>
+            {filterBy && (
+              <div className="col-span-2">
+                <InputSelect
+                  placeholder="تصفية حسب القطاع"
+                  value={filterOption}
+                  options={[
+                    ...uniqueFilter.map((sector, index) => ({
+                      value: sector,
+                      label: sector,
+                    })),
+                  ]}
+                  onChange={(e) => {
+                    setFilterOption(e && e.value);
+                  }}
+                  isSearchable={true}
+                  labelDirection="hr"
+                />
               </div>
-              {divider && <Divider />}
-            </>
-          )}
+            )}
+          </div>
+          <Divider />
+        </>
+      )}
+      {tableData && (
+        <>
           <div
-            className={`overflow-x-auto  ${
-              isScrollable ? "w-full  h-80  overflow-auto" : ""
+            className={`overflow-x-auto ${
+              isScrollable
+                ? "max-w-full overflow-x-auto max-h-96 overflow-y-auto"
+                : ""
             }`}
           >
             <table
               {...getTableProps()}
-              className="whitespace-nowrap w-full overflow-x-auto  text-gray-600 dark:text-gray-400 "
+              className=" whitespace-nowrap w-full  text-gray-600 dark:text-gray-400"
             >
               <thead className="sticky top-0 uppercase font-bold   text-gray-700   dark:text-gray-400">
                 {headerGroups.map((headerGroup, index) => (
@@ -156,7 +162,7 @@ const FinancialMetricsTable = ({
                   >
                     {headerGroup.headers.map((column) => (
                       <th
-                        key={index} // Add key here
+                        key={column.id} // Add key here
                         {...column.getHeaderProps(
                           column.getSortByToggleProps()
                         )}
@@ -185,7 +191,7 @@ const FinancialMetricsTable = ({
                   </tr>
                 ))}
               </thead>
-              <tbody className="" {...getTableBodyProps()}>
+              <tbody {...getTableBodyProps()}>
                 {dataToMap.map((row) => {
                   prepareRow(row);
                   return (
@@ -195,10 +201,8 @@ const FinancialMetricsTable = ({
                       className="border-b-2 hover:bg-gray-200 text-sm "
                     >
                       {row.cells.map((cell, index) => {
-                        const columnsToCheck = [5, 6]; // Define columns to check for color change
-
+                        const columnsToCheck = []; // Define columns to check for color change
                         const isColored = columnsToCheck.includes(index); // Check if this column needs coloring
-                        const [symbol, name] = cell.value.split(" - ");
                         return (
                           <td
                             {...cell.getCellProps()}
@@ -211,24 +215,7 @@ const FinancialMetricsTable = ({
                                 : "text-black px-6 py-3" // Black color for columns not in columnsToCheck
                             }
                           >
-                            {index === 0 ? (
-                              <Link
-                                href={`/stock/${row.original.sectorNameAr}/${symbol}/information`}
-                                className=""
-                              >
-                                <span>
-                                  <Badge
-                                    className="fw-bold me-2"
-                                    variant="primary" // Use variant instead of color
-                                    text={symbol}
-                                  />
-                                </span>
-
-                                <span>{name}</span>
-                              </Link>
-                            ) : (
-                              cell.render("Cell")
-                            )}
+                            {cell.render("Cell")}
                           </td>
                         );
                       })}
@@ -239,30 +226,32 @@ const FinancialMetricsTable = ({
             </table>
           </div>
           {!isScrollable && (
-            <div className="flex justify-center items-center mt-2">
-              <Button
-                className="bg-primary mx-2"
+            <div className="d-flex justify-content-center align-items-center mt-2">
+              <button
+                className="btn btn-primary mx-2"
                 onClick={() => previousPage()}
                 disabled={!canPreviousPage}
-                text="Previous"
-              />
-              <span>
-                Page
-                <strong>
-                  {pageIndex + 1} of {Math.ceil(filteredData.length / 5)}
-                </strong>
-              </span>
-              <Button
-                className="bg-primary mx-2"
+              >
+                Previous
+              </button>
+              <button
+                className="btn btn-primary"
                 onClick={() => nextPage()}
                 disabled={!canNextPage}
-                text="Next"
-              />
+              >
+                Next
+              </button>
+              <span className="ml-2">
+                Page
+                <strong>
+                  {pageIndex + 1} of {Math.ceil(filteredData.length / 10)}
+                </strong>
+              </span>
             </div>
           )}
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 };
 
@@ -274,4 +263,4 @@ const formatKey = (key) => {
   return titleCaseKey;
 };
 
-export default FinancialMetricsTable;
+export default FinancialMetricsComparisonTable;

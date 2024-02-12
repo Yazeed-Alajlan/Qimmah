@@ -7,6 +7,8 @@ import React, { useEffect, useState } from "react";
 import ComparisonChart from "./components/ComparisonChart";
 import { useQuery } from "react-query";
 import { fetchStockFinancialData } from "@/services/FetchServices";
+import FinancialMetricsComparisonTable from "./components/FinancialMetricsComparisonTable";
+import { prepareFinancialMetricsComparisonTableData } from "@/services/FinancialServices";
 
 const Page = () => {
   const { stocksData } = useStocksData();
@@ -28,7 +30,10 @@ const Page = () => {
       enabled: selectedStocks.length > 0,
     }
   );
-
+  const { data: comparisonTableData } = useQuery(["comparisonTableData"], () =>
+    prepareFinancialMetricsComparisonTableData()
+  );
+  console.log(comparisonTableData);
   return (
     <PageWrapper>
       <Card>
@@ -69,6 +74,16 @@ const Page = () => {
             <br />
             <ComparisonTable /> */}
           </>
+        )}
+      </Card>
+      <Card header={"قارن البيانات المالية"}>
+        {comparisonTableData && (
+          <FinancialMetricsComparisonTable
+            tableData={comparisonTableData}
+            isScrollable
+            filterBy={"sectorNameAr"}
+            removeFilterFromColumn
+          />
         )}
       </Card>
     </PageWrapper>
