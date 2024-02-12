@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { getAllBasicEarningsPerShareTTM } from "@/services/FinancialServices";
 
-const page = () => {
+const Page = () => {
   const {
     isError,
     isSuccess,
@@ -56,4 +56,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

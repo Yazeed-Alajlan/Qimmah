@@ -126,13 +126,15 @@ const FinancialMetricsTable = ({
           >
             <table {...getTableProps()} className="">
               <thead className="sticky top-0 bg-gray-100">
-                {headerGroups.map((headerGroup) => (
+                {headerGroups.map((headerGroup, index) => (
                   <tr
+                    key={index} // Add key here
                     className="p-10 border-b-2"
                     {...headerGroup.getHeaderGroupProps()}
                   >
                     {headerGroup.headers.map((column) => (
                       <th
+                        key={column.id} // Add key here
                         {...column.getHeaderProps(
                           column.getSortByToggleProps()
                         )}
@@ -160,6 +162,7 @@ const FinancialMetricsTable = ({
                   prepareRow(row);
                   return (
                     <tr
+                      key={row.id} // Add key here
                       {...row.getRowProps()}
                       className="border-b-2 hover:bg-slate-50"
                     >

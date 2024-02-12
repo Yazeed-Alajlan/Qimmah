@@ -157,7 +157,7 @@ const FinancialMetricsTable = ({
                   >
                     {headerGroup.headers.map((column) => (
                       <th
-                        key={column.id} // Add key here
+                        key={index} // Add key here
                         {...column.getHeaderProps(
                           column.getSortByToggleProps()
                         )}
