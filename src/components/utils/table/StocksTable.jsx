@@ -92,7 +92,7 @@ const StocksTable = ({
   return (
     <div>
       {tableData && (
-        <div className=" TABLE DIV">
+        <div className="">
           {(filterBy || searchBy) && (
             <>
               <div className=" grid grid-cols-6 gap-4 ">

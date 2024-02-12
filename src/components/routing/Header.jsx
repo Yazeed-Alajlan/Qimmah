@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 import { TbHome, TbTable, TbGitCompare } from "react-icons/tb";
 import StocksSearch from "../utils/inputs/StocksSearch";
 import { useStocksData } from "@/context/StocksDataContext";
+import Image from "next/image";
+
 const ActiveMenuLink = ({ children, href }) => {
   const pathname = usePathname();
   const active = href === pathname;
@@ -15,11 +17,10 @@ const ActiveMenuLink = ({ children, href }) => {
   return (
     <Link
       href={href}
-      className={`link-line-indicator flex justify-self-center items-center text-lg text-primary  gap-2 hover:bg-gray-300 p-2 rounded  ${
-        active ? " font-semibold bg-gray-200 " : ""
+      className={`link-line-indicator flex  items-center text-2xl  gap-2  px-2  rounded  ${
+        active ? "text-primary   " : ""
       }`}
       onClick={() => {
-        console.log("SET NULL");
         console.log(selectedStock);
         setSelectedStock(null);
       }}
@@ -46,12 +47,12 @@ const routes = [
   },
   {
     icon: TbGitCompare,
-    name: "analysis",
+    name: "أدوات",
     to: `/technical-analysis`,
   },
   {
     icon: TbGitCompare,
-    name: "chart",
+    name: "تحليل فني",
     to: `/chart`,
   },
 ];
@@ -92,21 +93,29 @@ const Header = ({ children }) => {
       {pathname === "/chart" ? (
         <></>
       ) : (
-        <motion.header
-          className="flex justify-evenly container items-center align-middle gap-4 sticky top-0 w-full bg-white p-4"
-          initial={{ height: "100px" }}
-          animate={controls}
-        >
-          <div className="flex gap-4">
-            {routes.map((route, index) => (
-              <ActiveMenuLink key={index} href={route.to}>
-                <route.icon />
-                {route.name}
-              </ActiveMenuLink>
-            ))}
-          </div>
-          <StocksSearch />
-        </motion.header>
+        <div className="w-full bg-white">
+          <motion.header
+            className="flex items-center justify-between  md:mx-auto md:w-5/6 w-full  md:px-4 px-2 "
+            initial={{ height: "100px" }}
+            animate={controls}
+          >
+            <div className="flex gap-2">
+              <Link href="/">
+                <div className="hover:cursor-pointer flex justify-center items-center">
+                  <Image src="/Logo.png" alt="me" width="180" height="100" />
+                </div>
+              </Link>
+
+              {routes.map((route, index) => (
+                <ActiveMenuLink key={index} href={route.to}>
+                  {/* <route.icon /> */}
+                  {route.name}
+                </ActiveMenuLink>
+              ))}
+            </div>
+            <StocksSearch className={"w-1/3"} />
+          </motion.header>
+        </div>
       )}
     </>
   );

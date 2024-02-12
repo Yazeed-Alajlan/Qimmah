@@ -5,7 +5,7 @@ import InputSelect from "./InputSelect";
 import { useStocksData } from "@/context/StocksDataContext";
 import { useRouter } from "next/navigation";
 
-const StocksSearch = () => {
+const StocksSearch = ({ className }) => {
   const { stocksData, selectedStock, setSelectedStock } = useStocksData();
   const { push } = useRouter();
 
@@ -16,7 +16,7 @@ const StocksSearch = () => {
   };
 
   return (
-    <div>
+    <div className={className}>
       <InputSelect
         className="z-50"
         placeholder="ابحث  باسم الشركة أو الرمز"
