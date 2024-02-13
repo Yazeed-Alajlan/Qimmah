@@ -1,3 +1,4 @@
+import { Card } from "@/components/utils/cards/card";
 import axios from "axios";
 import CompnentLayout from "components/CompnentLayout";
 import PageLayout from "components/PageLayout";
@@ -75,11 +76,14 @@ const ConsolidatingStocks = () => {
         </Col>
       </FilterCard>
       <CustomCard className="d-flex flex-column">
-        {Object.keys(data).map((symbol) => (
-          <CustomCard className="d-flex flex-column border-3 border-bottom">
+        {Object.keys(data).map((symbol, index) => (
+          <Card
+            className="d-flex flex-column border-3 border-bottom"
+            key={index}
+          >
             <p>الرمز:{symbol}</p>
             <CandlestickChart key={symbol} symbol={symbol} />
-          </CustomCard>
+          </Card>
         ))}
       </CustomCard>
     </PageLayout>
