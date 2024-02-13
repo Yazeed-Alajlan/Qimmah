@@ -1,55 +1,29 @@
+"use client";
+import Button from "@/components/utils/buttons/Button";
 import { Card } from "@/components/utils/cards/card";
-import axios from "axios";
-import CompnentLayout from "components/CompnentLayout";
-import PageLayout from "components/PageLayout";
-import CustomButton from "components/utils/buttons/CustomButton";
-import { CustomCard } from "components/utils/cards/CustomCard";
-import FilterCard from "components/utils/inputs/FilterCard";
-import Input from "components/utils/inputs/Input";
-import CandlestickChart from "pages/StockPage/components/chart/CandlestickChart";
+import StockPriceChart from "@/components/utils/charts/StockPriceChart";
+import Input from "@/components/utils/inputs/Input";
+import { consolidatingStocksFilter } from "@/services/PythonServices";
 import React, { useEffect, useState, useRef } from "react";
-import { Col } from "react-bootstrap";
+import { useQuery } from "react-query";
 
 const ConsolidatingStocks = () => {
-  const [data, setData] = useState({});
   const [numberOfCandles, setNumberOfCandles] = useState(14);
   const [percentageRange, setPercentageRange] = useState(2.5);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const url = `http://localhost:5000/python-api/consolidating-stocks`;
-  //       const response = await axios.get(url);
-
-  //       setData(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
-
-  const fetchData = async () => {
-    if (numberOfCandles && percentageRange) {
-      console.log(numberOfCandles);
-      console.log(percentageRange);
-      try {
-        const url = `http://localhost:5000/python-api/consolidating-stocks?numberOfCandles=${numberOfCandles}&percentageRange=${percentageRange}`;
-        const response = await axios.get(url);
-
-        setData(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    } else {
-      console.log("no data available");
-    }
-  };
+  const {
+    isError,
+    isSuccess,
+    isLoading,
+    data: consolidatingData,
+    error,
+  } = useQuery(["consolidatingData"], () =>
+    consolidatingStocksFilter(numberOfCandles, percentageRange)
+  );
 
   return (
-    <PageLayout>
-      <FilterCard>
-        <Col xs={8} xl={5} className="d-flex">
+    <>
+      <>
+        <>
           <Input
             label={"عدد الشموع:"}
             type={"number"}
@@ -59,8 +33,8 @@ const ConsolidatingStocks = () => {
             }}
             placeholder="حدد عدد الشموع"
           />
-        </Col>
-        <Col xs={8} xl={5} className="d-flex">
+        </>
+        <>
           <Input
             label={" نسبة النطاق:"}
             type={"number"}
@@ -70,23 +44,30 @@ const ConsolidatingStocks = () => {
             }}
             placeholder="حدد نسبة النطاق "
           />
-        </Col>
-        <Col xs={8} xl={2} className="d-flex justify-content-center">
-          <CustomButton text={"ابحث"} onClick={fetchData} />
-        </Col>
-      </FilterCard>
-      <CustomCard className="d-flex flex-column">
-        {Object.keys(data).map((symbol, index) => (
-          <Card
-            className="d-flex flex-column border-3 border-bottom"
-            key={index}
-          >
-            <p>الرمز:{symbol}</p>
-            <CandlestickChart key={symbol} symbol={symbol} />
-          </Card>
-        ))}
-      </CustomCard>
-    </PageLayout>
+        </>
+        <>
+          <Button
+            text={"ابحث"}
+            onClick={consolidatingStocksFilter(
+              numberOfCandles,
+              percentageRange
+            )}
+          />
+        </>
+      </>
+      <Card className="d-flex flex-column">
+        {consolidatingData &&
+          Object.keys(consolidatingData).map((symbol, index) => (
+            <Card
+              className="d-flex flex-column border-3 border-bottom"
+              key={index}
+            >
+              <p>الرمز:{symbol}</p>
+              <StockPriceChart symbol={symbol} />
+            </Card>
+          ))}
+      </Card>
+    </>
   );
 };
 
