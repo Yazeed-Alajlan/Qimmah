@@ -20,10 +20,10 @@ async function stockPriceSummary(symbol) {
 
 async function consolidatingStocksFilter({ numberOfCandles, percentageRange }) {
   try {
-    const url = `http://localhost:5000/python-api/consolidating-stocks?numberOfCandles=${numberOfCandles}&percentageRange=${percentageRange}`;
+    const url = `http://localhost:4000/api/stocks/consolidating-stocks?numberOfCandles=${numberOfCandles}&percentageRange=${percentageRange}`;
     const response = await axios.get(url);
     console.log(response.data);
-    setFilteredStocks(response.data);
+    return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -31,7 +31,7 @@ async function consolidatingStocksFilter({ numberOfCandles, percentageRange }) {
 async function japaneseCandlestickFilter({ pattern }) {
   try {
     const response = await fetch(
-      `http://localhost:5000/python-api/japanese-candlestick-patterns/${pattern}`
+      `http://localhost:4000/api/stocks/japanese-candlestick-patterns/${pattern}`
     );
 
     if (response.ok) {
@@ -47,7 +47,7 @@ async function japaneseCandlestickFilter({ pattern }) {
 async function japaneseCandlestickMarkers(symbol) {
   try {
     const response = await fetch(
-      `http://localhost:5000/python-api/japanese-candlestick-patterns-markers?symbol=${symbol}`
+      `http://localhost:4000/api/stocks/japanese-candlestick-patterns-markers?symbol=${symbol}`
     );
 
     if (response.ok) {

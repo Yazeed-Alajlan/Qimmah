@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
               <TechnicalAnalysisProvider>
                 <Header />
                 {children}
-                <Footer />
+                {/* <Footer /> */}
               </TechnicalAnalysisProvider>
             </PytohnServerProvider>
           </StocksDataProvider>

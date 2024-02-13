@@ -16,9 +16,17 @@ const ConsolidatingStocks = () => {
     isLoading,
     data: consolidatingData,
     error,
-  } = useQuery(["consolidatingData"], () =>
-    consolidatingStocksFilter(numberOfCandles, percentageRange)
+    refetch,
+  } = useQuery(
+    ["consolidatingData"],
+    () => consolidatingStocksFilter(numberOfCandles, percentageRange),
+    { enabled: false }
   );
+
+  const handleSearchClick = () => {
+    // Trigger refetch only when the submit button is clicked
+    refetch();
+  };
 
   return (
     <>
@@ -46,27 +54,18 @@ const ConsolidatingStocks = () => {
           />
         </>
         <>
-          <Button
-            text={"ابحث"}
-            onClick={consolidatingStocksFilter(
-              numberOfCandles,
-              percentageRange
-            )}
-          />
+          <Button text={"ابحث"} onClick={handleSearchClick} />
         </>
       </>
-      <Card className="d-flex flex-column">
+      <div className="flex justify-center items-center flex-col gap-8 w-full">
         {consolidatingData &&
           Object.keys(consolidatingData).map((symbol, index) => (
-            <Card
-              className="d-flex flex-column border-3 border-bottom"
-              key={index}
-            >
+            <Card className="flex flex-col border-3 border-bottom" key={index}>
               <p>الرمز:{symbol}</p>
               <StockPriceChart symbol={symbol} />
             </Card>
           ))}
-      </Card>
+      </div>
     </>
   );
 };
