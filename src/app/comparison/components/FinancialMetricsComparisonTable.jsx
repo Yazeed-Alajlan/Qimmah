@@ -72,7 +72,7 @@ const FinancialMetricsComparisonTable = ({
   }, [tableData, searchText, filterOption]);
 
   const uniqueFilter = useMemo(() => {
-    const filters = [...new Set(tableData.map((row) => row[`${filterBy}`]))];
+    const filters = [...new Set(tableData?.map((row) => row[`${filterBy}`]))];
     return filters.filter((filter) => filter);
   }, [tableData]);
 
@@ -104,7 +104,7 @@ const FinancialMetricsComparisonTable = ({
     <>
       {(filterBy || searchBy) && (
         <>
-          <div className=" grid grid-cols-4 justify-center items-center content-center gap-4 ">
+          <div className=" grid grid-cols-4 justify-center items-center content-center gap-4 mb-6 ">
             <div className="col-span-2">
               <InputSelect
                 placeholder="إختر الأعمدة"
@@ -137,7 +137,6 @@ const FinancialMetricsComparisonTable = ({
               </div>
             )}
           </div>
-          <Divider />
         </>
       )}
       {tableData && (
@@ -151,9 +150,9 @@ const FinancialMetricsComparisonTable = ({
           >
             <table
               {...getTableProps()}
-              className=" whitespace-nowrap w-full  text-gray-600 dark:text-gray-400"
+              className=" whitespace-nowrap w-full   text-gray-600 dark:text-gray-400"
             >
-              <thead className="sticky top-0 uppercase font-bold   text-gray-700   dark:text-gray-400">
+              <thead className="sticky top-0 uppercase font-bold bg-white   text-gray-700   dark:text-gray-400">
                 {headerGroups.map((headerGroup, index) => (
                   <tr
                     key={index} // Add key here

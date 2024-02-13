@@ -6,7 +6,12 @@ import FinancialMetricsTable from "@/components/utils/table/FinancialMetricsTabl
 import { useStocksData } from "@/context/StocksDataContext";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { getAllBasicEarningsPerShareTTM } from "@/services/FinancialServices";
+import {
+  getAllBasicEarningsPerShareTTM,
+  prepareFinancialMetricsComparisonTableData,
+} from "@/services/FinancialServices";
+import Table from "@/components/utils/table/Table";
+import FinancialMetricsComparisonTable from "../comparison/components/FinancialMetricsComparisonTable";
 
 const Page = () => {
   const {
@@ -16,6 +21,11 @@ const Page = () => {
     data: earningsData,
     error,
   } = useQuery(["earningsData"], () => getAllBasicEarningsPerShareTTM());
+
+  const { data: comparisonTableData } = useQuery(["comparisonTableData"], () =>
+    prepareFinancialMetricsComparisonTableData()
+  );
+
   return (
     <PageWrapper className={"gap-16"}>
       <Card header="مؤشر السوق الرئيسية (تاسي)">
@@ -23,35 +33,42 @@ const Page = () => {
       </Card>
 
       <div className="grid grid-cols-2 gap-16">
-        {earningsData && (
-          <div>
-            <Card header={"ربحية السهم الأساسية الأساسية"}>
-              <FinancialMetricsTable
-                tableData={earningsData}
-                isScrollable
-                deleteButton={false}
-                divider={false}
-                filterBy={"sectorNameAr"}
-                removeFilterFromColumn
-              />
-            </Card>
-          </div>
-        )}
-        {earningsData && (
-          <div>
-            <Card header={"ربحية السهم الأساسية الأساسية"}>
-              <FinancialMetricsTable
-                tableData={earningsData}
-                isScrollable
-                deleteButton={false}
-                divider={false}
-                filterBy={"sectorNameAr"}
-                removeFilterFromColumn
-              />
-            </Card>
-          </div>
-        )}
+        <div>
+          <Card header={"ربحية السهم الأساسية الأساسية"}>
+            <FinancialMetricsTable
+              tableData={earningsData}
+              isScrollable
+              deleteButton={false}
+              divider={false}
+              filterBy={"sectorNameAr"}
+              removeFilterFromColumn
+            />
+          </Card>
+        </div>
+        <div>
+          <Card header={"ربحية السهم الأساسية الأساسية"}>
+            <FinancialMetricsTable
+              tableData={earningsData}
+              isScrollable
+              deleteButton={false}
+              divider={false}
+              filterBy={"sectorNameAr"}
+              removeFilterFromColumn
+            />
+          </Card>
+        </div>
       </div>
+      <>
+        <Card header={"قارن البيانات المالية"}>
+          <FinancialMetricsComparisonTable
+            tableData={comparisonTableData}
+            isScrollable
+            filterBy={"sectorNameAr"}
+            divider={false}
+            removeFilterFromColumn
+          />
+        </Card>
+      </>
     </PageWrapper>
   );
 };

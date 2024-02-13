@@ -48,7 +48,7 @@ const routes = [
   {
     icon: TbGitCompare,
     name: "أدوات",
-    to: `/technical-analysis`,
+    to: `/tools`,
   },
   {
     icon: TbGitCompare,

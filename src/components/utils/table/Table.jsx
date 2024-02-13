@@ -2,21 +2,18 @@ import React, { useMemo, useState } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 import InputSelect from "../inputs/InputSelect";
 import { TbSortAscending, TbSortDescending } from "react-icons/tb";
-import { Card } from "../cards/Card";
 import SearchInput from "../inputs/SearchInput";
 import Button from "../buttons/Button";
 import Divider from "../Divider";
-import Link from "next/link";
-import Badge from "../Badge";
 
 const Table = ({
-  header,
   tableData,
   tableColumns,
   searchBy,
   filterBy,
   removeFilterFromColumn,
   isScrollable,
+  divider = true,
   className,
 }) => {
   const columns = useMemo(() => {
@@ -80,7 +77,7 @@ const Table = ({
     {
       columns: tableColumns ? tableColumns : columns,
       data: filteredData,
-      initialState: { pageIndex: 0, pageSize: 15 },
+      initialState: { pageIndex: 0, pageSize: 10 },
     },
     useSortBy,
     usePagination
@@ -92,8 +89,8 @@ const Table = ({
       {tableData && (
         <>
           {(filterBy || searchBy) && (
-            <>
-              <div className=" grid grid-cols-6 gap-4 ">
+            <div className={divider ? "" : "mb-6"}>
+              <div className=" grid grid-cols-5 gap-4 ">
                 {filterBy && (
                   <div className="col-span-2">
                     <InputSelect
@@ -122,31 +119,20 @@ const Table = ({
                     />
                   </div>
                 )}
-                {/* <div className="col-span-1 mx-auto ">
-                  <Button
-                    variant="danger"
-                    text={"حذف"}
-                    onClick={() => {
-                      setFilterOption("");
-                      setSearchText("");
-                    }}
-                  />
-                </div> */}
               </div>
-            </>
+              {divider && <Divider />}
+            </div>
           )}
           <div
-            className={`overflow-x-auto ${
-              isScrollable
-                ? "max-w-full overflow-x-auto max-h-96 overflow-y-auto"
-                : ""
+            className={`overflow-auto w-full ${
+              isScrollable ? " max-h-96 " : ""
             }`}
           >
             <table
               {...getTableProps()}
-              className=" whitespace-nowrap w-full  text-gray-600 dark:text-gray-400"
+              className=" whitespace-nowrap w-full overflow-x-auto  text-gray-600 dark:text-gray-400"
             >
-              <thead className="sticky top-0 uppercase font-bold   text-gray-700   dark:text-gray-400">
+              <thead className="sticky top-0 bg-white uppercase font-bold   text-gray-700   dark:text-gray-400">
                 {headerGroups.map((headerGroup, index) => (
                   <tr
                     key={index} // Add key here
@@ -178,7 +164,7 @@ const Table = ({
                               ""
                             )}
                           </span>
-                        </span>{" "}
+                        </span>
                       </th>
                     ))}
                   </tr>
@@ -189,13 +175,13 @@ const Table = ({
                   prepareRow(row);
                   return (
                     <tr
-                      key={row.id} // Add key here
+                      key={row.id}
                       {...row.getRowProps()}
                       className="border-b-2 hover:bg-gray-200 text-sm "
                     >
                       {row.cells.map((cell, index) => {
-                        const columnsToCheck = []; // Define columns to check for color change
-                        const isColored = columnsToCheck.includes(index); // Check if this column needs coloring
+                        const columnsToCheck = [];
+                        const isColored = columnsToCheck.includes(index);
                         return (
                           <td
                             {...cell.getCellProps()}
@@ -205,7 +191,7 @@ const Table = ({
                                 ? cell.value.includes("-")
                                   ? "text-danger px-6 py-3"
                                   : "text-success px-6 py-3"
-                                : "text-black px-6 py-3" // Black color for columns not in columnsToCheck
+                                : "text-black px-6 py-3"
                             }
                           >
                             {cell.render("Cell")}
@@ -219,21 +205,21 @@ const Table = ({
             </table>
           </div>
           {!isScrollable && (
-            <div className="flex justify-center items-center mt-2">
+            <div className="flex justify-center items-center mt-2 gap-4">
               <Button
-                className="bg-primary mx-2"
+                variant={"primary"}
                 onClick={() => previousPage()}
                 disabled={!canPreviousPage}
                 text="Previous"
               />
-              <span className="">
+              <span>
                 Page
                 <strong>
-                  {pageIndex + 1} of {Math.ceil(filteredData.length / 15)}
+                  {pageIndex + 1} of {Math.ceil(filteredData.length / 10)}
                 </strong>
               </span>
               <Button
-                className="bg-primary mx-2"
+                variant={"primary"}
                 onClick={() => nextPage()}
                 disabled={!canNextPage}
                 text="Next"

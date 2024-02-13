@@ -56,6 +56,8 @@ const Button = ({
   type,
   isDefault,
   fullWidth,
+  disabled,
+
   icon: Icon,
   text,
   onClick,
@@ -78,7 +80,11 @@ const Button = ({
       className={`${fullWidth ? "w-full" : ""} inline-flex`}
       style={{ display: "inline-flex" }} // Set to inline-flex to avoid block behavior
     >
-      <button onClick={onClick} className={twMerge(baseClasses)}>
+      <button
+        onClick={onClick}
+        className={twMerge(baseClasses)}
+        disabled={disabled}
+      >
         {children}
         {Icon && <>{<Icon />}</>}
 

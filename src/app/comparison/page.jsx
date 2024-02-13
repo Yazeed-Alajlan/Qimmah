@@ -30,16 +30,13 @@ const Page = () => {
       enabled: selectedStocks.length > 0,
     }
   );
-  const { data: comparisonTableData } = useQuery(["comparisonTableData"], () =>
-    prepareFinancialMetricsComparisonTableData()
-  );
-  console.log(comparisonTableData);
+
   return (
-    <PageWrapper>
-      <Card>
+    <PageWrapper className={"gap-16"}>
+      <Card header={"قارن البيانات المالية"}>
         <InputSelect
           label={"اختر شركتين للمقارنة من نفس القطاع"}
-          labelDirection={"vr"}
+          labelDirection={"hr"}
           isMulti
           options={stocksData
             ?.filter((stock) => {
@@ -74,16 +71,6 @@ const Page = () => {
             <br />
             <ComparisonTable /> */}
           </>
-        )}
-      </Card>
-      <Card header={"قارن البيانات المالية"}>
-        {comparisonTableData && (
-          <FinancialMetricsComparisonTable
-            tableData={comparisonTableData}
-            isScrollable
-            filterBy={"sectorNameAr"}
-            removeFilterFromColumn
-          />
         )}
       </Card>
     </PageWrapper>

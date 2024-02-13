@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         dir="rtl"
-        className={`flex flex-col justify-center items-center content-center   bg-light ${inter.className}`}
+        className={`flex flex-col flex-wrap justify-center items-center content-center  bg-light ${inter.className}`}
       >
         <ReactQueryProvider>
           <StocksDataProvider>

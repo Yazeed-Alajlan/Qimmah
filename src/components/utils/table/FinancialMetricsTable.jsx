@@ -60,7 +60,7 @@ const FinancialMetricsTable = ({
   }, [tableData, searchText, filterOption]);
 
   const uniqueFilter = useMemo(() => {
-    const filters = [...new Set(tableData.map((row) => row[`${filterBy}`]))];
+    const filters = [...new Set(tableData?.map((row) => row[`${filterBy}`]))];
     return filters.filter((filter) => filter);
   }, [tableData]);
 
@@ -147,7 +147,7 @@ const FinancialMetricsTable = ({
               {...getTableProps()}
               className="whitespace-nowrap w-full overflow-x-auto  text-gray-600 dark:text-gray-400 "
             >
-              <thead className="sticky top-0 uppercase font-bold   text-gray-700   dark:text-gray-400">
+              <thead className="sticky bg-white top-0 uppercase font-bold   text-gray-700   dark:text-gray-400">
                 {headerGroups.map((headerGroup, index) => (
                   <tr
                     key={index} // Add key here
