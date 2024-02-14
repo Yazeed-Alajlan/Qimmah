@@ -9,6 +9,7 @@ import {
   addLegend,
 } from "./StockChartServices";
 const StockPriceChart = ({ symbol }) => {
+  console.log(symbol);
   const [legend, setLegend] = useState(() => ({
     close: "",
     open: "",
@@ -32,7 +33,6 @@ const StockPriceChart = ({ symbol }) => {
   useEffect(() => {
     if (isSuccess && stockPriceData) {
       const formattedData = formatCandlestickData(stockPriceData.quotes);
-      console.log(stockPriceData.quotes);
       // Create a new candlestick chart
       const chart = createChart(chartContainerRef.current, {
         grid: {

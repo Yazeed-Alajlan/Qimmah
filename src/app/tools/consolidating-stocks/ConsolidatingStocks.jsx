@@ -16,6 +16,7 @@ const ConsolidatingStocks = () => {
     isLoading,
     data: consolidatingData,
     error,
+    isRefetching,
     refetch,
   } = useQuery(
     ["consolidatingData"],
@@ -30,10 +31,11 @@ const ConsolidatingStocks = () => {
 
   return (
     <>
-      <>
-        <>
+      <Card>
+        <div className="flex sm:flex-wrap lg:flex-nowrap items-center content-center gap-6 ">
           <Input
             label={"عدد الشموع:"}
+            labelDirection="hr"
             type={"number"}
             value={numberOfCandles}
             onChange={(event) => {
@@ -41,23 +43,36 @@ const ConsolidatingStocks = () => {
             }}
             placeholder="حدد عدد الشموع"
           />
-        </>
-        <>
           <Input
             label={" نسبة النطاق:"}
             type={"number"}
+            labelDirection="hr"
             value={percentageRange}
             onChange={(event) => {
               setPercentageRange(event.target.value);
             }}
             placeholder="حدد نسبة النطاق "
           />
-        </>
-        <>
           <Button text={"ابحث"} onClick={handleSearchClick} />
-        </>
-      </>
-      <div className="flex justify-center items-center flex-col gap-8 w-full">
+        </div>
+      </Card>
+      {isRefetching || isLoading ? (
+        <p>loading</p>
+      ) : (
+        <div className="flex justify-center items-center flex-col gap-8 w-full mt-8">
+          {consolidatingData &&
+            Object.keys(consolidatingData).map((symbol, index) => (
+              <Card
+                className="flex flex-col border-3 border-bottom"
+                key={index}
+              >
+                <p>الرمز:{symbol}</p>
+                <StockPriceChart symbol={symbol} />
+              </Card>
+            ))}
+        </div>
+      )}
+      {/* <div className="flex justify-center items-center flex-col gap-8 w-full mt-8">
         {consolidatingData &&
           Object.keys(consolidatingData).map((symbol, index) => (
             <Card className="flex flex-col border-3 border-bottom" key={index}>
@@ -65,7 +80,7 @@ const ConsolidatingStocks = () => {
               <StockPriceChart symbol={symbol} />
             </Card>
           ))}
-      </div>
+      </div> */}
     </>
   );
 };

@@ -1,23 +1,32 @@
 "use client";
-
 import React from "react";
 import InputSelect from "./InputSelect";
 import { useStocksData } from "@/context/StocksDataContext";
 import { useRouter } from "next/navigation";
 
-const StocksSearch = ({ className }) => {
+const StocksSearch = ({ className, onStockSelect, label }) => {
   const { stocksData, selectedStock, setSelectedStock } = useStocksData();
   const { push } = useRouter();
 
   const handleStockSelect = (selectedOption) => {
     console.log(selectedOption);
     setSelectedStock(selectedOption);
-    push(`/stock/${selectedOption.sector}/${selectedOption.value}/information`);
+
+    if (onStockSelect) {
+      // Call the onStockSelect callback with the selected stock
+      onStockSelect(selectedOption);
+    } else {
+      // If onStockSelect prop is not provided, push to the URL
+      push(
+        `/stock/${selectedOption.sector}/${selectedOption.value}/information`
+      );
+    }
   };
 
   return (
     <div className={className}>
       <InputSelect
+        label={label}
         className="z-50"
         placeholder="ابحث  باسم الشركة أو الرمز"
         value={selectedStock}

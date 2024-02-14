@@ -13,24 +13,25 @@ const page = () => {
     <PageWrapper>
       <div className="flex justify-center flex-wrap gap-8">
         <CardWithLink
-          to="tools/monthly-returns"
-          label="Monthly Returns"
-          icon={<TbReportAnalytics size={50} />}
-        />
-        <CardWithLink
-          to="tools/chart-patterns"
-          label="Chart Patterns"
-          icon={<TbReportAnalytics size={50} />}
-        />
-        <CardWithLink
           to="tools/consolidating-stocks"
           label="Consolidating Stocks"
           icon={<FaChartBar size={50} />}
         />
         <CardWithLink
+          to="tools/monthly-returns"
+          label="Monthly Returns"
+          icon={<TbReportAnalytics size={50} />}
+        />
+        <CardWithLink
           to="tools/japanese-candlestick"
           label="Japanese Candlestick"
           icon={<TbChartCandle size={50} />}
+        />
+
+        <CardWithLink
+          to="tools/chart-patterns"
+          label="Chart Patterns"
+          icon={<TbReportAnalytics size={50} />}
         />
         <CardWithLink
           to="tools/hawkes-process"

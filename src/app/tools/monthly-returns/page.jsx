@@ -1,30 +1,50 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "@/components/utils/cards/Card";
-import StockPriceChart from "@/components/utils/charts/StockPriceChart";
-import { useParams } from "next/navigation";
 import { useQuery } from "react-query";
 import { stockPriceSummary } from "@/services/PythonServices";
-import MonthlyReturnTable from "./MonthlyReturnTable";
 import DynamicChart from "@/components/utils/charts/DynamicChart";
+import PageWrapper from "@/components/PageWrapper";
+import StocksSearch from "@/components/utils/inputs/StocksSearch";
+import MonthlyReturnTable from "@/app/stock/[sector]/[symbol]/chart/MonthlyReturnTable";
 
 const Page = () => {
-  const { symbol } = useParams();
+  const [selectedStock, setSelectedStock] = useState();
+
   const {
     isError,
     isSuccess,
     isLoading,
     data: priceSummary,
     error,
-  } = useQuery(["stockPriceSummary", symbol], () => stockPriceSummary(symbol));
+    refetch,
+  } = useQuery(
+    ["stockPriceSummary", selectedStock],
+    () => stockPriceSummary(selectedStock),
+    {
+      enabled: !!selectedStock, // Enable the query only when a stock is selected
+    }
+  );
+
+  const handleStockSelect = (stock) => {
+    setSelectedStock(stock.value);
+    console.log(stock);
+    // Trigger refetch when a stock is selected
+    refetch();
+  };
+
   return (
-    <div className="flex flex-row flex-wrap gap-4 mb-10">
-      <Card header={"تحركات السهم"}>
-        <StockPriceChart symbol={symbol} />
+    <PageWrapper>
+      <Card>
+        <StocksSearch
+          label={"إختر سهم"}
+          className={"w-full"}
+          onStockSelect={handleStockSelect}
+        />
       </Card>
 
       {priceSummary && (
-        <>
+        <div className="flex flex-col gap-6">
           <Card header={"العوائد الشهرية"}>
             <MonthlyReturnTable data={priceSummary["monthly_returns"]} />
           </Card>
@@ -37,9 +57,9 @@ const Page = () => {
           <Card header={"توزيع عدد الشموع"}>
             <DynamicChart type={"bar"} data={priceSummary["price_change"]} />
           </Card>
-        </>
+        </div>
       )}
-    </div>
+    </PageWrapper>
   );
 };
 

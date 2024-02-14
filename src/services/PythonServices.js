@@ -1,6 +1,7 @@
 import axios from "axios";
 
 async function stockPriceSummary(symbol) {
+  console.log(symbol);
   try {
     const response = await fetch(
       `http://127.0.0.1:4000/api/stocks/${symbol}/price-summary`
@@ -18,7 +19,7 @@ async function stockPriceSummary(symbol) {
   }
 }
 
-async function consolidatingStocksFilter({ numberOfCandles, percentageRange }) {
+async function consolidatingStocksFilter(numberOfCandles, percentageRange) {
   try {
     const url = `http://localhost:4000/api/stocks/consolidating-stocks?numberOfCandles=${numberOfCandles}&percentageRange=${percentageRange}`;
     const response = await axios.get(url);
