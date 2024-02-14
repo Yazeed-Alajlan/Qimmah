@@ -72,15 +72,6 @@ const ConsolidatingStocks = () => {
             ))}
         </div>
       )}
-      {/* <div className="flex justify-center items-center flex-col gap-8 w-full mt-8">
-        {consolidatingData &&
-          Object.keys(consolidatingData).map((symbol, index) => (
-            <Card className="flex flex-col border-3 border-bottom" key={index}>
-              <p>الرمز:{symbol}</p>
-              <StockPriceChart symbol={symbol} />
-            </Card>
-          ))}
-      </div> */}
     </>
   );
 };

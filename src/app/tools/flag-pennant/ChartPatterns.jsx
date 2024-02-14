@@ -9,35 +9,16 @@ import StockPriceChart from "@/components/utils/charts/StockPriceChart";
 import { Card } from "@/components/utils/cards/card";
 
 const ChartPatterns = ({ symbol }) => {
-  const [legend, setLegend] = useState(() => ({
-    close: "",
-    open: "",
-    high: "",
-    low: "",
-    volume: "",
-    changePercent: "",
-  }));
-
-  const chartContainerId = `chart-container-${symbol}`;
-
   const {
-    isError,
-    isSuccess,
     isLoading,
-    data: stockData,
-    error,
-  } = useQuery(["stockPriceData", symbol], () => fetchStockPriceData(symbol));
-
-  const { data: flagsPennantsData } = useQuery(
-    ["flagsPennantsData", symbol],
-    () => flags_pennants(symbol)
-  );
-
-  console.log(flagsPennantsData);
-
+    isRefetching,
+    data: flagsPennantsData,
+  } = useQuery(["flagsPennantsData", symbol], () => flags_pennants(symbol));
   return (
     <Card>
-      {flagsPennantsData && (
+      {isLoading || isRefetching ? (
+        <>loading</>
+      ) : (
         <StockPriceChart
           symbol={symbol}
           flagsPennantsData={flagsPennantsData}

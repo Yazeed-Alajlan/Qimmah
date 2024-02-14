@@ -4,11 +4,17 @@ import { fetchStockPriceData } from "@/services/FetchServices";
 import { createChart } from "lightweight-charts";
 import {
   formatCandlestickData,
+  formatIndicatorkData,
   createTooltip,
   addVolumeHistogram,
   addLegend,
 } from "./StockChartServices";
-const StockPriceChart = ({ symbol, flagsPennantsData }) => {
+const StockPriceChart = ({
+  symbol,
+  flagsPennantsData,
+  markers,
+  indicators,
+}) => {
   const [legend, setLegend] = useState(() => ({
     close: "",
     open: "",
@@ -70,14 +76,11 @@ const StockPriceChart = ({ symbol, flagsPennantsData }) => {
       addLegend(chart, setLegend, candlestickSeries, volumeSeries);
 
       if (flagsPennantsData) {
-        console.log(flagsPennantsData);
         var tldata = [];
         Object.keys(flagsPennantsData).map((pattern) => {
           if (pattern == []) return;
           Object.entries(flagsPennantsData[pattern]).map((item) => {
             item[1].map((draw) => {
-              console.log(new Date(draw[0]).toISOString().split("T")[0]);
-              console.log(draw);
               tldata.push({
                 time: new Date(draw[0]).toISOString().split("T")[0],
                 value: draw[1],
@@ -98,6 +101,62 @@ const StockPriceChart = ({ symbol, flagsPennantsData }) => {
               { time: point.time, value: point.value },
               { time: tldata[index + 1].time, value: tldata[index + 1].value },
             ]);
+          });
+        });
+      }
+
+      if (markers) {
+        const markers_list = [];
+        Object.keys(markers).forEach((pattern) => {
+          markers[pattern].forEach((timestampPattern) => {
+            const [timestamp, patternName] = timestampPattern;
+            const formattedDate = new Date(timestamp)
+              .toISOString()
+              .split("T")[0];
+
+            markers_list.push({
+              time: formattedDate,
+              position: "aboveBar",
+              color: "#f68410", // Change the color as needed
+              shape: "circle", // Change the shape if required
+              text: patternName || pattern, // Use the pattern name or default to the key
+            });
+          });
+        });
+        const sortedList = markers_list.sort((a, b) => {
+          const dateA = new Date(a.time);
+          const dateB = new Date(b.time);
+          return dateA - dateB;
+        });
+
+        candlestickSeries.setMarkers(markers_list);
+      }
+
+      if (indicators) {
+        console.log(indicators);
+        indicators.forEach((indicator, index) => {
+          console.log(indicator);
+          indicator.lines.map((data) => {
+            Object.entries(data).map((line) => {
+              if (line[0] == "signalperiod") {
+                chart
+                  .addHistogramSeries({
+                    title: line[0],
+                    pane: indicator.pane,
+                    color: data.color,
+                  })
+                  .setData(formatIndicatorkData(Object.values(line)[1]));
+              } else {
+                chart
+                  .addLineSeries({
+                    title: line[0],
+                    pane: indicator.pane,
+                    color: data.color,
+                  })
+                  .setData(formatIndicatorkData(Object.values(line)[1]));
+              }
+            });
+            console.log(data);
           });
         });
       }

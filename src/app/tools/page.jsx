@@ -7,6 +7,9 @@ import {
   TbChartCandle,
 } from "react-icons/tb";
 import { FaChartBar, FaSignal } from "react-icons/fa"; // Import FontAwesome icons
+import { CgArrowsShrinkV } from "react-icons/cg";
+import { FaRegFlag } from "react-icons/fa6";
+import { LuCandlestickChart } from "react-icons/lu";
 
 const page = () => {
   return (
@@ -15,7 +18,7 @@ const page = () => {
         <CardWithLink
           to="tools/consolidating-stocks"
           label="Consolidating Stocks"
-          icon={<FaChartBar size={50} />}
+          icon={<CgArrowsShrinkV size={50} />}
         />
         <CardWithLink
           to="tools/monthly-returns"
@@ -24,31 +27,33 @@ const page = () => {
         />
         <CardWithLink
           to="tools/japanese-candlestick"
-          label="Japanese Candlestick"
+          label="Japanese Candlestick Filter"
           icon={<TbChartCandle size={50} />}
         />
 
         <CardWithLink
-          to="tools/chart-patterns"
-          label="Chart Patterns"
-          icon={<TbReportAnalytics size={50} />}
+          to="tools/flag-pennant"
+          label="Flag and Pennant"
+          icon={<FaRegFlag size={50} />}
         />
-        {/* <CardWithLink
+
+        <CardWithLink
+          to="tools/japanese-candlestick-markers"
+          label="Japanese Candlestick Markers"
+          icon={<LuCandlestickChart size={50} />}
+        />
+
+        <CardWithLink
           to="tools/hawkes-process"
           label="Hawkes Process"
           icon={<FaSignal size={50} />}
         />
 
         <CardWithLink
-          to="tools/technical-analysis-automation"
-          label="Technical Analysis"
-          icon={<TbDeviceAnalytics size={50} />}
-        />
-        <CardWithLink
           to="tools/vsa"
           label="VSA"
           icon={<TbDeviceAnalytics size={50} />}
-        /> */}
+        />
       </div>
     </PageWrapper>
   );

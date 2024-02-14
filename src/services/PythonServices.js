@@ -1,5 +1,22 @@
 import axios from "axios";
 
+async function getIndicatorData(symbol, indicator, params) {
+  let response;
+  console.log(params);
+  const stringParams = JSON.stringify(params); // Stringify the params object
+
+  try {
+    response = await axios.get(
+      `http://localhost:4000/api/stocks/${symbol}/indicators/${indicator}?params=${stringParams}`
+    );
+    // console.log(response.data);
+  } catch (error) {
+    console.log("Error fetching stock data:", error);
+  }
+  console.log(response.data);
+  return response.data;
+}
+
 async function stockPriceSummary(symbol) {
   console.log(symbol);
   try {
@@ -99,6 +116,7 @@ async function flags_pennants(symbol) {
 }
 
 export {
+  getIndicatorData,
   stockPriceSummary,
   correlationMatrix,
   consolidatingStocksFilter,
