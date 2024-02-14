@@ -25,8 +25,9 @@ const JapaneseCandlestick = () => {
     data: filteredData,
     error,
     refetch,
+    isRefetching,
   } = useQuery(
-    ["filteredData", selectedPattern],
+    ["filteredData"],
     () => japaneseCandlestickFilter(selectedPattern.value),
     {
       enabled: false,
@@ -55,6 +56,7 @@ const JapaneseCandlestick = () => {
             onChange={handleChange}
             placeholder="حدد النمط"
             labelDirection="hr"
+            isDisabled={isRefetching || isLoading}
           />
           <InputSelect
             label="النوع:"
@@ -65,22 +67,32 @@ const JapaneseCandlestick = () => {
             value={selectedFilter}
             onChange={handleFilterData}
             placeholder="إيجابي أو سلبي"
-            isDisabled={filteredData === undefined}
+            isDisabled={filteredData === undefined || isRefetching || isLoading}
             labelDirection="hr"
           />
-          <Button text={"ابحث"} onClick={handleSelectedPattern} />
+          <Button
+            text={"ابحث"}
+            onClick={handleSelectedPattern}
+            disabled={isRefetching || isLoading}
+          />
         </div>
       </Card>
-      {filteredData && (
-        <div className="flex flex-col gap-8">
-          {Object.entries(filteredData).map(([symbol, type]) => (
-            <Card key={symbol}>
-              Symbol: {symbol}, Type: {type}
-              <StockPriceChart symbol={symbol} />
-            </Card>
-          ))}
-          {console.log(filteredData)}
-        </div>
+      {isRefetching || isLoading ? (
+        <p>loading</p>
+      ) : (
+        <>
+          {filteredData && (
+            <div className="flex flex-col gap-8">
+              {Object.entries(filteredData).map(([symbol, type]) => (
+                <Card key={symbol}>
+                  Symbol: {symbol}, Type: {type}
+                  <StockPriceChart symbol={symbol} />
+                </Card>
+              ))}
+              {console.log(filteredData)}
+            </div>
+          )}
+        </>
       )}
     </>
   );

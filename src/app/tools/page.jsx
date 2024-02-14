@@ -33,7 +33,7 @@ const page = () => {
           label="Chart Patterns"
           icon={<TbReportAnalytics size={50} />}
         />
-        <CardWithLink
+        {/* <CardWithLink
           to="tools/hawkes-process"
           label="Hawkes Process"
           icon={<FaSignal size={50} />}
@@ -48,7 +48,7 @@ const page = () => {
           to="tools/vsa"
           label="VSA"
           icon={<TbDeviceAnalytics size={50} />}
-        />
+        /> */}
       </div>
     </PageWrapper>
   );

@@ -8,8 +8,7 @@ import {
   addVolumeHistogram,
   addLegend,
 } from "./StockChartServices";
-const StockPriceChart = ({ symbol }) => {
-  console.log(symbol);
+const StockPriceChart = ({ symbol, flagsPennantsData }) => {
   const [legend, setLegend] = useState(() => ({
     close: "",
     open: "",
@@ -54,8 +53,7 @@ const StockPriceChart = ({ symbol }) => {
       // Add a candlestick series to the chart
       const candlestickSeries = chart.addCandlestickSeries();
       candlestickSeries.setData(formattedData);
-      // Make Chart Responsive with screen resize
-      // Make Chart Responsive with screen resize
+
       new ResizeObserver((entries) => {
         if (
           entries.length === 0 ||
@@ -70,6 +68,39 @@ const StockPriceChart = ({ symbol }) => {
       createTooltip(chartContainerId, chart, candlestickSeries);
       const volumeSeries = addVolumeHistogram(chart, stockPriceData.quotes);
       addLegend(chart, setLegend, candlestickSeries, volumeSeries);
+
+      if (flagsPennantsData) {
+        console.log(flagsPennantsData);
+        var tldata = [];
+        Object.keys(flagsPennantsData).map((pattern) => {
+          if (pattern == []) return;
+          Object.entries(flagsPennantsData[pattern]).map((item) => {
+            item[1].map((draw) => {
+              console.log(new Date(draw[0]).toISOString().split("T")[0]);
+              console.log(draw);
+              tldata.push({
+                time: new Date(draw[0]).toISOString().split("T")[0],
+                value: draw[1],
+                color: pattern.includes("bull") ? "green" : "red",
+              });
+            });
+          });
+
+          tldata.forEach((point, index) => {
+            if (index % 2 !== 0 || index === tldata.length - 1) return;
+
+            const lineSeries = chart.addLineSeries({
+              lastValueVisible: false,
+              priceLineVisible: false,
+              color: point.color,
+            });
+            lineSeries.setData([
+              { time: point.time, value: point.value },
+              { time: tldata[index + 1].time, value: tldata[index + 1].value },
+            ]);
+          });
+        });
+      }
 
       return () => {
         chart.remove();
