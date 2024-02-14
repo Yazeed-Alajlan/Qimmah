@@ -29,7 +29,8 @@ async function consolidatingStocksFilter(numberOfCandles, percentageRange) {
     console.error("Error fetching data:", error);
   }
 }
-async function japaneseCandlestickFilter({ pattern }) {
+async function japaneseCandlestickFilter(pattern) {
+  console.log(pattern);
   try {
     const response = await fetch(
       `http://localhost:4000/api/stocks/japanese-candlestick-patterns/${pattern}`
@@ -37,7 +38,8 @@ async function japaneseCandlestickFilter({ pattern }) {
 
     if (response.ok) {
       const data = await response.json();
-      setFilteredStocks(data[pattern]);
+      console.log(data[pattern]);
+      return data[pattern];
     } else {
       console.error("Failed to send pattern");
     }

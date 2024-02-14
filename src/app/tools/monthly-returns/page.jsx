@@ -27,15 +27,13 @@ const Page = () => {
   );
 
   const handleStockSelect = (stock) => {
-    setSelectedStock(stock.value);
-    console.log(stock);
-    // Trigger refetch when a stock is selected
+    setSelectedStock(stock?.value);
     refetch();
   };
 
   return (
     <PageWrapper>
-      <Card>
+      <Card className={"mb-8"}>
         <StocksSearch
           label={"إختر سهم"}
           className={"w-full"}
@@ -44,7 +42,7 @@ const Page = () => {
       </Card>
 
       {priceSummary && (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-8">
           <Card header={"العوائد الشهرية"}>
             <MonthlyReturnTable data={priceSummary["monthly_returns"]} />
           </Card>

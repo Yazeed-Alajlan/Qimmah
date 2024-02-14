@@ -1,14 +1,12 @@
+"use client";
+import candlestick_patterns from "@/app/chart/utils/candlestickPatterns";
+import Button from "@/components/utils/buttons/Button";
+import { Card } from "@/components/utils/cards/card";
+import StockPriceChart from "@/components/utils/charts/StockPriceChart";
+import InputSelect from "@/components/utils/inputs/InputSelect";
+import { japaneseCandlestickFilter } from "@/services/PythonServices";
 import React, { useState } from "react";
-import CompnentLayout from "components/CompnentLayout";
-import { Col, Row } from "react-bootstrap";
-import candlestick_patterns from "../utils/candlestickPatterns";
-import CandlestickChart from "pages/StockPage/components/chart/CandlestickChart";
-import { CustomCard } from "components/utils/cards/CustomCard";
-import CustomButton from "components/utils/buttons/CustomButton";
-import InputSelect from "components/utils/inputs/InputSelect";
-import Input from "components/utils/inputs/Input";
-import FilterCard from "components/utils/inputs/FilterCard";
-import PageLayout from "components/PageLayout";
+import { useQuery } from "react-query";
 
 const JapaneseCandlestick = () => {
   const candlestickOptions = Object.entries(candlestick_patterns).map(
@@ -17,9 +15,27 @@ const JapaneseCandlestick = () => {
       label: value,
     })
   );
-  const [selectedPattern, setSelectedPattern] = useState("");
+  const [selectedPattern, setSelectedPattern] = useState();
   const [selectedFilter, setSelectedFilter] = useState();
-  const [filteredData, setFilteredData] = useState(null);
+
+  const {
+    isError,
+    isSuccess,
+    isLoading,
+    data: filteredData,
+    error,
+    refetch,
+  } = useQuery(
+    ["filteredData", selectedPattern],
+    () => japaneseCandlestickFilter(selectedPattern.value),
+    {
+      enabled: false,
+    }
+  );
+
+  const handleSelectedPattern = () => {
+    refetch();
+  };
 
   const handleChange = (selectedOption) => {
     setSelectedPattern(selectedOption);
@@ -28,64 +44,18 @@ const JapaneseCandlestick = () => {
     setSelectedFilter(selectedOption);
   };
 
-  const sendSelectedPattern = async () => {
-    if (selectedPattern) {
-      try {
-        const response = await fetch(
-          `http://localhost:5000/python-api/japanese-candlestick-patterns/${selectedPattern.value}`
-        );
-
-        if (response.ok) {
-          const filteredData = await response.json(); // Assuming the response is JSON data
-          setFilteredData(filteredData);
-        } else {
-          console.error("Failed to send pattern");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-  };
-
-  const filteredDataByFilter = () => {
-    if (!filteredData || !selectedFilter) {
-      return filteredData;
-    }
-    console.log(selectedFilter);
-    const filteredByFilter = {};
-
-    // Iterate over the outer dictionary
-    Object.keys(filteredData).forEach((outerKey) => {
-      // Filter and create a new inner dictionary
-      const innerData = Object.entries(filteredData[outerKey])
-        .filter(([innerKey, value]) => value === selectedFilter.value)
-        .reduce((obj, [innerKey, value]) => {
-          obj[innerKey] = value;
-          return obj;
-        }, {});
-
-      // If there are items in the inner dictionary, add it to the result
-      if (Object.keys(innerData).length > 0) {
-        filteredByFilter[outerKey] = innerData;
-      }
-    });
-
-    return filteredByFilter;
-  };
-
   return (
-    <PageLayout>
-      <FilterCard>
-        <Col xs={8} xl={5} className="d-flex">
+    <>
+      <Card className={"mb-8"}>
+        <div className="flex items-center gap-8">
           <InputSelect
             label={"النمط:"}
             options={candlestickOptions}
             value={selectedPattern}
             onChange={handleChange}
             placeholder="حدد النمط"
+            labelDirection="hr"
           />
-        </Col>
-        <Col xs={8} xl={5} className="d-flex">
           <InputSelect
             label="النوع:"
             options={[
@@ -95,40 +65,24 @@ const JapaneseCandlestick = () => {
             value={selectedFilter}
             onChange={handleFilterData}
             placeholder="إيجابي أو سلبي"
-            isDisabled={filteredData === null}
+            isDisabled={filteredData === undefined}
+            labelDirection="hr"
           />
-        </Col>
-        <Col xs={8} xl={2} className="d-flex justify-content-center">
-          <CustomButton text={"ابحث"} onClick={sendSelectedPattern} />
-        </Col>
-      </FilterCard>
-      <CustomCard>
-        <Row>
-          {filteredDataByFilter() && (
-            <>
-              {Object.keys(filteredDataByFilter()).map((outerKey) => (
-                <div className="d-flex flex-column gap-4" key={outerKey}>
-                  {Object.entries(filteredDataByFilter()[outerKey]).map(
-                    ([innerKey, value]) => (
-                      <CustomCard
-                        className="d-flex flex-column border-3 border-bottom"
-                        key={innerKey}
-                      >
-                        <div className="d-flex">
-                          <p>رمز الشركة: {innerKey}</p>
-                          <p>النوع: {value}</p>
-                        </div>
-                        <CandlestickChart symbol={innerKey} />
-                      </CustomCard>
-                    )
-                  )}
-                </div>
-              ))}
-            </>
-          )}
-        </Row>
-      </CustomCard>
-    </PageLayout>
+          <Button text={"ابحث"} onClick={handleSelectedPattern} />
+        </div>
+      </Card>
+      {filteredData && (
+        <div className="flex flex-col gap-8">
+          {Object.entries(filteredData).map(([symbol, type]) => (
+            <Card key={symbol}>
+              Symbol: {symbol}, Type: {type}
+              <StockPriceChart symbol={symbol} />
+            </Card>
+          ))}
+          {console.log(filteredData)}
+        </div>
+      )}
+    </>
   );
 };
 
