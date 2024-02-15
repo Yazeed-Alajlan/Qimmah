@@ -31,7 +31,7 @@ const Vsa = ({ symbol }) => {
                 kwargs: {},
               },
               color: "fff",
-              lines: [{ value: data }],
+              lines: [data],
             },
           ]}
         />

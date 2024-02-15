@@ -13,95 +13,48 @@ const HawkesProcess = ({ symbol }) => {
     getHawkesProcess(symbol)
   );
 
-  // const chartData = {
-  //   labels: data.date,
-  //   datasets: [
-  //     {
-  //       label: "Close",
-  //       data: data.log_close,
-  //       yAxisID: "y-axis-1", // Assign to the first y-axis
-  //       fill: false,
-  //       borderColor: "rgba(75, 192, 192, 1)",
-  //       pointRadius: 0, // Set pointRadius to 0 to remove data points
-  //     },
-  //     {
-  //       label: "V Hawk",
-  //       data: data.v_hawk,
-  //       yAxisID: "y-axis-2", // Assign to the second y-axis
-  //       fill: false,
-  //       borderColor: "gold",
-  //       pointRadius: 0, // Set pointRadius to 0 to remove data points
-  //     },
-  //     {
-  //       label: "Q05",
-  //       data: data.q05,
-  //       yAxisID: "y-axis-2", // Assign to the second y-axis
-  //       fill: false,
-  //       borderColor: "red",
-  //       pointRadius: 0, // Set pointRadius to 0 to remove data points
-  //     },
-  //     {
-  //       label: "Q95",
-  //       data: data.q95,
-  //       yAxisID: "y-axis-2", // Assign to the second y-axis
-  //       fill: false,
-  //       borderColor: "blue",
-  //       pointRadius: 0, // Set pointRadius to 0 to remove data points
-  //     },
-  //   ],
-  // };
-
-  // const chartOptions = {
-  //   scales: {
-  //     x: {
-  //       title: {
-  //         display: true,
-  //         text: "Date",
-  //       },
-  //     },
-  //     y: [
-  //       {
-  //         id: "y-axis-1",
-  //         type: "linear",
-  //         position: "left",
-  //         title: {
-  //           display: true,
-  //           text: "Close",
-  //         },
-  //       },
-  //       {
-  //         id: "y-axis-2",
-  //         type: "linear",
-  //         position: "right",
-  //         title: {
-  //           display: true,
-  //           text: "V Hawk, Q05, Q95",
-  //         },
-  //       },
-  //     ],
-  //   },
-  // };
-
   return (
     <Card>
       {isLoading || isRefetching ? (
         <>loading</>
       ) : (
-        <StockPriceChart
-          symbol={symbol}
-          indicators={[
-            {
-              name: "VSA",
-              pane: 1,
-              params: {
-                name: "Volume Spread Indicator",
-                kwargs: {},
+        <>
+          <StockPriceChart
+            symbol={symbol}
+            indicators={[
+              {
+                name: "q05",
+                pane: 1,
+                params: {
+                  name: "Volume Spread Indicator",
+                  kwargs: {},
+                },
+                color: "fff",
+                lines: [{ q05: data.q05 }],
               },
-              color: "fff",
-              lines: [data.q95],
-            },
-          ]}
-        />
+              {
+                name: "q95",
+                pane: 1,
+                params: {
+                  name: "Volume Spread Indicator",
+                  kwargs: {},
+                },
+                color: "fff",
+                lines: [{ q95: data.q95 }],
+              },
+              {
+                name: "v_hawk",
+                pane: 1,
+                params: {
+                  name: "Volume Spread Indicator",
+                  kwargs: {},
+                },
+                color: "fff",
+                lines: [{ v_hawk: data.v_hawk }],
+              },
+            ]}
+          />
+        </>
       )}
       {/* <Line data={chartData} options={chartOptions} />{" "} */}
     </Card>
