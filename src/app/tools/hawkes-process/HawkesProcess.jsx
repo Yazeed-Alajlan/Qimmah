@@ -1,25 +1,20 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Line } from "react-chartjs-2";
-import PageLayout from "components/PageLayout";
+import { Card } from "@/components/utils/cards/Card";
+import { getHawkesProcess } from "@/services/PythonServices";
+import { useQuery } from "react-query";
+import { Chart, registerables } from "chart.js";
 
-const HawkesProcess = () => {
-  const [data, setData] = useState({});
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const symbol = "2222";
-        const url = `http://localhost:5000/python-api/${symbol}/hawkes-process`;
-        const response = await axios.get(url);
-
-        setData(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+Chart.register(...registerables);
+const HawkesProcess = ({ symbol }) => {
+  const { isLoading, isRefetching, data } = useQuery(["data", symbol], () =>
+    getHawkesProcess(symbol)
+  );
+  // Check if data is still loading
+  if (isLoading) {
+    return <p>Loading...</p>; // You can replace this with a loading indicator
+  }
 
   const chartData = {
     labels: data.date,
@@ -90,10 +85,12 @@ const HawkesProcess = () => {
     },
   };
 
+  console.log(chartData);
   return (
-    <PageLayout>
-      <Line data={chartData} options={chartOptions} />
-    </PageLayout>
+    <Card>
+      {" "}
+      <Line data={chartData} options={chartOptions} />{" "}
+    </Card>
   );
 };
 

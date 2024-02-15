@@ -16,6 +16,19 @@ async function getIndicatorData(symbol, indicator, params) {
   console.log(response.data);
   return response.data;
 }
+async function getHawkesProcess(symbol) {
+  let response;
+
+  try {
+    response = await axios.get(
+      `http://localhost:4000/api/stocks/${symbol}/hawkes-process`
+    );
+  } catch (error) {
+    console.log("Error fetching stock data:", error);
+  }
+  console.log(response.data);
+  return response.data;
+}
 
 async function stockPriceSummary(symbol) {
   console.log(symbol);
@@ -123,4 +136,5 @@ export {
   japaneseCandlestickMarkers,
   japaneseCandlestickFilter,
   flags_pennants,
+  getHawkesProcess,
 };

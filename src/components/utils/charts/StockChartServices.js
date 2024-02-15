@@ -79,7 +79,13 @@ async function addVolumeHistogram(chart, series) {
   );
   return volumeSeries;
 }
-async function addLegend(chart, setLegend, candlestickSeries, volumeSeries) {
+async function addLegend(
+  chart,
+  setLegend,
+  candlestickSeries,
+  volumeSeries,
+  lastValue
+) {
   const resolvedVolumeSeries = await volumeSeries;
   chart.subscribeCrosshairMove((param) => {
     let closePrice = "";
@@ -87,28 +93,46 @@ async function addLegend(chart, setLegend, candlestickSeries, volumeSeries) {
     let highPrice = "";
     let lowPrice = "";
     let volume = "";
+    let changePercent = "";
 
     if (param.time) {
       const candlestickData = param.seriesData.get(candlestickSeries);
       const volumeData = param.seriesData.get(resolvedVolumeSeries);
+
       if (candlestickData) {
-        closePrice = candlestickData.close.toFixed(2);
-        openPrice = candlestickData.open.toFixed(2);
-        highPrice = candlestickData.high.toFixed(2);
-        lowPrice = candlestickData.low.toFixed(2);
+        closePrice = candlestickData.close;
+        openPrice = candlestickData.open;
+        highPrice = candlestickData.high;
+        lowPrice = candlestickData.low;
       }
 
       if (volumeData) {
-        volume = volumeData.value.toFixed(2);
+        volume = volumeData.value;
       }
+
+      // Calculate change percent only if openPrice is available
+      if (openPrice !== "") {
+        changePercent = (((closePrice - openPrice) / openPrice) * 100).toFixed(
+          2
+        );
+      }
+    } else {
+      // Set default values when crosshair is not over any data point
+      closePrice = lastValue.close;
+      openPrice = lastValue.open;
+      highPrice = lastValue.high;
+      lowPrice = lastValue.low;
+      volume = lastValue.volume;
+      changePercent = "";
     }
+
     setLegend({
       close: closePrice,
       open: openPrice,
       high: highPrice,
       low: lowPrice,
       volume: volume,
-      changePercent: (((closePrice - openPrice) / openPrice) * 100).toFixed(2),
+      changePercent: changePercent,
     });
   });
 }

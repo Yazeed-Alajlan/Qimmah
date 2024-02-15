@@ -15,14 +15,6 @@ const StockPriceChart = ({
   markers,
   indicators,
 }) => {
-  const [legend, setLegend] = useState(() => ({
-    close: "",
-    open: "",
-    high: "",
-    low: "",
-    volume: "",
-    changePercent: "",
-  }));
   const {
     isError,
     isSuccess,
@@ -31,14 +23,30 @@ const StockPriceChart = ({
     error,
   } = useQuery(["stockPriceData", symbol], () => fetchStockPriceData(symbol));
 
-  // Use ref to hold a reference to the chart container
+  const [legend, setLegend] = useState(() => ({
+    close: "",
+    open: "",
+    high: "",
+    low: "",
+    volume: "",
+    changePercent: "",
+  }));
+
   const chartContainerRef = useRef(null);
   const chartContainerId = `chart-container-${symbol}`;
 
   useEffect(() => {
     if (isSuccess && stockPriceData) {
       const formattedData = formatCandlestickData(stockPriceData.quotes);
-      // Create a new candlestick chart
+
+      setLegend({
+        close: formattedData[formattedData.length - 1].close,
+        open: formattedData[formattedData.length - 1].open,
+        high: formattedData[formattedData.length - 1].high,
+        low: formattedData[formattedData.length - 1].low,
+        volume: formattedData[formattedData.length - 1].volume,
+        changePercent: "",
+      });
       const chart = createChart(chartContainerRef.current, {
         grid: {
           vertLines: {
@@ -73,7 +81,13 @@ const StockPriceChart = ({
       }).observe(chartContainerRef.current);
       createTooltip(chartContainerId, chart, candlestickSeries);
       const volumeSeries = addVolumeHistogram(chart, stockPriceData.quotes);
-      addLegend(chart, setLegend, candlestickSeries, volumeSeries);
+      addLegend(
+        chart,
+        setLegend,
+        candlestickSeries,
+        volumeSeries,
+        formattedData[formattedData.length - 1]
+      );
 
       if (flagsPennantsData) {
         var tldata = [];
