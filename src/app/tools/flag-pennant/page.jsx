@@ -14,7 +14,7 @@ const Page = () => {
         <StocksSearch
           label={"إختر سهم"}
           className={"w-full"}
-          onStockSelect={(data) => setSymbol(data.value)}
+          onStockSelect={(data) => setSymbol(data?.value)}
         />
       </Card>
       {symbol && <ChartPatterns symbol={symbol} />}

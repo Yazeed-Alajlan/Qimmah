@@ -7,7 +7,6 @@ import { useQuery } from "react-query";
 import { getIndicatorData } from "@/services/PythonServices";
 
 const Vsa = ({ symbol }) => {
-  symbol = "4321";
   const { isLoading, isRefetching, data } = useQuery(["data", symbol], () =>
     getIndicatorData(symbol, "VSA", {
       VSA: {

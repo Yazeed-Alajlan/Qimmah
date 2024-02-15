@@ -9,12 +9,11 @@ const Page = () => {
   const [symbol, setSymbol] = useState();
   return (
     <PageWrapper>
-      {console.log(symbol)}
       <Card className={"mb-8"}>
         <StocksSearch
           label={"إختر سهم"}
           className={"w-full"}
-          onStockSelect={(data) => setSymbol(data.value)}
+          onStockSelect={(data) => setSymbol(data?.value)}
         />
       </Card>
       {symbol && <JapaneseCandlestickMarkers symbol={symbol} />}
