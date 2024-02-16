@@ -4,7 +4,7 @@ import { fetchStockPriceData } from "@/services/FetchServices";
 import { createChart } from "lightweight-charts";
 import {
   formatCandlestickData,
-  formatIndicatorkData,
+  formatIndicatorData,
   createTooltip,
   addVolumeHistogram,
   addLegend,
@@ -147,30 +147,25 @@ const StockPriceChart = ({
       }
 
       if (indicators) {
-        console.log(indicators);
-        indicators.forEach((indicator, index) => {
-          console.log(indicator);
-          indicator.lines.map((data) => {
-            Object.entries(data).map((line) => {
-              if (line[0] == "signalperiod") {
-                chart
-                  .addHistogramSeries({
-                    title: line[0],
-                    pane: indicator.pane,
-                    color: data.color,
-                  })
-                  .setData(formatIndicatorkData(Object.values(line)[1]));
-              } else {
-                chart
-                  .addLineSeries({
-                    title: line[0],
-                    pane: indicator.pane,
-                    color: data.color,
-                  })
-                  .setData(formatIndicatorkData(Object.values(line)[1]));
-              }
-            });
-            console.log(data);
+        indicators.forEach((indicator) => {
+          indicator.lines.forEach((line) => {
+            if (line.type === "histogram") {
+              chart
+                .addHistogramSeries({
+                  title: line.name,
+                  pane: indicator.pane,
+                  color: line.color,
+                })
+                .setData(formatIndicatorData(line.data));
+            } else if (line.type === "line") {
+              chart
+                .addLineSeries({
+                  title: line.name,
+                  pane: indicator.pane,
+                  color: line.color,
+                })
+                .setData(formatIndicatorData(line.data));
+            }
           });
         });
       }

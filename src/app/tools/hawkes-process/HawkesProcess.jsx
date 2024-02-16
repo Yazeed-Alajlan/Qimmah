@@ -21,38 +21,72 @@ const HawkesProcess = ({ symbol }) => {
         <>
           <StockPriceChart
             symbol={symbol}
-            indicators={[
-              {
-                name: "q05",
-                pane: 1,
-                params: {
-                  name: "Volume Spread Indicator",
-                  kwargs: {},
+            indicators={
+              [
+                {
+                  name: "HawkesProcess",
+                  fullName: "HawkesProcess",
+                  pane: 1,
+                  params: {
+                    name: "HawkesProcess",
+                    kwargs: {},
+                  },
+                  lines: [
+                    {
+                      name: "q05",
+                      type: "line",
+                      color: "red",
+                      data: data.q05,
+                    },
+                    {
+                      name: "q95",
+                      type: "line",
+                      color: "yellow",
+                      data: data.q95,
+                    },
+                    {
+                      name: "v_hawk",
+                      type: "line",
+                      color: "blue",
+                      data: data.v_hawk,
+                    },
+                  ],
                 },
-                color: "fff",
-                lines: [{ q05: data.q05 }],
-              },
-              {
-                name: "q95",
-                pane: 1,
-                params: {
-                  name: "Volume Spread Indicator",
-                  kwargs: {},
-                },
-                color: "fff",
-                lines: [{ q95: data.q95 }],
-              },
-              {
-                name: "v_hawk",
-                pane: 1,
-                params: {
-                  name: "Volume Spread Indicator",
-                  kwargs: {},
-                },
-                color: "fff",
-                lines: [{ v_hawk: data.v_hawk }],
-              },
-            ]}
+              ]
+
+              //   [
+              //   {
+              //     name: "q05",
+              //     pane: 1,
+              //     params: {
+              //       name: "Volume Spread Indicator",
+              //       kwargs: {},
+              //     },
+              //     color: "fff",
+              //     lines: [{ q05: data.q05 }],
+              //   },
+              //   {
+              //     name: "q95",
+              //     pane: 1,
+              //     params: {
+              //       name: "Volume Spread Indicator",
+              //       kwargs: {},
+              //     },
+              //     color: "fff",
+              //     lines: [{ q95: data.q95 }],
+              //   },
+              //   {
+              //     name: "v_hawk",
+              //     pane: 1,
+              //     params: {
+              //       name: "Volume Spread Indicator",
+              //       kwargs: {},
+              //     },
+              //     color: "fff",
+              //     lines: [{ v_hawk: data.v_hawk }],
+              //   },
+              // ]
+            }
           />
         </>
       )}
@@ -61,4 +95,33 @@ const HawkesProcess = ({ symbol }) => {
   );
 };
 
+// const x = {
+//   name: "MACD",
+//   fullName: "Moving average convergence divergence",
+//   pane: 1,
+//   params: {
+//     name: "Volume Spread Indicator",
+//     kwargs: { fastperiod: 12, signalperiod: 9, slowperiod: 26 },
+//   },
+//   lines: [
+//     {
+//       name: "Fast Length",
+//       type: "line",
+//       color: "red",
+//       data: data.q05,
+//     },
+//     {
+//       name: "Slow Length",
+//       type: "line",
+//       color: "red",
+//       data: data.q05,
+//     },
+//     {
+//       name: "Signal Smoothing",
+//       type: "histogram",
+//       color: "blue",
+//       data: data.q05,
+//     },
+//   ],
+// };
 export default HawkesProcess;

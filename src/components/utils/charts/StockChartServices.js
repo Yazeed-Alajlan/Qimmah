@@ -169,7 +169,7 @@ const formatLineData = (series) => {
     .filter((data) => data !== null); // Filter out null values
 };
 
-const formatIndicatorkData = (series) => {
+const formatIndicatorData = (series) => {
   let data = [];
   if (!series) return [];
 
@@ -186,5 +186,5 @@ export {
   addLegend,
   formatCandlestickData,
   formatLineData,
-  formatIndicatorkData,
+  formatIndicatorData,
 };
