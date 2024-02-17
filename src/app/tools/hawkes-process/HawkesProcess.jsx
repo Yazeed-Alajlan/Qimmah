@@ -21,72 +21,37 @@ const HawkesProcess = ({ symbol }) => {
         <>
           <StockPriceChart
             symbol={symbol}
-            indicators={
-              [
-                {
+            indicators={[
+              {
+                name: "HawkesProcess",
+                fullName: "HawkesProcess",
+                pane: 1,
+                params: {
                   name: "HawkesProcess",
-                  fullName: "HawkesProcess",
-                  pane: 1,
-                  params: {
-                    name: "HawkesProcess",
-                    kwargs: {},
-                  },
-                  lines: [
-                    {
-                      name: "q05",
-                      type: "line",
-                      color: "red",
-                      data: data.q05,
-                    },
-                    {
-                      name: "q95",
-                      type: "line",
-                      color: "yellow",
-                      data: data.q95,
-                    },
-                    {
-                      name: "v_hawk",
-                      type: "line",
-                      color: "blue",
-                      data: data.v_hawk,
-                    },
-                  ],
+                  kwargs: {},
                 },
-              ]
-
-              //   [
-              //   {
-              //     name: "q05",
-              //     pane: 1,
-              //     params: {
-              //       name: "Volume Spread Indicator",
-              //       kwargs: {},
-              //     },
-              //     color: "fff",
-              //     lines: [{ q05: data.q05 }],
-              //   },
-              //   {
-              //     name: "q95",
-              //     pane: 1,
-              //     params: {
-              //       name: "Volume Spread Indicator",
-              //       kwargs: {},
-              //     },
-              //     color: "fff",
-              //     lines: [{ q95: data.q95 }],
-              //   },
-              //   {
-              //     name: "v_hawk",
-              //     pane: 1,
-              //     params: {
-              //       name: "Volume Spread Indicator",
-              //       kwargs: {},
-              //     },
-              //     color: "fff",
-              //     lines: [{ v_hawk: data.v_hawk }],
-              //   },
-              // ]
-            }
+                lines: [
+                  {
+                    name: "q05",
+                    type: "line",
+                    color: "red",
+                    data: data.q05,
+                  },
+                  {
+                    name: "q95",
+                    type: "line",
+                    color: "yellow",
+                    data: data.q95,
+                  },
+                  {
+                    name: "v_hawk",
+                    type: "line",
+                    color: "blue",
+                    data: data.v_hawk,
+                  },
+                ],
+              },
+            ]}
           />
         </>
       )}

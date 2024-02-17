@@ -7,14 +7,27 @@ import { useQuery } from "react-query";
 import { getIndicatorData } from "@/services/PythonServices";
 
 const Vsa = ({ symbol }) => {
-  const { isLoading, isRefetching, data } = useQuery(["data", symbol], () =>
-    getIndicatorData(symbol, "VSA", {
-      VSA: {
-        name: "Volume Spread Indicator",
-        kwargs: {},
-      },
-    })
+  const { isLoading, isRefetching, data } = useQuery(
+    ["data", symbol],
+    () =>
+      getIndicatorData(symbol, "MACD", {
+        MACD: {
+          name: "Moving Average Convergence Divergence",
+          kwargs: {
+            fastperiod: 12,
+            slowperiod: 26,
+            signalperiod: 9,
+          },
+        },
+      })
+
+    // VSA: {
+    //   name: "Volume Spread Indicator",
+    //   kwargs: {},
+    // },
   );
+
+  console.log(data);
   return (
     <Card>
       {isLoading || isRefetching ? (
@@ -24,15 +37,56 @@ const Vsa = ({ symbol }) => {
           symbol={symbol}
           indicators={[
             {
-              name: "VSA",
+              name: "MACD",
+              fullName: "Moving average Convergence Divergence",
               pane: 1,
               params: {
-                name: "Volume Spread Indicator",
-                kwargs: {},
+                name: "Moving average Convergence Divergence",
+                kwargs: {
+                  fastperiod: 12,
+                  slowperiod: 26,
+                  signalperiod: 9,
+                },
               },
-              color: "fff",
-              lines: [data],
+              lines: [
+                {
+                  name: "fastperiod",
+                  type: "line",
+                  color: "red",
+                  data: data.fastperiod,
+                },
+                {
+                  name: "slowperiod",
+                  type: "line",
+                  color: "red",
+                  data: data.slowperiod,
+                },
+                {
+                  name: "signalperiod",
+                  type: "line",
+                  color: "red",
+                  data: data.signalperiod,
+                  type: "histogram",
+                },
+              ],
             },
+            // {
+            //   name: "VSA2",
+            //   fullName: "Volume Spread Indicator",
+            //   pane: 2,
+            //   params: {
+            //     name: "Volume Spread Indicator",
+            //     kwargs: {},
+            //   },
+            //   lines: [
+            //     {
+            //       name: "vsa",
+            //       type: "line",
+            //       color: "red",
+            //       data: data,
+            //     },
+            //   ],
+            // },
           ]}
         />
       )}

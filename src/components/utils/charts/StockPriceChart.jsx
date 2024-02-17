@@ -9,6 +9,7 @@ import {
   addVolumeHistogram,
   addLegend,
 } from "./StockChartServices";
+import Indicators from "./Indicators";
 const StockPriceChart = ({
   symbol,
   flagsPennantsData,
@@ -77,7 +78,7 @@ const StockPriceChart = ({
         }
         const newRect = entries[0].contentRect;
 
-        chart.applyOptions({ height: 400, width: newRect.width });
+        chart.applyOptions({ height: 500, width: newRect.width });
       }).observe(chartContainerRef.current);
       createTooltip(chartContainerId, chart, candlestickSeries);
       const volumeSeries = addVolumeHistogram(chart, stockPriceData.quotes);
@@ -152,6 +153,7 @@ const StockPriceChart = ({
             if (line.type === "histogram") {
               chart
                 .addHistogramSeries({
+                  priceLineVisible: false,
                   title: line.name,
                   pane: indicator.pane,
                   color: line.color,
@@ -160,6 +162,7 @@ const StockPriceChart = ({
             } else if (line.type === "line") {
               chart
                 .addLineSeries({
+                  priceLineVisible: false,
                   title: line.name,
                   pane: indicator.pane,
                   color: line.color,
@@ -178,6 +181,7 @@ const StockPriceChart = ({
 
   return (
     <div className="h-full">
+      <Indicators indicators={indicators} />
       <div
         className={`flex justify-center text-sm  gap-4 text-${
           legend.open > legend.close ? "danger" : "success"

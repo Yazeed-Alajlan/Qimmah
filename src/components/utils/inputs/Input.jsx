@@ -13,6 +13,7 @@ const Input = ({
   min,
   max,
   ref,
+  defaultValue,
   labelDirection = "vr",
 }) => {
   const isHorizontal = labelDirection === "hr" || labelDirection == null;
@@ -31,6 +32,7 @@ const Input = ({
         max={max}
         ref={ref}
         name={name}
+        defaultValue={defaultValue}
       />
     </div>
   );
