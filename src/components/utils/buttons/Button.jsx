@@ -50,11 +50,11 @@ const sizeVariants = {
 const Button = ({
   className,
   children,
-  rounded,
-  variant,
-  size,
-  type,
-  isDefault,
+  rounded = true,
+  variant = "primary",
+  size = "md",
+  type = "filled",
+  isDefault = true,
   fullWidth,
   disabled,
 
@@ -92,14 +92,6 @@ const Button = ({
       </button>
     </motion.div>
   );
-};
-
-Button.defaultProps = {
-  rounded: true,
-  variant: "primary",
-  type: "filled",
-  size: "md",
-  isDefault: true,
 };
 
 export default Button;

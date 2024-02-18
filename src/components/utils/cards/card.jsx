@@ -18,8 +18,8 @@ const variantColors = {
 };
 
 const Card = ({
-  variant,
-  size,
+  variant = "default",
+  size = "md",
   header,
   subHeader,
   children,
@@ -49,11 +49,6 @@ const Card = ({
       <div className="my-4"> {children}</div>
     </div>
   );
-};
-
-Card.defaultProps = {
-  size: "md",
-  variant: "default",
 };
 
 export { Card };

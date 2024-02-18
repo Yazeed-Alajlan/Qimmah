@@ -181,7 +181,7 @@ const StockPriceChart = ({
 
   return (
     <div className="h-full">
-      <Indicators indicators={indicators} />
+      {indicators && <Indicators indicators={indicators} />}
       <div
         className={`flex justify-center text-sm  gap-4 text-${
           legend.open > legend.close ? "danger" : "success"

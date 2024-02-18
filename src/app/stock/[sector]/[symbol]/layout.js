@@ -64,7 +64,7 @@ const StockLayout = ({ children }) => {
   ];
 
   return (
-    <PageWrapper className="SECTOR SYMBOL LAYOUT">
+    <PageWrapper className="gap-10">
       {stockInformationData ? (
         <div className="flex flex-wrap ">
           <div className="flex flex-col gap-4 ">
@@ -74,11 +74,8 @@ const StockLayout = ({ children }) => {
                   الشركات
                 </Link>
                 /
-                <Link
-                  className="text-decoration-none"
-                  href={`/companies/${sector}`}
-                >
-                  {sector}
+                <Link className="text-decoration-none" href={`/companies`}>
+                  {stockInformationData.sectorNameAr}
                 </Link>
                 /<p>{stockInformationData.tradingNameAr}</p>
               </div>
@@ -96,7 +93,10 @@ const StockLayout = ({ children }) => {
                   title={"رمز التداول"}
                   text={stockInformationData.symbol}
                 />
-                <Badge title={"القطاع"} text={sector} />
+                <Badge
+                  title={"القطاع"}
+                  text={stockInformationData.sectorNameAr}
+                />
               </div>
             </div>
           </div>

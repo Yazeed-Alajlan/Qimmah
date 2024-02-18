@@ -26,7 +26,12 @@ const FinancialMetricsTable = ({
     const keys = Object.keys(tableData[0]);
 
     const filteredKeys = keys.filter((key) =>
-      removeFilterFromColumn ? key !== filterBy && key !== "_id" : true
+      removeFilterFromColumn
+        ? key !== filterBy &&
+          key !== "_id" &&
+          key !== "sectorNameAr" &&
+          key !== "sectorNameEn"
+        : true
     );
 
     const generatedColumns = filteredKeys.map((key) => ({
@@ -213,9 +218,10 @@ const FinancialMetricsTable = ({
                           >
                             {index === 0 ? (
                               <Link
-                                href={`/stock/${row.original.sectorNameAr}/${symbol}/information`}
+                                href={`/stock/${row.original.sectorNameEn}/${symbol}/information`}
                                 className=""
                               >
+                                {console.log(row.original)}
                                 <span>
                                   <Badge
                                     className="fw-bold me-2"

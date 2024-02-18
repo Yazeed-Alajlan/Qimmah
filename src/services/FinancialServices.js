@@ -8,6 +8,7 @@ async function getAllBasicEarningsPerShareTTM() {
     const formattedData = stocksData.map((data) => ({
       company: data.symbol + " - " + data.tradingNameAr,
       sectorNameAr: data.sectorNameAr,
+      sectorNameEn: data.sectorNameEn,
       basic_earnings_per_share_ttm:
         data.summary[data.summary.length - 1].basic_earnings_per_share_ttm,
     }));
