@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import ChartPatterns from "./ChartPatterns";
 import PageWrapper from "@/components/PageWrapper";
-import { Card } from "@/components/utils/cards/card";
+import { Card } from "@/components/utils/cards/Card";
 import StocksSearch from "@/components/utils/inputs/StocksSearch";
 
 const Page = () => {

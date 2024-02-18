@@ -1,5 +1,5 @@
 import PageWrapper from "@/components/PageWrapper";
-import { Card } from "@/components/utils/cards/card";
+import { Card } from "@/components/utils/cards/Card";
 import StockPriceChart from "@/components/utils/charts/StockPriceChart";
 import StocksSearch from "@/components/utils/inputs/StocksSearch";
 import FinancialMetricsTable from "@/components/utils/table/FinancialMetricsTable";

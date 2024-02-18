@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import { fetchStockPriceData } from "@/services/FetchServices";
 import { flags_pennants } from "@/services/PythonServices";
 import StockPriceChart from "@/components/utils/charts/StockPriceChart";
-import { Card } from "@/components/utils/cards/card";
+import { Card } from "@/components/utils/cards/Card";
 
 const ChartPatterns = ({ symbol }) => {
   const {

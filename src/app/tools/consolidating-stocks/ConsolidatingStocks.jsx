@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/components/utils/buttons/Button";
-import { Card } from "@/components/utils/cards/card";
+import { Card } from "@/components/utils/cards/Card";
 import StockPriceChart from "@/components/utils/charts/StockPriceChart";
 import Input from "@/components/utils/inputs/Input";
 import { consolidatingStocksFilter } from "@/services/PythonServices";

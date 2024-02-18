@@ -1,7 +1,7 @@
 "use client";
 import candlestick_patterns from "@/app/chart/utils/candlestickPatterns";
 import Button from "@/components/utils/buttons/Button";
-import { Card } from "@/components/utils/cards/card";
+import { Card } from "@/components/utils/cards/Card";
 import StockPriceChart from "@/components/utils/charts/StockPriceChart";
 import InputSelect from "@/components/utils/inputs/InputSelect";
 import { japaneseCandlestickFilter } from "@/services/PythonServices";

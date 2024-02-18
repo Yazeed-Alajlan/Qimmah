@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import PageWrapper from "@/components/PageWrapper";
-import { Card } from "@/components/utils/cards/card";
+import { Card } from "@/components/utils/cards/Card";
 import StocksSearch from "@/components/utils/inputs/StocksSearch";
 import JapaneseCandlestickMarkers from "./JapaneseCandlestickMarkers";
 
