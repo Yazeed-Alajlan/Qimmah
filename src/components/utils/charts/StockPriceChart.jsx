@@ -50,6 +50,8 @@ const StockPriceChart = ({
         changePercent: "",
       });
       const chart = createChart(chartContainerRef.current, {
+        height: 400,
+        width: 1000,
         grid: {
           vertLines: {
             visible: false,
@@ -70,17 +72,17 @@ const StockPriceChart = ({
       const candlestickSeries = chart.addCandlestickSeries();
       candlestickSeries.setData(formattedData);
 
-      new ResizeObserver((entries) => {
-        if (
-          entries.length === 0 ||
-          entries[0].target !== chartContainerRef.current
-        ) {
-          return;
-        }
-        const newRect = entries[0].contentRect;
+      // new ResizeObserver((entries) => {
+      //   if (
+      //     entries.length === 0 ||
+      //     entries[0].target !== chartContainerRef.current
+      //   ) {
+      //     return;
+      //   }
+      //   const newRect = entries[0].contentRect;
 
-        chart.applyOptions({ height: 500, width: newRect.width });
-      }).observe(chartContainerRef.current);
+      //   chart.applyOptions({ height: 500, width: newRect.width });
+      // }).observe(chartContainerRef.current);
       createTooltip(chartContainerId, chart, candlestickSeries);
       const volumeSeries = addVolumeHistogram(chart, stockPriceData.quotes);
       addLegend(
@@ -148,8 +150,8 @@ const StockPriceChart = ({
         candlestickSeries.setMarkers(markers_list);
       }
 
-      if (indicators) {
-        indicators.forEach((indicator) => {
+      if (indicatorList) {
+        indicatorList.forEach((indicator) => {
           indicator.lines.forEach((line) => {
             if (line.type === "histogram") {
               chart
@@ -178,10 +180,11 @@ const StockPriceChart = ({
         chart.remove();
       };
     }
-  }, [isSuccess, stockPriceData]);
+  }, [isSuccess, stockPriceData, indicatorList]);
 
   return (
     <div className="h-full">
+      <button onClick={() => console.log(indicatorList)}>SDAdsasdds</button>
       {indicatorList && (
         <Indicators
           indicators={indicatorList}
