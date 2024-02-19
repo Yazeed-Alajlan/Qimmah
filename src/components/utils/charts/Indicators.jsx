@@ -23,11 +23,22 @@ const Indicators = ({ indicators, setIndicators }) => {
     setUpdatedParams(updatedObject);
   };
   const handleSubmit = () => {
-    console.log("--------------------------------------------");
-    console.log(updatedParams);
+    if (selectedIndicator && Object.keys(updatedParams).length > 0) {
+      const updatedIndicators = [...indicators];
 
-    setUpdatedParams({});
-    setSelectedIndicator(null);
+      const index = updatedIndicators.findIndex(
+        (indicator) => indicator.name === selectedIndicator.name
+      );
+
+      if (index !== -1) {
+        updatedIndicators[index] = { ...selectedIndicator, ...updatedParams };
+
+        setIndicators(updatedIndicators);
+      }
+
+      setUpdatedParams({});
+      setSelectedIndicator(null);
+    }
   };
 
   return (
