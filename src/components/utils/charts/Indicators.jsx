@@ -7,7 +7,6 @@ import { useQuery } from "react-query";
 import { getIndicatorData } from "@/services/PythonServices";
 
 const Indicators = ({ indicators, setIndicators, symbol }) => {
-  symbol = "2030";
   const [selectedIndicator, setSelectedIndicator] = useState(null);
   const [updatedParams, setUpdatedParams] = useState({});
 
@@ -30,9 +29,6 @@ const Indicators = ({ indicators, setIndicators, symbol }) => {
       },
     }
   );
-  //   console.log("Refetching:", isRefetching);
-  //   console.log("isSuccess:", isSuccess);
-  //   console.log("isLoading:", isLoading);
 
   const openModal = (indicator) => {
     setSelectedIndicator(indicator);

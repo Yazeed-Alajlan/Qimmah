@@ -16,6 +16,7 @@ const StockPriceChart = ({
   markers,
   indicators,
 }) => {
+  console.log(indicators);
   const {
     isError,
     isSuccess,
@@ -151,6 +152,7 @@ const StockPriceChart = ({
       }
 
       if (indicatorList) {
+        console.log(indicatorList);
         indicatorList.forEach((indicator) => {
           indicator.lines.forEach((line) => {
             if (line.type === "histogram") {
@@ -180,13 +182,13 @@ const StockPriceChart = ({
         chart.remove();
       };
     }
-  }, [isSuccess, stockPriceData, indicatorList]);
+  }, [isSuccess, indicators, stockPriceData, indicatorList]);
 
   return (
     <div className="h-full">
-      <button onClick={() => console.log(indicatorList)}>SDAdsasdds</button>
       {indicatorList && (
         <Indicators
+          symbol={symbol}
           indicators={indicatorList}
           setIndicators={setIndicatorList}
         />

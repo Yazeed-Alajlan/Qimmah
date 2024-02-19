@@ -17,7 +17,7 @@ const Page = () => {
             {selectedStock ? (
               <>
                 {/* <div>{selectedStock}</div> */}
-                <AdvancedChart />
+                <AdvancedChart symbol={selectedStock} />
               </>
             ) : (
               <>SELECT STOCK</>

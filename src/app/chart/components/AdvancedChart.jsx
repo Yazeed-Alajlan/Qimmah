@@ -17,38 +17,32 @@ import {
   TbFlag,
 } from "react-icons/tb";
 import IndicatorsList from "../utils/IndicatorsList";
-import { useStocksData } from "@/context/StocksDataContext";
 import { useTechnicalAnalysis } from "@/context/TechnicalAnalysisContext";
-import CandlestickAndIndicatorsChart from "./CandlestickAndIndicatorsChart";
 import candlestick_patterns from "../utils/candlestickPatterns";
 import IndicatorsSelection from "../Toolbar/IndicatorsSelection";
 import PatternsSelection from "../Toolbar/PatternsSelection";
-const AdvancedChart = () => {
-  const [stockPriceData, setStockPriceData] = useState();
-  const [markers, setMarkers] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
-  const { getStockPriceData, getIndicatorData } = useStocksData();
-  const {
-    selectedStock,
-    selectedIndicators,
-    setSelectedIndicators,
-    japaneseCandlestickMarkers,
-  } = useTechnicalAnalysis();
+import StockPriceChart from "@/components/utils/charts/StockPriceChart";
+const AdvancedChart = ({ symbol }) => {
+  const { selectedIndicators, setSelectedIndicators, getIndicatorData } =
+    useTechnicalAnalysis();
 
   const [indicatorsSettings, setIndicatorsSettings] = useState({
     Indicators: {
       icon: TbChartHistogram,
       onSelectFunction: async (indicatorName) => {
+        const indicatorData = await getIndicatorData(symbol, indicatorName, {
+          [indicatorName]: IndicatorsList[indicatorName],
+        });
         const newIndicator = {
           name: indicatorName,
           pane: indicatorName === "SMA" || indicatorName === "EMA" ? 0 : 1,
           params: IndicatorsList[indicatorName],
-          color: "fff",
-          lines: [
-            await getIndicatorData(selectedStock, indicatorName, {
-              [indicatorName]: IndicatorsList[indicatorName],
-            }),
-          ],
+          lines: Object.keys(indicatorData).map((key) => ({
+            name: key,
+            data: indicatorData[key],
+            color: "red",
+            type: "line",
+          })),
         };
         console.log(newIndicator);
         setSelectedIndicators((prevIndicators) => [
@@ -75,33 +69,9 @@ const AdvancedChart = () => {
       },
     },
   });
-
-  useEffect(() => {
-    const fetchDataAndIndicators = async () => {
-      try {
-        if (selectedStock) {
-          setStockPriceData(await getStockPriceData(selectedStock));
-          const updatedIndicators = await Promise.all(
-            selectedIndicators.map(async (indicator) => {
-              const { name, stock } = indicator;
-              console.log(name, selectedStock);
-              const updatedValue = await getIndicatorData(selectedStock, name, {
-                [name]: IndicatorsList[name],
-              });
-              return {
-                ...indicator,
-                lines: [updatedValue],
-              };
-            })
-          );
-          setSelectedIndicators(updatedIndicators);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchDataAndIndicators();
-  }, [selectedStock]);
+  const chartKey = selectedIndicators
+    .map((indicator) => indicator.name)
+    .join(",");
 
   function transformIndicatorsToList(indicators) {
     return Object.keys(indicators).map((key) => ({
@@ -112,7 +82,7 @@ const AdvancedChart = () => {
   const handleCheckboxChange = async (event) => {
     setIsChecked(event.target.checked);
     if (event.target.checked) {
-      setMarkers(await japaneseCandlestickMarkers(selectedStock));
+      setMarkers(await japaneseCandlestickMarkers(symbol));
     } else {
       setMarkers([]);
     }
@@ -126,7 +96,7 @@ const AdvancedChart = () => {
         <ModalTool
           icon={TbSearch}
           hoverText="Modal"
-          text={selectedStock}
+          text={symbol}
           title={"Search"}
         >
           <div> Search for symbol</div>
@@ -146,7 +116,7 @@ const AdvancedChart = () => {
           />
         </ModalTool>
         <ToolSeparator />
-        <ModalTool
+        {/* <ModalTool
           icon={TbPencil}
           hoverText="Patterns"
           text={"Patterns"}
@@ -163,7 +133,7 @@ const AdvancedChart = () => {
             settings={patternsSettings}
             setSettings={setPatternsSettings}
           />
-        </ModalTool>
+        </ModalTool> */}
 
         <ToolSeparator />
         <SelectTool
@@ -181,12 +151,11 @@ const AdvancedChart = () => {
         />
       </Toolbar>
       <div id="responsive-chart" className="h-100 ">
-        <CandlestickAndIndicatorsChart
-          series={stockPriceData}
+        <StockPriceChart
+          key={chartKey}
           indicators={selectedIndicators}
-          selectedStock={selectedStock}
-          symbol={selectedStock}
-          markers={markers}
+          symbol={symbol}
+          // markers={markers}
         />
       </div>
     </div>
@@ -194,53 +163,3 @@ const AdvancedChart = () => {
 };
 
 export default AdvancedChart;
-
-//  const indicators = [
-//    {
-//      name: "SMA-EMA",
-//      pane: 0,
-//      lines: [
-//        {
-//          vas: await getIndicatorData(selectedStock, "SMA"),
-//          color: "#fff",
-//        },
-//        {
-//          ema_21: await getIndicatorData(selectedStock, "EMA"),
-//          color: "#bbb",
-//        },
-//      ],
-//    },
-
-//    {
-//      name: "SMA",
-
-//      pane: 0,
-//      lines: [
-//        {
-//          vas: await getIndicatorData(selectedStock, "SMA"),
-//          color: "#ccc",
-//        },
-//      ],
-//    },
-
-//    {
-//      name: "EMA",
-//      pane: 1,
-//      lines: [
-//        {
-//          vas: await getIndicatorData(selectedStock, "EMA"),
-//          color: "#009999",
-//        },
-//      ],
-//    },
-//    {
-//      name: "EMA",
-//      pane: 2,
-//      lines: [
-//        {
-//          vas: await getIndicatorData(selectedStock, "EMA"),
-//          color: "#ff0000",
-//        },
-//      ],
-//    },
-//  ];
