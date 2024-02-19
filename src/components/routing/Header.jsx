@@ -11,7 +11,7 @@ import Image from "next/image";
 
 const ActiveMenuLink = ({ children, href }) => {
   const pathname = usePathname();
-  const active = href === pathname;
+  const active = href === "/" ? pathname === href : pathname.includes(href);
   const { selectedStock, setSelectedStock } = useStocksData();
 
   return (

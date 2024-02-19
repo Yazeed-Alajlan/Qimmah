@@ -32,6 +32,7 @@ const StockPriceChart = ({
     volume: "",
     changePercent: "",
   }));
+  const [indicatorList, setIndicatorList] = useState(indicators);
 
   const chartContainerRef = useRef(null);
   const chartContainerId = `chart-container-${symbol}`;
@@ -181,7 +182,12 @@ const StockPriceChart = ({
 
   return (
     <div className="h-full">
-      {indicators && <Indicators indicators={indicators} />}
+      {indicatorList && (
+        <Indicators
+          indicators={indicatorList}
+          setIndicators={setIndicatorList}
+        />
+      )}
       <div
         className={`flex justify-center text-sm  gap-4 text-${
           legend.open > legend.close ? "danger" : "success"

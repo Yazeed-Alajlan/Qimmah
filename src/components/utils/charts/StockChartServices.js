@@ -170,7 +170,6 @@ const formatLineData = (series) => {
 };
 
 const formatIndicatorData = (series) => {
-  console.log(series);
   let data = [];
   if (!series) return [];
 

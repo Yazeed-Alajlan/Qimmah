@@ -7,27 +7,24 @@ import { useQuery } from "react-query";
 import { getIndicatorData } from "@/services/PythonServices";
 
 const Vsa = ({ symbol }) => {
-  const { isLoading, isRefetching, data } = useQuery(
-    ["data", symbol],
-    () =>
-      getIndicatorData(symbol, "MACD", {
-        MACD: {
-          name: "Moving Average Convergence Divergence",
-          kwargs: {
-            fastperiod: 12,
-            slowperiod: 26,
-            signalperiod: 9,
-          },
+  const { isLoading, isRefetching, data } = useQuery(["data", symbol], () =>
+    getIndicatorData(symbol, "MACD", {
+      MACD: {
+        name: "Moving Average Convergence Divergence",
+        kwargs: {
+          fastperiod: 12,
+          slowperiod: 26,
+          signalperiod: 9,
         },
-      })
+      },
 
-    // VSA: {
-    //   name: "Volume Spread Indicator",
-    //   kwargs: {},
-    // },
+      // VSA: {
+      //   name: "Volume Spread Indicator",
+      //   kwargs: {},
+      // },
+    })
   );
 
-  console.log(data);
   return (
     <Card>
       {isLoading || isRefetching ? (
@@ -51,18 +48,21 @@ const Vsa = ({ symbol }) => {
               lines: [
                 {
                   name: "fastperiod",
+                  arg: 12,
                   type: "line",
                   color: "red",
                   data: data.fastperiod,
                 },
                 {
                   name: "slowperiod",
+                  arg: 26,
                   type: "line",
                   color: "red",
                   data: data.slowperiod,
                 },
                 {
                   name: "signalperiod",
+                  arg: 9,
                   type: "line",
                   color: "red",
                   data: data.signalperiod,
@@ -71,9 +71,9 @@ const Vsa = ({ symbol }) => {
               ],
             },
             // {
-            //   name: "VSA2",
+            //   name: "VSA",
             //   fullName: "Volume Spread Indicator",
-            //   pane: 2,
+            //   pane: 1,
             //   params: {
             //     name: "Volume Spread Indicator",
             //     kwargs: {},
@@ -95,73 +95,3 @@ const Vsa = ({ symbol }) => {
 };
 
 export default Vsa;
-
-// [
-//     {
-//         "name": "RSI",
-//         "pane": 1,
-//         "params": {
-//             "name": "Relative Strength Index",
-//             "kwargs": {
-//                 "timeperiod": 14
-//             }
-//         },
-//         "color": "fff",
-//         "lines": [
-//             {
-//                 "timeperiod": {
-//                     "2022-01-20": 64.92537313432835,
-
-//                 }
-//             }
-//         ]
-//     },
-//     {
-//         "name": "SMA",
-//         "pane": 0,
-//         "params": {
-//             "name": "Simple Moving Average",
-//             "kwargs": {
-//                 "timeperiod": 2
-//             }
-//         },
-//         "color": "fff",
-//         "lines": [
-//             {
-//                 "timeperiod": {
-//                     "2022-01-03": 132.9,
-
-//                 }
-//             }
-//         ]
-//     },
-//     {
-//         "name": "MACD",
-//         "pane": 1,
-//         "params": {
-//             "name": "Moving Average Convergence Divergence",
-//             "kwargs": {
-//                 "fastperiod": 12,
-//                 "slowperiod": 26,
-//                 "signalperiod": 9
-//             }
-//         },
-//         "color": "fff",
-//         "lines": [
-//             {
-//                 "fastperiod": {
-//                     "2022-02-16": -0.015057943566489485,
-
-//                 },
-//                 "signalperiod": {
-//                     "2022-02-16": -0.6912715096468705,
-
-//                 },
-//                 "slowperiod": {
-//                     "2022-02-16": 0.676213566080381,
-
-//                 }
-//             }
-//         ]
-//     }
-// ]
