@@ -90,7 +90,7 @@ const Header = ({ children }) => {
 
   return (
     <>
-      {pathname === "/chart" ? (
+      {pathname.includes("chart") ? (
         <></>
       ) : (
         <div className="w-full bg-white">

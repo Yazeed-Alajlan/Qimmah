@@ -1,44 +1,8 @@
 "use client";
-import PageWrapper from "@/components/PageWrapper";
-import { useTechnicalAnalysis } from "@/context/TechnicalAnalysisContext";
 import React from "react";
-import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-import SidebarSelection from "./components/SidebarSelection";
-import AdvancedChart from "./components/AdvancedChart";
 
 const Page = () => {
-  const { selectedStock } = useTechnicalAnalysis();
-
-  return (
-    <PageWrapper fullPage>
-      <div dir="ltr">
-        <PanelGroup direction="horizontal" className="flex ">
-          <Panel minSizePercentage={75}>
-            {selectedStock ? (
-              <>
-                {/* <div>{selectedStock}</div> */}
-                <AdvancedChart symbol={selectedStock} />
-              </>
-            ) : (
-              <>SELECT STOCK</>
-            )}
-          </Panel>
-          <PanelResizeHandle
-            className="bg-dark-light"
-            style={{ width: "4px" }}
-          />
-
-          <Panel
-            // collapsible={true}
-            // collapsedSizePixels={40}
-            minSizePercentage={20}
-          >
-            <SidebarSelection />
-          </Panel>
-        </PanelGroup>
-      </div>
-    </PageWrapper>
-  );
+  return <div fullPage></div>;
 };
 
 export default Page;

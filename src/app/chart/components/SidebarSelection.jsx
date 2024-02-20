@@ -6,14 +6,18 @@ import { useTechnicalAnalysis } from "@/context/TechnicalAnalysisContext";
 import React, { useEffect, useState } from "react";
 import { TbFilter, TbFilterOff } from "react-icons/tb";
 import { TbArrowMergeBoth, TbChartCandle } from "react-icons/tb";
+import { useRouter } from "next/navigation";
 
 const SidebarSelection = () => {
+  const router = useRouter();
+
   const { stocksData } = useStocksData();
   const { filteredStocks, setFilteredStocks, selectedStock, setSelectedStock } =
     useTechnicalAnalysis();
   const [data, setData] = useState([]);
 
   const handleRowClick = (symbol) => {
+    router.push(`/chart/${symbol}`);
     setSelectedStock(symbol);
   };
   useEffect(() => {
