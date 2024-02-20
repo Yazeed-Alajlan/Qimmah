@@ -150,7 +150,6 @@ const StockPriceChart = ({
       }
 
       if (indicatorList) {
-        console.log(indicatorList);
         indicatorList.forEach((indicator) => {
           indicator.lines.forEach((line) => {
             if (line.type === "histogram") {

@@ -34,6 +34,7 @@ const AdvancedChart = ({ symbol }) => {
         const indicatorData = await getIndicatorData(symbol, indicatorName, {
           [indicatorName]: IndicatorsList[indicatorName],
         });
+
         const indicator = IndicatorsListValues.find(
           (indicator) => indicator.name === indicatorName
         );
@@ -56,21 +57,20 @@ const AdvancedChart = ({ symbol }) => {
   useEffect(() => {
     const updatedIndicators = [];
     const fetchIndicatorData = async () => {
-      console.log(selectedIndicators);
       for (const indicator of selectedIndicators) {
         const indicatorData = await getIndicatorData(symbol, indicator.name, {
           [indicator.name]: indicator.params,
         });
-
         indicator.lines.forEach((line) => {
           let lineName = line.name;
           if (lineName in indicatorData) {
             line.data = indicatorData[lineName];
           }
         });
+
         updatedIndicators.push(indicator);
-        console.log(updatedIndicators);
       }
+
       setSelectedIndicators(updatedIndicators);
     };
     if (selectedIndicators) fetchIndicatorData();

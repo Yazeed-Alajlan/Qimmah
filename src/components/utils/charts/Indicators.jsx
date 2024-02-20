@@ -5,6 +5,7 @@ import Button from "../buttons/Button";
 import Input from "../inputs/Input";
 import { useQuery } from "react-query";
 import { getIndicatorData } from "@/services/PythonServices";
+import InputSelect from "../inputs/InputSelect";
 
 const Indicators = ({ indicators, setIndicators, symbol }) => {
   const [selectedIndicator, setSelectedIndicator] = useState(null);
@@ -38,11 +39,17 @@ const Indicators = ({ indicators, setIndicators, symbol }) => {
     setSelectedIndicator(null);
   };
   const handleInputChange = (paramName, value, lineIndex, name) => {
-    value = parseInt(value);
+    console.log(paramName);
+    console.log(lineIndex);
+    console.log(name);
+    if (paramName != "color") value = parseInt(value);
     const updatedObject = { ...selectedIndicator };
+    console.log(value);
 
     if (paramName == "pane") {
       updatedObject.pane = value;
+    } else if (paramName == "color") {
+      updatedObject.lines[lineIndex].color = value;
     } else {
       updatedObject.lines[lineIndex].arg = value;
       updatedObject.params.kwargs[name] = value;
@@ -64,6 +71,7 @@ const Indicators = ({ indicators, setIndicators, symbol }) => {
             console.log(data);
           });
         });
+        selectedIndicator.pane = updatedParams.pane;
         updatedIndicators[index] = { ...selectedIndicator, ...updatedParams };
         setIndicators(updatedIndicators);
       }
@@ -118,13 +126,31 @@ const Indicators = ({ indicators, setIndicators, symbol }) => {
                       handleInputChange("arg", e.target.value, index, line.name)
                     }
                   />
-                  <Input
+                  <InputSelect
+                    label="Color"
+                    options={[
+                      { value: "red", label: "Red" },
+                      { value: "green", label: "Green" },
+                      { value: "blue", label: "Blue" },
+                      // ... Add more color options as needed
+                    ]}
+                    onChange={(selected) =>
+                      handleInputChange(
+                        "color",
+                        selected.value,
+                        index,
+                        line.name
+                      )
+                    }
+                  />
+
+                  {/* <Input
                     label="Color"
                     type="color"
                     labelDirection="hr"
                     defaultValue={line.color}
                     onChange={(e) => handleInputChange("color", e)}
-                  />
+                  /> */}
                 </>
               )
             )}
@@ -137,7 +163,6 @@ const Indicators = ({ indicators, setIndicators, symbol }) => {
               onChange={(e) => handleInputChange("pane", e.target.value)}
             />
           </div>
-          <div></div>
           <Button onClick={handleSubmit} text="Submit" />
         </Modal>
       )}
