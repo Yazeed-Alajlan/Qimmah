@@ -5,7 +5,7 @@ import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import AdvancedChart from "./components/AdvancedChart";
 import SidebarSelection from "./components/SidebarSelection";
 
-const layout = ({ children }) => {
+const Layout = ({ children }) => {
   const { symbol } = useParams();
 
   return (
@@ -33,4 +33,4 @@ const layout = ({ children }) => {
   );
 };
 
-export default layout;
+export default Layout;
