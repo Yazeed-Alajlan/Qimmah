@@ -33,43 +33,6 @@ const Vsa = ({ symbol }) => {
         <StockPriceChart
           symbol={symbol}
           indicators={[
-            // {
-            //   name: "MACD",
-            //   fullName: "Moving average Convergence Divergence",
-            //   pane: 1,
-            //   params: {
-            //     name: "Moving average Convergence Divergence",
-            //     kwargs: {
-            //       fastperiod: 12,
-            //       slowperiod: 26,
-            //       signalperiod: 9,
-            //     },
-            //   },
-            //   lines: [
-            //     {
-            //       name: "fastperiod",
-            //       arg: 12,
-            //       type: "line",
-            //       color: "red",
-            //       data: data.fastperiod,
-            //     },
-            //     {
-            //       name: "slowperiod",
-            //       arg: 26,
-            //       type: "line",
-            //       color: "red",
-            //       data: data.slowperiod,
-            //     },
-            //     {
-            //       name: "signalperiod",
-            //       arg: 9,
-            //       type: "line",
-            //       color: "red",
-            //       data: data.signalperiod,
-            //       type: "histogram",
-            //     },
-            //   ],
-            // },
             {
               name: "VSA",
               fullName: "Volume Spread Indicator",

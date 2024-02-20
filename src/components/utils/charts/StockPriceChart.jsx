@@ -73,17 +73,17 @@ const StockPriceChart = ({
       const candlestickSeries = chart.addCandlestickSeries();
       candlestickSeries.setData(formattedData);
 
-      // new ResizeObserver((entries) => {
-      //   if (
-      //     entries.length === 0 ||
-      //     entries[0].target !== chartContainerRef.current
-      //   ) {
-      //     return;
-      //   }
-      //   const newRect = entries[0].contentRect;
+      new ResizeObserver((entries) => {
+        if (
+          entries.length === 0 ||
+          entries[0].target !== chartContainerRef.current
+        ) {
+          return;
+        }
+        const newRect = entries[0].contentRect;
 
-      //   chart.applyOptions({ height: 500, width: newRect.width });
-      // }).observe(chartContainerRef.current);
+        chart.applyOptions({ height: 500, width: newRect.width });
+      }).observe(chartContainerRef.current);
       createTooltip(chartContainerId, chart, candlestickSeries);
       const volumeSeries = addVolumeHistogram(chart, stockPriceData.quotes);
       addLegend(

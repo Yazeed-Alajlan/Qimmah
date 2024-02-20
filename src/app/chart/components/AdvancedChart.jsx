@@ -17,6 +17,7 @@ import {
   TbFlag,
 } from "react-icons/tb";
 import IndicatorsList from "../utils/IndicatorsList";
+import IndicatorsListValues from "../utils/IndicatorsListDefautValues";
 import { useTechnicalAnalysis } from "@/context/TechnicalAnalysisContext";
 import candlestick_patterns from "../utils/candlestickPatterns";
 import IndicatorsSelection from "../Toolbar/IndicatorsSelection";
@@ -33,6 +34,22 @@ const AdvancedChart = ({ symbol }) => {
         const indicatorData = await getIndicatorData(symbol, indicatorName, {
           [indicatorName]: IndicatorsList[indicatorName],
         });
+        const indicator = IndicatorsListValues.find(
+          (indicator) => indicator.name === indicatorName
+        );
+
+        indicator.lines.forEach((line) => {
+          let lineName = line.name;
+          if (lineName in indicatorData) {
+            line.data = indicatorData[lineName];
+          }
+        });
+
+        console.log(indicator);
+
+        // indicator.lines.data = Object.keys(indicatorData).map((key) => ({
+        //   data: indicatorData[key],
+        // }));
         const newIndicator = {
           name: indicatorName,
           pane: indicatorName === "SMA" || indicatorName === "EMA" ? 0 : 1,
@@ -47,7 +64,7 @@ const AdvancedChart = ({ symbol }) => {
         console.log(newIndicator);
         setSelectedIndicators((prevIndicators) => [
           ...prevIndicators,
-          newIndicator,
+          indicator,
         ]);
       },
       options: transformIndicatorsToList(IndicatorsList),
