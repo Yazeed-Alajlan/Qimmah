@@ -1,3 +1,4 @@
+"use client";
 import PageWrapper from "@/components/PageWrapper";
 import { Card } from "@/components/utils/cards/Card";
 import StockPriceChart from "@/components/utils/charts/StockPriceChart";

@@ -241,7 +241,7 @@ const StocksTable = ({
           {!isScrollable && (
             <div className="flex justify-center items-center mt-2">
               <Button
-                className="bg-primary mx-2"
+                variant="primary"
                 onClick={() => previousPage()}
                 disabled={!canPreviousPage}
                 text="Previous"
@@ -253,7 +253,7 @@ const StocksTable = ({
                 </strong>
               </span>
               <Button
-                className="bg-primary mx-2"
+                variant="primary"
                 onClick={() => nextPage()}
                 disabled={!canNextPage}
                 text="Next"

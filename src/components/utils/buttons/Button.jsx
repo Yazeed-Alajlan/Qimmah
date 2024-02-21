@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 const variants = {
   primary: {
     filled:
-      "bg-violet-500 hover:bg-violet-400 focus:ring-violet-300 text-white",
+      "bg-primary-700 hover:bg-primary-500 focus:ring-primary-300 text-white",
     outline:
-      "text-violet-500 border-[1px] border-violet-500 hover:bg-violet-500 hover:text-white focus:ring-violet-500",
+      "text-primary-700 border-[1px] border-primary-700 hover:bg-primary-700 hover:text-white focus:ring-primary-700",
     tag: "text-primary  bg-gray-600/10  rounded-xl ",
   },
   secondary: {

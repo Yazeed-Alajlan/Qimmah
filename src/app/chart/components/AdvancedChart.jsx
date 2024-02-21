@@ -23,7 +23,11 @@ import candlestick_patterns from "../utils/candlestickPatterns";
 import IndicatorsSelection from "../Toolbar/IndicatorsSelection";
 import PatternsSelection from "../Toolbar/PatternsSelection";
 import StockPriceChart from "@/components/utils/charts/StockPriceChart";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 const AdvancedChart = ({ symbol }) => {
+  const router = useRouter();
+
   const { selectedIndicators, setSelectedIndicators, getIndicatorData } =
     useTechnicalAnalysis();
 
@@ -113,7 +117,9 @@ const AdvancedChart = ({ symbol }) => {
   return (
     <div className="flex flex-col h-screen">
       <Toolbar>
-        <ButtonTool icon={TbHome} hoverText="Home" />
+        <Link href={"/"}>
+          <ButtonTool icon={TbHome} hoverText="Home" />
+        </Link>
 
         <ToolSeparator />
         <ModalTool
