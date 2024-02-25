@@ -54,6 +54,11 @@ const page = () => {
           label="VSA"
           icon={<TbDeviceAnalytics size={50} />}
         />
+        <CardWithLink
+          to="tools/moving-average"
+          label="Moving Average"
+          icon={<TbDeviceAnalytics size={50} />}
+        />
       </div>
     </PageWrapper>
   );

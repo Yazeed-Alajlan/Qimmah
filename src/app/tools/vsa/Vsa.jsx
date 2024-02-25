@@ -9,15 +9,6 @@ import { getIndicatorData } from "@/services/PythonServices";
 const Vsa = ({ symbol }) => {
   const { isLoading, isRefetching, data } = useQuery(["data", symbol], () =>
     getIndicatorData(symbol, "MACD", {
-      // MACD: {
-      //   name: "Moving Average Convergence Divergence",
-      //   kwargs: {
-      //     fastperiod: 12,
-      //     slowperiod: 26,
-      //     signalperiod: 9,
-      //   },
-      // },
-
       VSA: {
         name: "Volume Spread Indicator",
         kwargs: {},

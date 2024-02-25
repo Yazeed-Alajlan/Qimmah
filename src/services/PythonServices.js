@@ -127,6 +127,23 @@ async function flags_pennants(symbol) {
     console.error("Error:", error);
   }
 }
+async function moving_average_bounce_penetration_percentage(symbol) {
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:4000/api/stocks/moving-average-bounce-penetration-percentage?symbol=${symbol}`
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } else {
+      console.error("Failed to send pattern ");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
 
 export {
   getIndicatorData,
@@ -137,4 +154,5 @@ export {
   japaneseCandlestickFilter,
   flags_pennants,
   getHawkesProcess,
+  moving_average_bounce_penetration_percentage,
 };

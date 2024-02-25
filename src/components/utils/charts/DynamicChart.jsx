@@ -21,7 +21,10 @@ const convertDataFormat = (data) => {
       label: key.replace("_", " ").toUpperCase(),
       data: data[key].map((item) => ({
         x: item.year,
-        y: parseInt(item.value.replace(/,/g, "")),
+        y:
+          typeof item.value === "number"
+            ? item.value
+            : parseFloat(item.value.replace(/,/g, "")),
       })),
       borderColor: `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(
         Math.random() * 256
@@ -49,6 +52,7 @@ const convertDataFormat = (data) => {
 };
 
 const DynamicChart = ({ type, data }) => {
+  console.log(data);
   const [chartType, setChartType] = useState(type);
   const [chartData, setChartData] = useState();
   const [modal, setModal] = useState(false);
