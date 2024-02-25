@@ -6,7 +6,7 @@ import { stockPriceSummary } from "@/services/PythonServices";
 import DynamicChart from "@/components/utils/charts/DynamicChart";
 import PageWrapper from "@/components/PageWrapper";
 import StocksSearch from "@/components/utils/inputs/StocksSearch";
-import MonthlyReturnTable from "@/app/stock/[sector]/[symbol]/chart/MonthlyReturnTable";
+import MonthlyChangeTable from "@/app/stock/[sector]/[symbol]/chart/MonthlyChangeTable";
 
 const Page = () => {
   const [selectedStock, setSelectedStock] = useState();
@@ -43,10 +43,10 @@ const Page = () => {
 
       {priceSummary && (
         <div className="flex flex-col gap-8">
-          <Card header={"العوائد الشهرية"}>
-            <MonthlyReturnTable data={priceSummary["monthly_returns"]} />
+          <Card header={"التغيرات الشهرية"}>
+            <MonthlyChangeTable data={priceSummary["monthly_returns"]} />
           </Card>
-          <Card header={"متوسط العوائد الشهرية"}>
+          <Card header={"متوسط التغيرات الشهرية"}>
             <DynamicChart
               type={"bar"}
               data={priceSummary["monthly_returns_average"]}

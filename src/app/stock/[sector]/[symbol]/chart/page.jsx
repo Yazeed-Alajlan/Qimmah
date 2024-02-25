@@ -5,7 +5,7 @@ import StockPriceChart from "@/components/utils/charts/StockPriceChart";
 import { useParams } from "next/navigation";
 import { useQuery } from "react-query";
 import { stockPriceSummary } from "@/services/PythonServices";
-import MonthlyReturnTable from "./MonthlyReturnTable";
+import MonthlyChangeTable from "./MonthlyChangeTable";
 import DynamicChart from "@/components/utils/charts/DynamicChart";
 
 const Page = () => {
@@ -26,7 +26,7 @@ const Page = () => {
       {priceSummary && (
         <>
           <Card header={"العوائد الشهرية"}>
-            <MonthlyReturnTable data={priceSummary["monthly_returns"]} />
+            <MonthlyChangeTable data={priceSummary["monthly_returns"]} />
           </Card>
           <Card header={"متوسط العوائد الشهرية"}>
             <DynamicChart

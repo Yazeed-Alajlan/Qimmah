@@ -21,8 +21,8 @@ const page = () => {
           icon={<CgArrowsShrinkV size={50} />}
         />
         <CardWithLink
-          to="tools/monthly-returns"
-          label="Monthly Returns"
+          to="tools/monthly-change"
+          label="Monthly Change"
           icon={<TbReportAnalytics size={50} />}
         />
         <CardWithLink

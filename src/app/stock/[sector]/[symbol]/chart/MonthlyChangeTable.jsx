@@ -1,6 +1,6 @@
 import React from "react";
 
-const MonthlyReturnTable = ({ data }) => {
+const MonthlyChangeTable = ({ data }) => {
   let uniqueYears = [];
   let sortedMonths = [];
 
@@ -65,4 +65,4 @@ const MonthlyReturnTable = ({ data }) => {
   );
 };
 
-export default MonthlyReturnTable;
+export default MonthlyChangeTable;
