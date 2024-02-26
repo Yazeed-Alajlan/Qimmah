@@ -32,10 +32,7 @@ const IndicatorsSelection = ({ settings, setSettings }) => {
             ))}
           </div>
         </Panel>
-        <PanelResizeHandle
-          className="bg-dark-light mx-2"
-          style={{ width: "3px" }}
-        />
+        <PanelResizeHandle className="bg-dark-light mx-2 w-1" />
         <Panel minSizePercentage={70}>
           <div className="overflow-auto max-h-60">
             {selectedType && (

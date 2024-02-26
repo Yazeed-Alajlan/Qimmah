@@ -31,6 +31,38 @@ export function TechnicalAnalysisProvider({ children }) {
     return response.data;
   }
 
+  async function consolidatingStocksFilter({
+    numberOfCandles,
+    percentageRange,
+  }) {
+    try {
+      const url = `http://localhost:4000/api/stocks/consolidating-stocks?numberOfCandles=${numberOfCandles}&percentageRange=${percentageRange}`;
+      const response = await axios.get(url);
+      console.log(response.data);
+      setFilteredStocks(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
+  async function japaneseCandlestickFilter({ pattern }) {
+    console.log(pattern);
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/stocks/japanese-candlestick-patterns/${pattern}`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data[pattern]);
+        setFilteredStocks(data[pattern]);
+      } else {
+        console.error("Failed to send pattern");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   const value = {
     filteredStocks,
     setFilteredStocks,
@@ -39,6 +71,8 @@ export function TechnicalAnalysisProvider({ children }) {
     selectedStock,
     setSelectedStock,
     getIndicatorData,
+    consolidatingStocksFilter,
+    japaneseCandlestickFilter,
   };
 
   return (

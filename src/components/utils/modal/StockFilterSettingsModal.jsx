@@ -17,6 +17,7 @@ const StockFilterSettingsModal = ({
 }) => {
   const [selectedType, setSelectedType] = useState("");
   const [inputValues, setInputValues] = useState({});
+
   const handleTypeSelection = (type) => {
     setSelectedType(type);
     const defaultValues = {};
@@ -76,27 +77,27 @@ const StockFilterSettingsModal = ({
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -50 }}
         transition={{ type: "spring", duration: 0.5 }}
+        className="flex flex-col gap-4"
       >
         <PanelGroup direction="horizontal">
           <Panel defaultSizePercentage={25} minSizePercentage={20}>
-            <div className="d-flex flex-column">
+            <div className="flex justify-center items-center flex-col">
               {Object.keys(settings).map((type) => (
                 <Button
+                  variant={"text"}
+                  isDefault={false}
+                  fullWidth
                   text={type}
                   key={type}
                   onClick={() => handleTypeSelection(type)}
                   isActive={type === selectedType}
+                  className={type === selectedType ? "bg-gray-500/10" : ""}
                   icon={settings[type].icon}
-                >
-                  {type}
-                </Button>
+                />
               ))}
             </div>
           </Panel>
-          <PanelResizeHandle
-            className="bg-dark-light mx-3"
-            style={{ width: "3px" }}
-          />
+          <PanelResizeHandle className="bg-dark mx-3 w-1" />
           <Panel minSizePercentage={70}>
             <div>
               {selectedType && (
@@ -110,7 +111,7 @@ const StockFilterSettingsModal = ({
                           onChange={(e) => {
                             handleInputChange(
                               option.name,
-                              option.isMulti ? option.defaultValue : e.value
+                              option.isMulti ? option.defaultValue : e?.value
                             );
                           }}
                           options={option.options}
@@ -150,13 +151,9 @@ const StockFilterSettingsModal = ({
             </div>
           </Panel>
         </PanelGroup>
-
-        <Button
-          text={"Cancel"}
-          variant={"danger"}
-          onClick={() => setIsModalOpen((isModalOpen) => !isModalOpen)}
-        />
-        <Button text={"Save"} onClick={handleSubmit} />
+        <div className="flex itmes-center justify-end">
+          <Button text={"Save"} onClick={handleSubmit} />
+        </div>
       </motion.div>
     </Modal>
   );
