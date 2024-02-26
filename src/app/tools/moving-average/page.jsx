@@ -21,7 +21,6 @@ const Page = () => {
 
   useEffect(() => {
     const formatData = async (data) => {
-      console.log("HEEEEEEEElo");
       const formattedData = {
         bounce_percentage: [],
         penetration_percentage: [],
@@ -80,9 +79,9 @@ const Page = () => {
         />
       </Card>
       {formattedData && (
-        <div className="flex flex-col gap-8">
+        <Card className="">
           <DynamicChart type={"line"} data={formattedData} />
-        </div>
+        </Card>
       )}
     </PageWrapper>
   );
