@@ -12,8 +12,8 @@ import {
   getFinancialMetric,
   prepareFinancialMetricsComparisonTableData,
 } from "@/services/FinancialServices";
-import Table from "@/components/utils/table/Table";
 import FinancialMetricsComparisonTable from "../comparison/components/FinancialMetricsComparisonTable";
+import InputSelect from "@/components/utils/inputs/InputSelect";
 
 const Page = () => {
   const {
@@ -30,6 +30,32 @@ const Page = () => {
   const { data: leverage } = useQuery(["leverageData"], () =>
     getFinancialMetric("Leverage")
   );
+
+  const [data, setData] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const options = [
+    { value: "Leverage", label: "Leverage" },
+    { value: "DebtToEquityRatio", label: "DebtToEquityRatio" },
+    { value: "NetProfitMargin", label: "NetProfitMargin" },
+    // Add more options as needed
+  ];
+  const handleSelectChange = async (selected) => {
+    setSelectedOptions(selected);
+    console.log(selectedOptions);
+    const newData = [];
+
+    for (const option of selected) {
+      try {
+        const response = await getFinancialMetric(option.value);
+        newData.push({ [option.value]: response });
+      } catch (error) {
+        console.error(`Error fetching data for ${option.value}:`, error);
+      }
+    }
+    console.log(newData);
+    console.log(data);
+    setData(newData);
+  };
 
   return (
     <PageWrapper className={"gap-16"}>
@@ -64,6 +90,14 @@ const Page = () => {
         </div>
         <div>
           <Card header={"Leverage"}>
+            <InputSelect
+              label="Select options"
+              options={options}
+              selectedOption={selectedOptions}
+              placeholder="Select..."
+              onChange={handleSelectChange}
+              isMulti={true} // or simply isMulti, as true is the default value
+            />
             <FinancialMetricsTable
               tableData={leverage}
               isScrollable

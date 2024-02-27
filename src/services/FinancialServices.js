@@ -121,7 +121,6 @@ function calculateNetProfitMargin(financialData) {
 }
 
 function calculateLeverage(financialData) {
-  console.log("LEVERAGE");
   const totalLiabilities = parseFloat(
     financialData.balanceSheet[0].total_liabilities_and_shareholder_equity.replace(
       /,/g,
