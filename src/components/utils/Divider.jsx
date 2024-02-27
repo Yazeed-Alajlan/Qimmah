@@ -2,7 +2,7 @@ import React from "react";
 
 const Divider = ({ text, button, direction, width, className }) => {
   return (
-    <div className={"w-full my-8"}>
+    <div className={"w-full my-4"}>
       <div className="inline-flex items-center justify-center w-full">
         {!button && (
           <hr className="w-full h-1  border-0 rounded bg-gray-200 dark:bg-gray-700" />

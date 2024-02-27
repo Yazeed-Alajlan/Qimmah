@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import {
   getAllBasicEarningsPerShareTTM,
+  getFinancialMetric,
   prepareFinancialMetricsComparisonTableData,
 } from "@/services/FinancialServices";
 import Table from "@/components/utils/table/Table";
@@ -25,6 +26,9 @@ const Page = () => {
 
   const { data: comparisonTableData } = useQuery(["comparisonTableData"], () =>
     prepareFinancialMetricsComparisonTableData()
+  );
+  const { data: leverage } = useQuery(["leverageData"], () =>
+    getFinancialMetric("Leverage")
   );
 
   return (
@@ -50,6 +54,18 @@ const Page = () => {
           <Card header={"ربحية السهم الأساسية الأساسية"}>
             <FinancialMetricsTable
               tableData={earningsData}
+              isScrollable
+              deleteButton={false}
+              divider={false}
+              filterBy={"sectorNameAr"}
+              removeFilterFromColumn
+            />
+          </Card>
+        </div>
+        <div>
+          <Card header={"Leverage"}>
+            <FinancialMetricsTable
+              tableData={leverage}
               isScrollable
               deleteButton={false}
               divider={false}

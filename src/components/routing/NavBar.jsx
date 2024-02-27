@@ -38,7 +38,7 @@ export const NavBar = ({ routes }) => {
               href={route.to}
               ref={(el) => (routesRef.current[index] = el)}
               className={`flex justify-center align-middle items-center gap-2 mb-2 px-2     ${
-                isActive ? `text-primary-500 font-bold` : `hover:font-bold`
+                isActive ? `text-primary-700 font-bold` : `hover:font-bold`
               }   `}
               onClick={() => handleTabClick(index)}
             >
@@ -51,7 +51,7 @@ export const NavBar = ({ routes }) => {
           className="absolute bottom-0 left-0 flex overflow-hidden  pt-2 transition-all duration-300"
           style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
         >
-          <span className="h-1 w-full bg-primary-300" />
+          <span className="h-1 w-full bg-primary-500" />
         </span>
       </div>
       <div>

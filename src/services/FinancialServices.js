@@ -1,10 +1,12 @@
 import axios from "axios";
-import { fetchAllStocksInformationData } from "@/services/FetchServices";
+import {
+  fetchAllStocksInformationData,
+  fetchStockFinancialData,
+} from "@/services/FetchServices";
 
 async function getAllBasicEarningsPerShareTTM() {
   const stocksData = await fetchAllStocksInformationData();
   if (stocksData) {
-    console.log(stocksData);
     const formattedData = stocksData.map((data) => ({
       company: data.symbol + " - " + data.tradingNameAr,
       sectorNameAr: data.sectorNameAr,
@@ -12,7 +14,6 @@ async function getAllBasicEarningsPerShareTTM() {
       basic_earnings_per_share_ttm:
         data.summary[data.summary.length - 1].basic_earnings_per_share_ttm,
     }));
-    console.log(formattedData);
 
     return formattedData;
   }
@@ -23,7 +24,6 @@ async function prepareFinancialMetricsComparisonTableData() {
   const stocksData = await fetchAllStocksInformationData();
 
   if (stocksData) {
-    console.log(stocksData);
     const formattedData = stocksData.map((data) => ({
       symbol: data.symbol,
       name: data.tradingNameAr,
@@ -32,23 +32,26 @@ async function prepareFinancialMetricsComparisonTableData() {
       ...data.capital[data.capital.length - 1],
       ...data.profile[data.profile.length - 1],
     }));
-    console.log(formattedData);
     return formattedData;
   }
   return [];
 }
 
 async function getFinancialMetric(name) {
+  console.log(name);
+  const stocksData = await fetchAllStocksInformationData();
+
   try {
     if (stocksData) {
       const formattedData = await Promise.all(
         stocksData.map(async (stock) => {
           try {
-            const financialData = await getStockFinancialData(stock.symbol);
+            const financialData = await fetchStockFinancialData(stock.symbol);
             if (financialData) {
               const functionName = `calculate${name}`; // Assuming the function name follows a specific pattern
               const calculatedValue = eval(`${functionName}(financialData)`);
-
+              console.log(calculatedValue);
+              console.log(functionName);
               return {
                 company: stock.symbol + " - " + stock.tradingNameAr,
                 sectorNameAr: stock.sectorNameAr,
@@ -118,6 +121,7 @@ function calculateNetProfitMargin(financialData) {
 }
 
 function calculateLeverage(financialData) {
+  console.log("LEVERAGE");
   const totalLiabilities = parseFloat(
     financialData.balanceSheet[0].total_liabilities_and_shareholder_equity.replace(
       /,/g,

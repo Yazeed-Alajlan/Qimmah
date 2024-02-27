@@ -26,7 +26,7 @@ const Tabs = ({ children, activeTab, variant }) => {
           onClick={() => changeTab(index + 1)}
           className={`${
             active === index + 1
-              ? " font-bold bg-violet-500 text-white "
+              ? " font-bold bg-primary-700 text-white "
               : "NOT selected"
           } selected`}
         >

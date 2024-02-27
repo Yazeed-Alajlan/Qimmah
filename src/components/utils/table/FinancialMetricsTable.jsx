@@ -221,7 +221,6 @@ const FinancialMetricsTable = ({
                                 href={`/stock/${row.original.sectorNameEn}/${symbol}/information`}
                                 className=""
                               >
-                                {console.log(row.original)}
                                 <span>
                                   <Badge
                                     className="fw-bold me-2"
