@@ -59,6 +59,7 @@ const Page = () => {
 
   return (
     <PageWrapper className={"gap-16"}>
+      {console.log(process.env.CONNECTION_STRING)}
       <Card header="مؤشر السوق الرئيسية (تاسي)">
         <StockPriceChart symbol={"2222"} />
       </Card>
