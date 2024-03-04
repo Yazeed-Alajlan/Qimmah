@@ -90,14 +90,14 @@ const Page = () => {
         </div>
         <div>
           <Card header={"Leverage"}>
-            <InputSelect
+            {/* <InputSelect
               label="Select options"
               options={options}
               selectedOption={selectedOptions}
               placeholder="Select..."
               onChange={handleSelectChange}
               isMulti={true} // or simply isMulti, as true is the default value
-            />
+            /> */}
             <FinancialMetricsTable
               tableData={leverage}
               isScrollable

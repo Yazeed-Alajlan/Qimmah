@@ -21,7 +21,6 @@ async function fetchAllStocksInformationData() {
 }
 
 async function fetchStockFinancialData(symbol) {
-  console.log(symbol);
   return axios
     .get(`/api/financials/${symbol}`)
     .then((response) => response.data)

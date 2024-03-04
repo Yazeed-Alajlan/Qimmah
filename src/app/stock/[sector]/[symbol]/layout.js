@@ -68,7 +68,7 @@ const StockLayout = ({ children }) => {
       {stockInformationData ? (
         <div className="flex flex-wrap ">
           <div className="flex flex-col gap-4 ">
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-8 ">
               <div className="flex gap-4">
                 <Link className="text-decoration-none" href={"/companies/all"}>
                   الشركات
@@ -80,7 +80,7 @@ const StockLayout = ({ children }) => {
                 /<p>{stockInformationData.tradingNameAr}</p>
               </div>
               <div>
-                <h1 className="text-5xl">
+                <h1 className="text-4xl ">
                   {stockInformationData.companyNameAR}
                 </h1>
               </div>

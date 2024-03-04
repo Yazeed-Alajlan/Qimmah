@@ -191,7 +191,11 @@ const StocksTable = ({
                     <tr
                       key={row.id} // Add key here
                       {...row.getRowProps()}
-                      onClick={() => handleRowClick(row.original.symbol)} // Pass symbol on row click
+                      onClick={() =>
+                        handleRowClick
+                          ? handleRowClick(row.original.symbol)
+                          : null
+                      }
                       className="border-b-2 hover:bg-gray-200 text-sm "
                     >
                       {row.cells.map((cell, index) => {

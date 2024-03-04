@@ -50,8 +50,6 @@ async function getFinancialMetric(name) {
             if (financialData) {
               const functionName = `calculate${name}`; // Assuming the function name follows a specific pattern
               const calculatedValue = eval(`${functionName}(financialData)`);
-              console.log(calculatedValue);
-              console.log(functionName);
               return {
                 company: stock.symbol + " - " + stock.tradingNameAr,
                 sectorNameAr: stock.sectorNameAr,
