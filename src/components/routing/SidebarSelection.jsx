@@ -23,9 +23,7 @@ export const SidebarSelection = ({ routes }) => {
     <Card>
       <div>
         {routes.map((route, index) => (
-          <ActiveMenuLink
-            href={route.to} // Using the 'to' property from the route object
-          >
+          <ActiveMenuLink key={index} href={route.to}>
             <route.icon />
             {route.name}
           </ActiveMenuLink>
