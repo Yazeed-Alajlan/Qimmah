@@ -88,16 +88,16 @@ const Page = () => {
             />
           </Card>
         </div>
-        <div>
+        {/* <div>
           <Card header={"Leverage"}>
-            {/* <InputSelect
+            <InputSelect
               label="Select options"
               options={options}
               selectedOption={selectedOptions}
               placeholder="Select..."
               onChange={handleSelectChange}
               isMulti={true} // or simply isMulti, as true is the default value
-            /> */}
+            />
             <FinancialMetricsTable
               tableData={leverage}
               isScrollable
@@ -107,7 +107,7 @@ const Page = () => {
               removeFilterFromColumn
             />
           </Card>
-        </div>
+        </div> */}
       </div>
       <>
         <Card header={"قارن البيانات المالية"}>
