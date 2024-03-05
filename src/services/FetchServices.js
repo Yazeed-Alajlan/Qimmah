@@ -12,7 +12,7 @@ async function fetchStockInformationData(symbol) {
 }
 async function fetchAllStocksInformationData() {
   return axios
-    .get(`/api/stocks`)
+    .get(`/api/stocks/`)
     .then((response) => response.data)
     .catch((error) => {
       console.error("Error fetching data:", error);
