@@ -15,7 +15,10 @@ export async function GET(req, res) {
       });
     }
 
-    return new NextResponse(JSON.stringify(stocks));
+    return new NextResponse({
+      status: 200,
+      body: stocks, // Just return the array directly without stringifying it
+    });
   } catch (error) {
     console.error("Error retrieving stock financials:", error);
     return new NextResponse({
