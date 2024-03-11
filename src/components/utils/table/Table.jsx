@@ -111,7 +111,7 @@ const Table = ({
                   </div>
                 )}
                 {searchBy && (
-                  <div className="col-span-3  w-1/2">
+                  <div className="col-span-3  md:w-1/2 w-full">
                     <SearchInput
                       placeholder={`Search by ${formatKey(searchBy)}`}
                       value={searchText}

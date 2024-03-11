@@ -66,7 +66,7 @@ const StockLayout = ({ children }) => {
   return (
     <PageWrapper className="gap-10">
       {stockInformationData ? (
-        <div className="flex flex-wrap ">
+        <div className="flex flex-wrap gap-5 justify-center items-center">
           <div className="flex flex-col gap-4 ">
             <div className="flex flex-col gap-8 ">
               <div className="flex gap-4">
@@ -101,7 +101,7 @@ const StockLayout = ({ children }) => {
             </div>
           </div>
 
-          <div className="my-auto ms-auto">
+          <div className="my-auto lg:ms-auto">
             <StockPriceCard
               open={
                 stockInformationData.summary[

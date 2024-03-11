@@ -56,7 +56,6 @@ const FinancialsChart = ({ stockFinancialData }) => {
     } else {
       setChartData([]);
     }
-    console.log("HIIHIIHIHIHHI");
   }, [selectedOptions, stockFinancialData]);
 
   const handleSelectChange = (selected) => {
