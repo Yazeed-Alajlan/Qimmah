@@ -88,21 +88,8 @@ const Page = () => {
             />
           </Card>
         </div>
-<<<<<<< HEAD
         <div>
           {/* <Card header={"Leverage"}>
-=======
-        {/* <div>
-          <Card header={"Leverage"}>
-            <InputSelect
-              label="Select options"
-              options={options}
-              selectedOption={selectedOptions}
-              placeholder="Select..."
-              onChange={handleSelectChange}
-              isMulti={true} // or simply isMulti, as true is the default value
-            />
->>>>>>> bed40fa322efe1fc16842a8002669c623f6fd58c
             <FinancialMetricsTable
               tableData={leverage}
               isScrollable
@@ -111,13 +98,8 @@ const Page = () => {
               filterBy={"sectorNameAr"}
               removeFilterFromColumn
             />
-<<<<<<< HEAD
           </Card> */}
         </div>
-=======
-          </Card>
-        </div> */}
->>>>>>> bed40fa322efe1fc16842a8002669c623f6fd58c
       </div>
       <>
         <Card header={"قارن البيانات المالية"}>

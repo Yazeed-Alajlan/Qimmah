@@ -1,9 +1,4 @@
-interface Props {
-  children: React.ReactNode
-  name: string
-}
-
-const NavigationLink = ({ children, name }: Props) => {
+const NavigationLink = ({ children, name }) => {
   return (
     <a
       href="#"
@@ -14,7 +9,7 @@ const NavigationLink = ({ children, name }: Props) => {
         {name}
       </p>
     </a>
-  )
-}
+  );
+};
 
-export default NavigationLink
+export default NavigationLink;

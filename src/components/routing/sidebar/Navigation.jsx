@@ -1,15 +1,15 @@
-import { motion, useAnimationControls, AnimatePresence } from "framer-motion"
-import { useState, useEffect } from "react"
-import NavigationLink from "./NavigationLink"
+import { motion, useAnimationControls, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import NavigationLink from "./NavigationLink";
 import {
   ChartBarIcon,
   ChartPieIcon,
   DocumentCheckIcon,
   Square2StackIcon,
   UsersIcon,
-} from "@heroicons/react/24/outline"
-import ProjectLink from "./ProjectLink"
-import ProjectNavigation from "./ProjectNavigation"
+} from "@heroicons/react/24/outline";
+import ProjectLink from "./ProjectLink";
+import ProjectNavigation from "./ProjectNavigation";
 
 const containerVariants = {
   close: {
@@ -28,7 +28,7 @@ const containerVariants = {
       duration: 0.5,
     },
   },
-}
+};
 
 const svgVariants = {
   close: {
@@ -37,29 +37,30 @@ const svgVariants = {
   open: {
     rotate: 180,
   },
-}
+};
 
 const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedProject, setSelectedProject] = useState<string | null>(null)
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedProject, setSelectedProject] =
+    (useState < string) | (null > null);
 
-  const containerControls = useAnimationControls()
-  const svgControls = useAnimationControls()
+  const containerControls = useAnimationControls();
+  const svgControls = useAnimationControls();
 
   useEffect(() => {
     if (isOpen) {
-      containerControls.start("open")
-      svgControls.start("open")
+      containerControls.start("open");
+      svgControls.start("open");
     } else {
-      containerControls.start("close")
-      svgControls.start("close")
+      containerControls.start("close");
+      svgControls.start("close");
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   const handleOpenClose = () => {
-    setIsOpen(!isOpen)
-    setSelectedProject(null)
-  }
+    setIsOpen(!isOpen);
+    setSelectedProject(null);
+  };
 
   return (
     <>
@@ -148,7 +149,7 @@ const Navigation = () => {
         )}
       </AnimatePresence>
     </>
-  )
-}
+  );
+};
 
-export default Navigation
+export default Navigation;

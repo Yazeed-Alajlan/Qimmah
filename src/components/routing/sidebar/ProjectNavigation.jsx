@@ -7,9 +7,9 @@ import {
   UserGroupIcon,
   UserIcon,
   XMarkIcon,
-} from "@heroicons/react/24/outline"
-import { motion } from "framer-motion"
-import NavigationLink from "./NavigationLink"
+} from "@heroicons/react/24/outline";
+import { motion } from "framer-motion";
+import NavigationLink from "./NavigationLink";
 
 const variants = {
   close: {
@@ -18,21 +18,11 @@ const variants = {
   },
   open: {
     x: 0,
-    opacity: 100,
+    opacity: 1,
   },
-}
+};
 
-interface Props {
-  selectedProject: string
-  isOpen: boolean
-  setSelectedProject: (project: string | null) => void
-}
-
-const ProjectNavigation = ({
-  selectedProject,
-  isOpen,
-  setSelectedProject,
-}: Props) => {
+const ProjectNavigation = ({ selectedProject, isOpen, setSelectedProject }) => {
   return (
     <motion.nav
       variants={variants}
@@ -96,7 +86,7 @@ const ProjectNavigation = ({
         </a>
       </div>
     </motion.nav>
-  )
-}
+  );
+};
 
-export default ProjectNavigation
+export default ProjectNavigation;
