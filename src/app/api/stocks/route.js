@@ -14,7 +14,6 @@ export async function GET(req, res) {
         body: { error: "Stock not found" },
       });
     }
-
     return new NextResponse(JSON.stringify(stocks));
   } catch (error) {
     console.error("Error retrieving stock financials:", error);

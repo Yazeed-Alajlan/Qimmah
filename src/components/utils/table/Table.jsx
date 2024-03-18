@@ -89,7 +89,7 @@ const Table = ({
       {tableData && (
         <>
           {(filterBy || searchBy) && (
-            <div className={divider ? "" : "mb-6"}>
+            <div className={divider ? "" : "my-6"}>
               <div className=" grid grid-cols-5 gap-4 ">
                 {filterBy && (
                   <div className="col-span-2">
@@ -111,7 +111,7 @@ const Table = ({
                   </div>
                 )}
                 {searchBy && (
-                  <div className="col-span-3 mb-6 w-1/2">
+                  <div className="col-span-3  md:w-1/2 w-full">
                     <SearchInput
                       placeholder={`Search by ${formatKey(searchBy)}`}
                       value={searchText}
@@ -124,7 +124,7 @@ const Table = ({
             </div>
           )}
           <div
-            className={`overflow-auto w-full ${
+            className={`overflow-auto w-full  ${
               isScrollable ? " max-h-96 " : ""
             }`}
           >

@@ -110,6 +110,7 @@ const Dividend = () => {
               <Table
                 className=" w-full"
                 isScrollable
+                divider={false}
                 // filterBy={"sectorNameAr"}
                 searchBy={"announced_date"}
                 tableData={stockFinancialData.dividends}
