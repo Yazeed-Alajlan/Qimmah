@@ -27,9 +27,9 @@ const Page = () => {
   const { data: comparisonTableData } = useQuery(["comparisonTableData"], () =>
     prepareFinancialMetricsComparisonTableData()
   );
-  const { data: leverage } = useQuery(["leverageData"], () =>
-    getFinancialMetric("Leverage")
-  );
+  // const { data: leverage } = useQuery(["leverageData"], () =>
+  //   getFinancialMetric("Leverage")
+  // );
 
   return (
     <PageWrapper className={"gap-16"}>
@@ -63,7 +63,7 @@ const Page = () => {
           </Card>
         </div>
         <div>
-          <Card header={"Leverage"}>
+          {/* <Card header={"Leverage"}>
             <FinancialMetricsTable
               tableData={leverage}
               isScrollable
@@ -72,7 +72,7 @@ const Page = () => {
               filterBy={"sectorNameAr"}
               removeFilterFromColumn
             />
-          </Card>
+          </Card> */}
         </div>
       </div>
       <>

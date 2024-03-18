@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/routing/Header";
+// import Header from "@/components/routing/Header";
+import Header from "@/components/routing/Header2";
 import { StocksDataProvider } from "@/context/StocksDataContext";
 import { PytohnServerProvider } from "@/context/PythonServerContext";
 import ReactQueryProvider from "./providers/ReactQueryProvider";
