@@ -52,6 +52,10 @@ module.exports = {
         ".custom-class2": {
           "@apply py-20": {}, // Use @apply inside the class definition
         },
+        ".link": {
+          "@apply p-2.5 flex rounded-md gap-6 items-center md:cursor-pointer cursor-default duration-300 font-medium":
+            {},
+        },
       };
       addUtilities(newutilities, ["responsive", "hover"]);
     },

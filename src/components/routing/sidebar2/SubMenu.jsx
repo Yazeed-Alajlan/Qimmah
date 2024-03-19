@@ -8,10 +8,11 @@ import { usePathname } from "next/navigation";
 const SubMenu = ({ data }) => {
   const pathname = usePathname();
   const [subMenuOpen, setSubMenuOpen] = useState(false);
+
   return (
     <>
       <li
-        className={`link ${pathname.includes(data.name) && "text-blue-600"}`}
+        className={`link ${pathname.includes(data.href) && "text-blue-600"}`}
         onClick={() => setSubMenuOpen(!subMenuOpen)}
       >
         <data.icon size={23} className="min-w-max" />
@@ -32,14 +33,11 @@ const SubMenu = ({ data }) => {
         }
         className="flex h-0 flex-col pl-14 text-[0.8rem] font-normal overflow-hidden"
       >
-        {data.menus?.map((menu) => (
-          <li key={menu}>
+        {data.subRoutes?.map((route) => (
+          <li key={route}>
             {/* className="hover:text-blue-600 hover:font-medium" */}
-            <Link
-              href={`/${data.name}/${menu}`}
-              className="link !bg-transparent capitalize"
-            >
-              {menu}
+            <Link href={route.href} className="link !bg-transparent capitalize">
+              {route.name}
             </Link>
           </li>
         ))}
