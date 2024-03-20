@@ -5,6 +5,7 @@ import { MdBalance } from "react-icons/md";
 import { AiOutlineFundProjectionScreen } from "react-icons/ai";
 import { FaListUl } from "react-icons/fa6";
 import { GoGear } from "react-icons/go";
+import Header from "./Header";
 
 function SidebarLayout({ children }) {
   const routesList = [
@@ -48,7 +49,8 @@ function SidebarLayout({ children }) {
     <div className="flex md:flex-row flex-col">
       <Sidebar routes={routesList} />
       <div className="w-full">
-        <div className="bg-red-500">HEADER</div>
+        <Header />
+
         <main className=" w-full ">{children}</main>
       </div>
     </div>

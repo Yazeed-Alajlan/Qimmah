@@ -63,33 +63,28 @@ const Page = () => {
         <StockPriceChart symbol={"2222"} />
       </Card>
 
-      <div className="grid grid-cols-2 gap-16">
-        <div>
-          <Card header={"ربحية السهم الأساسية الأساسية"}>
-            <FinancialMetricsTable
-              tableData={earningsData}
-              isScrollable
-              deleteButton={false}
-              divider={false}
-              filterBy={"sectorNameAr"}
-              removeFilterFromColumn
-            />
-          </Card>
-        </div>
-        <div>
-          <Card header={"ربحية السهم الأساسية الأساسية"}>
-            <FinancialMetricsTable
-              tableData={earningsData}
-              isScrollable
-              deleteButton={false}
-              divider={false}
-              filterBy={"sectorNameAr"}
-              removeFilterFromColumn
-            />
-          </Card>
-        </div>
-        <div>
-          {/* <Card header={"Leverage"}>
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
+        <Card header={"ربحية السهم الأساسية الأساسية"}>
+          <FinancialMetricsTable
+            tableData={earningsData}
+            isScrollable
+            deleteButton={false}
+            divider={false}
+            filterBy={"sectorNameAr"}
+            removeFilterFromColumn
+          />
+        </Card>
+        <Card header={"ربحية السهم الأساسية الأساسية"}>
+          <FinancialMetricsTable
+            tableData={earningsData}
+            isScrollable
+            deleteButton={false}
+            divider={false}
+            filterBy={"sectorNameAr"}
+            removeFilterFromColumn
+          />
+        </Card>
+        {/* <Card header={"Leverage"}>
             <FinancialMetricsTable
               tableData={leverage}
               isScrollable
@@ -99,7 +94,6 @@ const Page = () => {
               removeFilterFromColumn
             />
           </Card> */}
-        </div>
       </div>
       <>
         <Card header={"قارن البيانات المالية"}>

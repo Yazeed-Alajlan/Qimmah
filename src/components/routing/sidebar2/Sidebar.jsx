@@ -81,7 +81,7 @@ const Sidebar = ({ routes }) => {
       >
         <div className="flex flex-col  gap-2 font-medium border-b py-3 border-slate-300  mx-3">
           {/* Logo */}
-          <Link href="/">
+          {/* <Link href="/">
             <Image
               className="hover:cursor-pointer"
               src="/Logo.png"
@@ -89,7 +89,7 @@ const Sidebar = ({ routes }) => {
               width="180"
               height="100"
             />
-          </Link>
+          </Link> */}
           {/* Title */}
           {/* {open && <span className="text-xl whitespace-pre">Qimmah</span>} */}
         </div>

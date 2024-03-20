@@ -18,9 +18,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`bg-light ${inter.className}`}>
+      <body dir="rtl" className={`bg-light ${inter.className}`}>
         {/* <body
-        dir="rtl"
         className={`flex flex-col flex-wrap justify-center items-center content-center  bg-light ${inter.className}`}
       > */}
         <ReactQueryProvider>

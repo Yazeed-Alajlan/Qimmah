@@ -165,7 +165,7 @@ const FinancialMetricsTable = ({
                         {...column.getHeaderProps(
                           column.getSortByToggleProps()
                         )}
-                        className="text-primary px-6 gap-2 cursor-pointer"
+                        className="text-primary gap-2 cursor-pointer"
                         style={{
                           minWidth: column.minWidth,
                           width: column.width,
