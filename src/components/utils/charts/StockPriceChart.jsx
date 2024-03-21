@@ -183,7 +183,7 @@ const StockPriceChart = ({
   }, [isSuccess, indicators, stockPriceData, indicatorList]);
 
   return (
-    <div className="h-full">
+    <div className="h-full relative">
       {indicatorList && (
         <Indicators
           symbol={symbol}
@@ -191,20 +191,23 @@ const StockPriceChart = ({
           setIndicators={setIndicatorList}
         />
       )}
-      <div
-        className={`flex justify-center text-sm  gap-4 text-${
-          legend.open > legend.close ? "danger" : "success"
-        }`}
-      >
-        <span className="flex ">
-          التغيير (%):
-          {legend.changePercent === "NaN" ? "" : legend.changePercent}
-        </span>
-        <span className="flex ">L:{legend.low}</span>
-        <span className="flex ">H: {legend.high}</span>
-        <span className="flex ">O: {legend.open}</span>
-        <span className="flex ">C: {legend.close}</span>
-        <span className="flex ">Vol: {legend.volume}</span>
+      <div className={`flex flex-row-reverse absolute top-0 left-12  z-10 `}>
+        <span>{symbol}</span>
+        <div
+          className={`flex justify-center text-sm  gap-4 text-${
+            legend.open > legend.close ? "danger" : "success"
+          }`}
+        >
+          <span className="flex ">
+            التغيير (%):
+            {legend.changePercent === "NaN" ? "" : legend.changePercent}
+          </span>
+          <span className="flex ">L:{legend.low}</span>
+          <span className="flex ">H: {legend.high}</span>
+          <span className="flex ">O: {legend.open}</span>
+          <span className="flex ">C: {legend.close}</span>
+          <span className="flex ">Vol: {legend.volume}</span>
+        </div>
       </div>
       <div
         className="relative"
