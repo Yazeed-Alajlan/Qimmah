@@ -100,7 +100,7 @@ const FinancialMetricsTable = ({
             <>
               <div className=" grid grid-cols-6 gap-4 my-6 ">
                 {filterBy && (
-                  <div className="col-span-2">
+                  <div className="col-span-4">
                     <InputSelect
                       placeholder="تصفية حسب القطاع"
                       value={filterOption}

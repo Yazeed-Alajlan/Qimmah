@@ -1,13 +1,13 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 // import Header from "@/components/routing/Header";
-import Header from "@/components/routing/Header2";
 import { StocksDataProvider } from "@/context/StocksDataContext";
 import { PytohnServerProvider } from "@/context/PythonServerContext";
 import ReactQueryProvider from "./providers/ReactQueryProvider";
 import Footer from "@/components/utils/footer/Footer";
 import { TechnicalAnalysisProvider } from "@/context/TechnicalAnalysisContext";
-import SidebarLayout from "@/components/routing/sidebar2/SidebarLayout";
+import SidebarLayout from "@/components/routing/sidebar/SidebarLayout";
+import {} from "react-icons/tb";
 
 const inter = Inter({ subsets: ["latin"] });
 

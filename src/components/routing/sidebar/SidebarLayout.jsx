@@ -4,7 +4,8 @@ import { TbHome, TbTable, TbGitCompare } from "react-icons/tb";
 import { MdBalance } from "react-icons/md";
 import { AiOutlineFundProjectionScreen } from "react-icons/ai";
 import { FaListUl } from "react-icons/fa6";
-import { GoGear } from "react-icons/go";
+import { TbTools } from "react-icons/tb";
+
 import Header from "./Header";
 
 function SidebarLayout({ children }) {
@@ -25,7 +26,7 @@ function SidebarLayout({ children }) {
       href: `/comparison`,
     },
     {
-      icon: GoGear,
+      icon: TbTools,
       name: "أدوات",
       href: `/tools`,
     },
