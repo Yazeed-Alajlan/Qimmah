@@ -125,7 +125,6 @@ const Sidebar = ({ routes }) => {
                     </Link>
                   </div>
                 )}
-                {console.log(route)}
               </div>
             ))}
           </ul>

@@ -19,6 +19,21 @@ async function getAllBasicEarningsPerShareTTM() {
   }
   return [];
 }
+async function getAllFinancialsSummary(name) {
+  const stocksData = await fetchAllStocksInformationData();
+  console.log(stocksData);
+  if (stocksData) {
+    const formattedData = stocksData.map((data) => ({
+      company: data.symbol + " - " + data.tradingNameAr,
+      sectorNameAr: data.sectorNameAr,
+      sectorNameEn: data.sectorNameEn,
+      [name]: data.summary[data.summary.length - 1][name],
+    }));
+
+    return formattedData;
+  }
+  return [];
+}
 
 async function prepareFinancialMetricsComparisonTableData() {
   const stocksData = await fetchAllStocksInformationData();
@@ -162,6 +177,7 @@ function calculateDebtToEquityRatio(financialData) {
 }
 
 export {
+  getAllFinancialsSummary,
   getAllBasicEarningsPerShareTTM,
   prepareFinancialMetricsComparisonTableData,
   getFinancialMetric,

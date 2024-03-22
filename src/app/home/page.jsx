@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import {
   getAllBasicEarningsPerShareTTM,
+  getAllFinancialsSummary,
   getFinancialMetric,
   prepareFinancialMetricsComparisonTableData,
 } from "@/services/FinancialServices";
@@ -24,6 +25,13 @@ const Page = () => {
     error,
   } = useQuery(["earningsData"], () => getAllBasicEarningsPerShareTTM());
 
+  const { data: bookValue } = useQuery(["bookValue"], () =>
+    getAllFinancialsSummary("book_value_per_share_ttm")
+  );
+  const { data: daily_price_to_earnings } = useQuery(
+    ["daily_price_to_earnings"],
+    () => getAllFinancialsSummary("daily_price_to_earnings")
+  );
   const { data: comparisonTableData } = useQuery(["comparisonTableData"], () =>
     prepareFinancialMetricsComparisonTableData()
   );
@@ -74,9 +82,9 @@ const Page = () => {
             removeFilterFromColumn
           />
         </Card>
-        <Card header={"ربحية السهم الأساسية الأساسية"}>
+        <Card header={"القيمة الدفترية"}>
           <FinancialMetricsTable
-            tableData={earningsData}
+            tableData={bookValue}
             isScrollable
             deleteButton={false}
             divider={false}
