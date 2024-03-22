@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
-import { fetchStockPriceData } from "@/services/FetchServices";
+import {
+  fetchStockPriceData,
+  fetchStockInformationData,
+} from "@/services/FetchServices";
 import { createChart } from "lightweight-charts";
 import {
   formatCandlestickData,
@@ -10,6 +13,7 @@ import {
   addLegend,
 } from "./StockChartServices";
 import Indicators from "./Indicators";
+import Badge from "../Badge";
 const StockPriceChart = ({
   symbol,
   flagsPennantsData,
@@ -23,6 +27,10 @@ const StockPriceChart = ({
     data: stockPriceData,
     error,
   } = useQuery(["stockPriceData", symbol], () => fetchStockPriceData(symbol));
+  const { data: stockInformationData } = useQuery(
+    ["stockInformationData", symbol],
+    () => fetchStockInformationData(symbol)
+  );
 
   const [legend, setLegend] = useState(() => ({
     close: "",
@@ -191,22 +199,43 @@ const StockPriceChart = ({
           setIndicators={setIndicatorList}
         />
       )}
-      <div className={`flex flex-row-reverse absolute top-0 left-12  z-10 `}>
-        <span>{symbol}</span>
-        <div
-          className={`flex justify-center text-sm  gap-4 text-${
-            legend.open > legend.close ? "danger" : "success"
-          }`}
-        >
-          <span className="flex ">
-            التغيير (%):
-            {legend.changePercent === "NaN" ? "" : legend.changePercent}
+      <div className={`flex flex-col absolute top-0 right-2  z-10 `}>
+        <div className="flex gap-10">
+          <div>
+            <span>{stockInformationData?.tradingNameAr}</span>
+          </div>
+          {/* <Badge
+            variant={"transparent"}
+            text={
+              stockInformationData?.tradingNameAr +
+              "   " +
+              stockInformationData?.symbol
+            }
+          ></Badge> */}
+          <div
+            className={`flex flex-row-reverse justify-center text-sm  gap-4 text-${
+              legend.open > legend.close ? "danger" : "success"
+            }`}
+          >
+            <span className="flex ">O {legend.open}</span>
+            <span className="flex ">H {legend.high}</span>
+            <span className="flex ">L {legend.low}</span>
+            <span className="flex ">C {legend.close}</span>
+            {legend.changePercent === "NaN" ? "" : legend.changePercent}%
+          </div>
+        </div>
+        <div>
+          <span className={`flex  gap-2 `}>
+            <span>Vol</span>
+            <span
+              className={`text-${
+                legend.open > legend.close ? "danger" : "success"
+              }`}
+            >
+              {" "}
+              {legend.volume}
+            </span>
           </span>
-          <span className="flex ">L:{legend.low}</span>
-          <span className="flex ">H: {legend.high}</span>
-          <span className="flex ">O: {legend.open}</span>
-          <span className="flex ">C: {legend.close}</span>
-          <span className="flex ">Vol: {legend.volume}</span>
         </div>
       </div>
       <div

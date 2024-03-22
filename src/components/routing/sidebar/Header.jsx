@@ -73,7 +73,7 @@ const Header = ({ children }) => {
       {pathname.includes("chart") ? (
         <></>
       ) : (
-        <div className="w-full bg-white ">
+        <div className="w-full bg-white  ">
           <motion.header
             className="flex items-center justify-between  md:mx-auto md:w-5/6 w-full  md:px-4 px-2 "
             initial={{ height: "100px" }}
@@ -84,7 +84,7 @@ const Header = ({ children }) => {
                 <Image src="/Logo.png" alt="me" width="180" height="100" />
               </div>
             </Link>
-            <StocksSearch className={"w-1/3"} />
+            <StocksSearch className={"sm:w-full md:w-1/3"} />
           </motion.header>
         </div>
       )}

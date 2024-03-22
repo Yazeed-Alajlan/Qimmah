@@ -1,3 +1,9 @@
+.primary {
+  --bg-color: #d0d1ff;
+  --bg-color-light: #acafff;
+  --text-color-hover: #4c5656;
+  --box-shadow-color: rgba(233, 202, 249, 0.48);
+}
 .education {
   --bg-color: #ffd861;
   --bg-color-light: #ffeeba;

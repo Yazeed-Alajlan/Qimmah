@@ -94,11 +94,11 @@ const StocksTable = ({
         <div className="">
           {(filterBy || searchBy) && (
             <>
-              <div className=" grid grid-cols-6 gap-4 ">
+              <div className=" grid md:grid-cols-7 sm:grid-cols-3 gap-4 ">
                 {filterBy && (
                   <div className="col-span-2">
                     <InputSelect
-                      placeholder="تصفية حسب القطاع"
+                      placeholder="اختر القطاع"
                       value={filterOption}
                       options={[
                         ...uniqueFilter.map((sector, index) => ({
@@ -115,15 +115,15 @@ const StocksTable = ({
                   </div>
                 )}
                 {searchBy && (
-                  <div className="col-span-3">
+                  <div className="col-span-4">
                     <SearchInput
-                      placeholder={`Search by ${formatKey(searchBy)}`}
+                      placeholder={`ابحث باسم الشركة أو الرمز`}
                       value={searchText}
                       onChange={(e) => setSearchText(e.target.value)}
                     />
                   </div>
                 )}
-                <div className="col-span-1 mx-auto ">
+                <div className="col-span-1 md:mx-auto ">
                   <Button
                     variant="danger"
                     text={"حذف"}
@@ -243,24 +243,24 @@ const StocksTable = ({
             </table>
           </div>
           {!isScrollable && (
-            <div className="flex justify-center items-center mt-2">
+            <div className="flex justify-center items-center mt-2 gap-4">
               <Button
                 variant="primary"
                 onClick={() => previousPage()}
                 disabled={!canPreviousPage}
-                text="Previous"
+                text="السابق"
               />
               <span>
-                Page
-                <strong>
-                  {pageIndex + 1} of {Math.ceil(filteredData.length / 15)}
-                </strong>
+                الصفحة
+                <span className="font-bold ms-2">
+                  {pageIndex + 1} من {Math.ceil(filteredData.length / 15)}
+                </span>
               </span>
               <Button
                 variant="primary"
                 onClick={() => nextPage()}
                 disabled={!canNextPage}
-                text="Next"
+                text="التالي"
               />
             </div>
           )}

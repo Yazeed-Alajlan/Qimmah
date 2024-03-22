@@ -12,7 +12,7 @@ const CardWithLink = ({ to, label, icon, color }) => {
     <div>
       <Link
         href={to}
-        className={`flex flex-col justify-center items-center relative custom-card human-resources ${
+        className={`flex flex-col justify-center items-center relative custom-card primary ${
           color ? "custom-color" : ""
         }`}
         style={cardStyle}

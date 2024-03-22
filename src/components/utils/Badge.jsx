@@ -36,6 +36,8 @@ const badgeVariants = cva("text-xs font-medium me-2 px-2.5 py-0.5 rounded", {
         "bg-dark-red-100 text-dark-red-800 hover:bg-dark-red-200 dark:bg-dark-red-900 dark:text-dark-red-300 dark:hover:bg-dark-red-800",
       light_red:
         "bg-light-red-100 text-light-red-800 hover:bg-light-red-200 dark:bg-light-red-900 dark:text-light-red-300 dark:hover:bg-light-red-800",
+      transparent:
+        "bg-transparent text-black hover:bg-gray-200 dark:text-white dark:hover:bg-dark-800", // Added transparent variant
     },
   },
   defaultVariants: {

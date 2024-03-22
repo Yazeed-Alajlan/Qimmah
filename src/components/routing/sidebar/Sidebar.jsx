@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 import { useMediaQuery } from "react-responsive";
 
 // * React icons
-import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { MdMenu } from "react-icons/md";
 
 const Sidebar = ({ routes }) => {
@@ -165,7 +165,8 @@ const Sidebar = ({ routes }) => {
           transition={{ duration: 0 }}
           className="absolute w-fit h-fit block z-50  right-2 bottom-3 cursor-pointer"
         >
-          <IoIosArrowBack size={25} />
+          {/* <IoIosArrowBack size={25} /> */}
+          <IoIosArrowForward size={25} />
         </motion.div>
       </motion.div>
       <div
