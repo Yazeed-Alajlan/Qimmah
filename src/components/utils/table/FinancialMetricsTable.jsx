@@ -7,6 +7,7 @@ import Button from "../buttons/Button";
 import Divider from "../Divider";
 import Badge from "../Badge";
 import Link from "next/link";
+import Skeleton from "@/components/Skeleton";
 
 const FinancialMetricsTable = ({
   tableData,
@@ -19,6 +20,15 @@ const FinancialMetricsTable = ({
   divider = true,
   className,
 }) => {
+  if (typeof tableData === "undefined") {
+    console.log(tableData);
+
+    return (
+      <>
+        <Skeleton />
+      </>
+    );
+  }
   const columns = useMemo(() => {
     if (!tableData || tableData.length === 0) {
       return [];

@@ -15,6 +15,7 @@ import {
 } from "@/services/FinancialServices";
 import FinancialMetricsComparisonTable from "../comparison/components/FinancialMetricsComparisonTable";
 import InputSelect from "@/components/utils/inputs/InputSelect";
+import Skeleton from "@/components/Skeleton";
 
 const Page = () => {
   const {
@@ -70,7 +71,6 @@ const Page = () => {
       <Card header="مؤشر السوق الرئيسية (تاسي)">
         <StockPriceChart symbol={"2222"} />
       </Card>
-
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
         <Card header={"ربحية السهم الأساسية الأساسية"}>
           <FinancialMetricsTable
