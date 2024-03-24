@@ -20,15 +20,6 @@ const FinancialMetricsTable = ({
   divider = true,
   className,
 }) => {
-  if (typeof tableData === "undefined") {
-    console.log(tableData);
-
-    return (
-      <>
-        <Skeleton />
-      </>
-    );
-  }
   const columns = useMemo(() => {
     if (!tableData || tableData.length === 0) {
       return [];
@@ -104,7 +95,7 @@ const FinancialMetricsTable = ({
   const dataToMap = isScrollable ? rows : page;
   return (
     <div>
-      {tableData && (
+      {tableData ? (
         <div className="">
           {(filterBy || searchBy) && (
             <>
@@ -276,6 +267,10 @@ const FinancialMetricsTable = ({
             </div>
           )}
         </div>
+      ) : (
+        <>
+          <Skeleton />
+        </>
       )}
     </div>
   );
