@@ -4,35 +4,37 @@ import {
   fetchStockFinancialData,
 } from "@/services/FetchServices";
 
-async function getAllBasicEarningsPerShareTTM() {
+async function getAllFinancialsSummary(name) {
   const stocksData = await fetchAllStocksInformationData();
   if (stocksData) {
-    const formattedData = stocksData.map((data) => ({
-      company: data.symbol + " - " + data.tradingNameAr,
-      sectorNameAr: data.sectorNameAr,
-      sectorNameEn: data.sectorNameEn,
-      basic_earnings_per_share_ttm:
-        data.summary[data.summary.length - 1].basic_earnings_per_share_ttm,
-    }));
+    const formattedData = stocksData.map((data) => {
+      const summaryValue =
+        data.summary?.length > 0
+          ? data.summary[data.summary.length - 1][name]
+          : "";
+      return {
+        company: data.symbol + " - " + data.tradingNameAr,
+        sectorNameAr: data.sectorNameAr,
+        sectorNameEn: data.sectorNameEn,
+        [name]: summaryValue,
+      };
+    });
 
     return formattedData;
   }
   return [];
 }
-async function getAllFinancialsSummary(name) {
-  const stocksData = await fetchAllStocksInformationData();
-  console.log(stocksData);
-  if (stocksData) {
-    const formattedData = stocksData.map((data) => ({
-      company: data.symbol + " - " + data.tradingNameAr,
-      sectorNameAr: data.sectorNameAr,
-      sectorNameEn: data.sectorNameEn,
-      [name]: data.summary[data.summary.length - 1][name],
-    }));
 
-    return formattedData;
+async function getLastDateForChange() {
+  const stocksData = await fetchAllStocksInformationData();
+  if (stocksData) {
+    const dateObject = new Date(
+      stocksData[0].summary[stocksData[0].summary.length - 1].trade_date
+    );
+    const formattedDate = dateObject.toLocaleDateString("en-GB"); // Assuming 'en-GB' locale for dd/mm/yyyy format
+    return formattedDate;
   }
-  return [];
+  return null;
 }
 
 async function prepareFinancialMetricsComparisonTableData() {
@@ -178,7 +180,7 @@ function calculateDebtToEquityRatio(financialData) {
 
 export {
   getAllFinancialsSummary,
-  getAllBasicEarningsPerShareTTM,
   prepareFinancialMetricsComparisonTableData,
   getFinancialMetric,
+  getLastDateForChange,
 };

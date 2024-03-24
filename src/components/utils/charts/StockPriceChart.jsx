@@ -14,6 +14,7 @@ import {
 } from "./StockChartServices";
 import Indicators from "./Indicators";
 import Badge from "../Badge";
+import Skeleton from "@/components/Skeleton";
 const StockPriceChart = ({
   symbol,
   flagsPennantsData,
@@ -192,58 +193,63 @@ const StockPriceChart = ({
 
   return (
     <div className="h-full relative">
-      {indicatorList && (
-        <Indicators
-          symbol={symbol}
-          indicators={indicatorList}
-          setIndicators={setIndicatorList}
-        />
-      )}
-      <div className={`flex flex-col absolute top-0 right-2  z-10 `}>
-        <div className="flex gap-10">
-          <div>
-            <span>{stockInformationData?.tradingNameAr}</span>
+      {!isLoading && (
+        <>
+          {indicatorList && (
+            <Indicators
+              symbol={symbol}
+              indicators={indicatorList}
+              setIndicators={setIndicatorList}
+            />
+          )}
+          <div className={`flex flex-col absolute top-0 right-2  z-10 `}>
+            <div className="flex gap-10">
+              <div>
+                <span>{stockInformationData?.tradingNameAr}</span>
+              </div>
+              <Badge
+                variant={"transparent"}
+                text={
+                  stockInformationData?.tradingNameAr +
+                  "   " +
+                  stockInformationData?.symbol
+                }
+              ></Badge>
+              <div
+                className={`flex flex-row-reverse justify-center text-sm  gap-4 text-${
+                  legend.open > legend.close ? "danger" : "success"
+                }`}
+              >
+                <span className="flex ">O {legend.open}</span>
+                <span className="flex ">H {legend.high}</span>
+                <span className="flex ">L {legend.low}</span>
+                <span className="flex ">C {legend.close}</span>
+                {legend.changePercent === "NaN" ? "" : legend.changePercent}%
+              </div>
+            </div>
+            <div>
+              <span className={`flex  gap-2 `}>
+                <span>Vol</span>
+                <span
+                  className={`text-${
+                    legend.open > legend.close ? "danger" : "success"
+                  }`}
+                >
+                  {" "}
+                  {legend.volume}
+                </span>
+              </span>
+            </div>
           </div>
-          {/* <Badge
-            variant={"transparent"}
-            text={
-              stockInformationData?.tradingNameAr +
-              "   " +
-              stockInformationData?.symbol
-            }
-          ></Badge> */}
           <div
-            className={`flex flex-row-reverse justify-center text-sm  gap-4 text-${
-              legend.open > legend.close ? "danger" : "success"
-            }`}
-          >
-            <span className="flex ">O {legend.open}</span>
-            <span className="flex ">H {legend.high}</span>
-            <span className="flex ">L {legend.low}</span>
-            <span className="flex ">C {legend.close}</span>
-            {legend.changePercent === "NaN" ? "" : legend.changePercent}%
-          </div>
-        </div>
-        <div>
-          <span className={`flex  gap-2 `}>
-            <span>Vol</span>
-            <span
-              className={`text-${
-                legend.open > legend.close ? "danger" : "success"
-              }`}
-            >
-              {" "}
-              {legend.volume}
-            </span>
-          </span>
-        </div>
-      </div>
-      <div
-        className="relative"
-        id={chartContainerId}
-        ref={chartContainerRef}
-      ></div>
-      {isLoading && <p>Loading...</p>}
+            className="relative"
+            id={chartContainerId}
+            ref={chartContainerRef}
+          ></div>
+        </>
+      )}
+
+      {isLoading && <Skeleton />}
       {isError && <p>Error: {error.message}</p>}
     </div>
   );

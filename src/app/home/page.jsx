@@ -2,69 +2,40 @@
 import PageWrapper from "@/components/PageWrapper";
 import { Card } from "@/components/utils/cards/Card";
 import StockPriceChart from "@/components/utils/charts/StockPriceChart";
-import StocksSearch from "@/components/utils/inputs/StocksSearch";
 import FinancialMetricsTable from "@/components/utils/table/FinancialMetricsTable";
-import { useStocksData } from "@/context/StocksDataContext";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 import {
-  getAllBasicEarningsPerShareTTM,
   getAllFinancialsSummary,
   getFinancialMetric,
+  getLastDateForChange,
   prepareFinancialMetricsComparisonTableData,
 } from "@/services/FinancialServices";
 import FinancialMetricsComparisonTable from "../comparison/components/FinancialMetricsComparisonTable";
-import InputSelect from "@/components/utils/inputs/InputSelect";
-import Skeleton from "@/components/Skeleton";
 
 const Page = () => {
-  const {
-    isError,
-    isSuccess,
-    isLoading,
-    data: earningsData,
-    error,
-  } = useQuery(["earningsData"], () => getAllBasicEarningsPerShareTTM());
-
-  const { data: bookValue } = useQuery(["bookValue"], () =>
-    getAllFinancialsSummary("book_value_per_share_ttm")
+  const { data: basic_earnings_per_share_ttm } = useQuery(
+    ["basic_earnings_per_share_ttm"],
+    () => getAllFinancialsSummary("basic_earnings_per_share_ttm")
+  );
+  const { data: book_value_per_share_ttm } = useQuery(
+    ["book_value_per_share_ttm"],
+    () => getAllFinancialsSummary("book_value_per_share_ttm")
   );
   const { data: daily_price_to_earnings } = useQuery(
     ["daily_price_to_earnings"],
     () => getAllFinancialsSummary("daily_price_to_earnings")
   );
+
   const { data: comparisonTableData } = useQuery(["comparisonTableData"], () =>
     prepareFinancialMetricsComparisonTableData()
+  );
+  const { data: lastChangeData } = useQuery(["lastChangeData"], () =>
+    getLastDateForChange()
   );
   // const { data: leverage } = useQuery(["leverageData"], () =>
   //   getFinancialMetric("Leverage")
   // );
-
-  const [data, setData] = useState([]);
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const options = [
-    { value: "Leverage", label: "Leverage" },
-    { value: "DebtToEquityRatio", label: "DebtToEquityRatio" },
-    { value: "NetProfitMargin", label: "NetProfitMargin" },
-    // Add more options as needed
-  ];
-  const handleSelectChange = async (selected) => {
-    setSelectedOptions(selected);
-    console.log(selectedOptions);
-    const newData = [];
-
-    for (const option of selected) {
-      try {
-        const response = await getFinancialMetric(option.value);
-        newData.push({ [option.value]: response });
-      } catch (error) {
-        console.error(`Error fetching data for ${option.value}:`, error);
-      }
-    }
-    console.log(newData);
-    console.log(data);
-    setData(newData);
-  };
 
   return (
     <PageWrapper className={"gap-16"}>
@@ -74,7 +45,7 @@ const Page = () => {
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
         <Card header={"ربحية السهم الأساسية الأساسية"}>
           <FinancialMetricsTable
-            tableData={earningsData}
+            tableData={basic_earnings_per_share_ttm}
             isScrollable
             deleteButton={false}
             divider={false}
@@ -84,13 +55,25 @@ const Page = () => {
         </Card>
         <Card header={"القيمة الدفترية"}>
           <FinancialMetricsTable
-            tableData={bookValue}
+            tableData={book_value_per_share_ttm}
             isScrollable
             deleteButton={false}
             divider={false}
             filterBy={"sectorNameAr"}
             removeFilterFromColumn
           />
+          <span> {lastChangeData}</span>
+        </Card>
+        <Card header={"daily_price_to_earnings"}>
+          <FinancialMetricsTable
+            tableData={daily_price_to_earnings}
+            isScrollable
+            deleteButton={false}
+            divider={false}
+            filterBy={"sectorNameAr"}
+            removeFilterFromColumn
+          />
+          <span> {lastChangeData}</span>
         </Card>
         {/* <Card header={"Leverage"}>
             <FinancialMetricsTable
