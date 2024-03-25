@@ -14,7 +14,7 @@ import { MdMenu } from "react-icons/md";
 
 const Sidebar = ({ routes }) => {
   let isTabletMid = useMediaQuery({ query: "(max-width: 768px)" });
-  const [open, setOpen] = useState(isTabletMid ? false : false);
+  const [open, setOpen] = useState(isTabletMid ? false : true);
   const sidebarRef = useRef();
   const pathname = usePathname();
 
@@ -22,12 +22,12 @@ const Sidebar = ({ routes }) => {
     if (isTabletMid) {
       setOpen(false);
     } else {
-      setOpen(false);
+      setOpen(true);
     }
   }, [isTabletMid]);
 
   useEffect(() => {
-    isTabletMid && setOpen(false);
+    isTabletMid && setOpen(true);
   }, [pathname]);
 
   const Nav_animation = isTabletMid

@@ -139,74 +139,85 @@ const StocksTable = ({
           )}
           <div
             className={`overflow-x-auto  ${
-              isScrollable ? "w-full  h-screen  overflow-auto" : ""
+              isScrollable
+                ? "w-full  h-screen  overflow-auto"
+                : " overflow-auto"
             }`}
           >
             <table
               {...getTableProps()}
               className="whitespace-nowrap w-full overflow-x-auto  text-gray-600 dark:text-gray-400 "
             >
-              <thead className="sticky top-0 uppercase font-bold   text-gray-700   dark:text-gray-400">
-                {headerGroups.map((headerGroup, index) => (
-                  <tr
-                    key={index} // Add key here
-                    className="border-b-4"
-                    {...headerGroup.getHeaderGroupProps()}
-                  >
-                    {headerGroup.headers.map((column) => (
-                      <th
-                        key={column.id} // Add key here
-                        {...column.getHeaderProps(
-                          column.getSortByToggleProps()
-                        )}
-                        className="text-primary px-6 gap-2 cursor-pointer"
-                        style={{
-                          minWidth: column.minWidth,
-                          width: column.width,
-                        }}
-                      >
-                        <span className="flex items-center gap-2">
-                          {column.render("Header")}
-                          <span>
-                            {column.isSorted ? (
-                              column.isSortedDesc ? (
-                                <TbSortDescending />
-                              ) : (
-                                <TbSortAscending />
-                              )
-                            ) : (
-                              ""
-                            )}
-                          </span>
-                        </span>
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody className="" {...getTableBodyProps()}>
-                {dataToMap.map((row) => {
-                  prepareRow(row);
+              <thead className="sticky top-0 uppercase font-bold text-gray-700 dark:text-gray-400">
+                {headerGroups.map((headerGroup, index) => {
+                  const { key, ...restHeaderGroupProps } =
+                    headerGroup.getHeaderGroupProps(); // Destructure key and restHeaderGroupProps from getHeaderGroupProps()
                   return (
                     <tr
-                      key={row.id} // Add key here
-                      {...row.getRowProps()}
+                      key={`headerRow_${index}`} // Use a unique key for each header row
+                      {...restHeaderGroupProps}
+                      className="border-b-4"
+                    >
+                      {headerGroup.headers.map((column, columnIndex) => {
+                        const { key, ...restColumn } = column.getHeaderProps(
+                          column.getSortByToggleProps()
+                        ); // Destructure key and restColumn from getHeaderProps()
+                        return (
+                          <th
+                            key={key} // Use key or generate a unique key for each header cell
+                            {...restColumn}
+                            className="text-primary px-6 gap-2 cursor-pointer"
+                            style={{
+                              minWidth: column.minWidth,
+                              width: column.width,
+                            }}
+                          >
+                            <span className="flex items-center gap-2">
+                              {column.render("Header")}
+                              <span>
+                                {column.isSorted ? (
+                                  column.isSortedDesc ? (
+                                    <TbSortDescending />
+                                  ) : (
+                                    <TbSortAscending />
+                                  )
+                                ) : (
+                                  ""
+                                )}
+                              </span>
+                            </span>
+                          </th>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </thead>
+
+              <tbody className="" {...getTableBodyProps()}>
+                {dataToMap.map((row, rowIndex) => {
+                  prepareRow(row);
+                  const { key, ...restRowProps } = row.getRowProps(); // Destructure key and restRowProps from getRowProps()
+
+                  return (
+                    <tr
+                      key={`row_${rowIndex}`} // Use a unique key for each row
+                      {...restRowProps}
                       onClick={() =>
                         handleRowClick
                           ? handleRowClick(row.original.symbol)
                           : null
                       }
-                      className="border-b-2 hover:bg-gray-200 text-sm "
+                      className="border-b-2 hover:bg-gray-200 text-sm"
                     >
-                      {row.cells.map((cell, index) => {
+                      {row.cells.map((cell, cellIndex) => {
                         const columnsToCheck = [5, 6]; // Define columns to check for color change
-
-                        const isColored = columnsToCheck.includes(index); // Check if this column needs coloring
+                        const isColored = columnsToCheck.includes(cellIndex); // Check if this column needs coloring
                         const [symbol, name] = cell.value.split(" - ");
                         return (
                           <td
                             {...cell.getCellProps()}
-                            key={index}
+                            key={`cell_${rowIndex}_${cellIndex}`} // Generate unique key for each cell
                             className={
                               isColored
                                 ? cell.value.includes("-")
@@ -215,7 +226,7 @@ const StocksTable = ({
                                 : "text-black px-6 py-3" // Black color for columns not in columnsToCheck
                             }
                           >
-                            {index === 0 ? (
+                            {cellIndex === 0 ? (
                               <Link
                                 href={`/stock/${row.original.sectorNameAr}/${symbol}/information`}
                                 className=""
@@ -227,7 +238,6 @@ const StocksTable = ({
                                     text={symbol}
                                   />
                                 </span>
-
                                 <span>{name}</span>
                               </Link>
                             ) : (

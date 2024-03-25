@@ -45,12 +45,21 @@ const SidebarSelection = () => {
               },
               {
                 Header: "الإغلاق",
-                accessor: (row) => row.summary[row.summary.length - 1].close,
+                accessor: (row) => {
+                  if (row.summary && row.summary.length > 0) {
+                    return row.summary[row.summary.length - 1].close;
+                  }
+                  return ""; // Return a default value if summary data is not available
+                },
               },
               {
                 Header: "التغيير",
-                accessor: (row) =>
-                  row.summary[row.summary.length - 1].change_value,
+                accessor: (row) => {
+                  if (row.summary && row.summary.length > 0) {
+                    return row.summary[row.summary.length - 1].change_value;
+                  }
+                  return ""; // Return a default value if summary data is not available
+                },
                 Cell: ({ value }) => (
                   <span
                     className={
@@ -63,8 +72,12 @@ const SidebarSelection = () => {
               },
               {
                 Header: "نسبة التغيير",
-                accessor: (row) =>
-                  row.summary[row.summary.length - 1].change_ratio,
+                accessor: (row) => {
+                  if (row.summary && row.summary.length > 0) {
+                    return row.summary[row.summary.length - 1].change_ratio;
+                  }
+                  return ""; // Return a default value if summary data is not available
+                },
                 Cell: ({ value }) => (
                   <span
                     className={

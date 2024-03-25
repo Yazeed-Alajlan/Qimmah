@@ -16,51 +16,6 @@ const Table = ({
   divider = true,
   className,
 }) => {
-  const columns = useMemo(() => {
-    if (!tableData || tableData.length === 0) {
-      return [];
-    }
-    const keys = Object.keys(tableData[0]);
-
-    const filteredKeys = keys.filter((key) =>
-      removeFilterFromColumn ? key !== filterBy && key !== "_id" : true
-    );
-
-    const generatedColumns = filteredKeys.map((key) => ({
-      Header: formatKey(key),
-      accessor: key,
-    }));
-
-    return generatedColumns;
-  }, [tableData, tableColumns]);
-
-  const [searchText, setSearchText] = useState("");
-  const [filterOption, setFilterOption] = useState("");
-
-  const filteredData = useMemo(() => {
-    let data = tableData;
-    if (searchText) {
-      data = data.filter(
-        (row) =>
-          row[`${searchBy}`] &&
-          row[`${searchBy}`].toLowerCase().includes(searchText.toLowerCase())
-      );
-    }
-    if (filterOption) {
-      data = data.filter(
-        (row) =>
-          row[`${filterBy}`] &&
-          row[`${filterBy}`].toLowerCase() === filterOption.toLowerCase()
-      );
-    }
-    return data;
-  }, [tableData, searchText, filterOption]);
-
-  const uniqueFilter = useMemo(() => {
-    const filters = [...new Set(tableData.map((row) => row[`${filterBy}`]))];
-    return filters.filter((filter) => filter);
-  }, [tableData]);
-
   const {
     getTableProps,
     getTableBodyProps,
@@ -75,8 +30,8 @@ const Table = ({
     state: { pageIndex },
   } = useTable(
     {
-      columns: tableColumns ? tableColumns : columns,
-      data: filteredData,
+      columns: tableColumns,
+      data: tableData,
       initialState: { pageIndex: 0, pageSize: 10 },
     },
     useSortBy,
@@ -88,41 +43,6 @@ const Table = ({
     <>
       {tableData && (
         <>
-          {(filterBy || searchBy) && (
-            <div className={divider ? "" : "my-6"}>
-              <div className=" grid grid-cols-5 gap-4 ">
-                {filterBy && (
-                  <div className="col-span-2">
-                    <InputSelect
-                      placeholder="تصفية حسب القطاع"
-                      value={filterOption}
-                      options={[
-                        ...uniqueFilter.map((sector, index) => ({
-                          value: sector,
-                          label: sector,
-                        })),
-                      ]}
-                      onChange={(e) => {
-                        setFilterOption(e && e.value);
-                      }}
-                      isSearchable={true}
-                      labelDirection="hr"
-                    />
-                  </div>
-                )}
-                {searchBy && (
-                  <div className="col-span-3  md:w-1/2 w-full">
-                    <SearchInput
-                      placeholder={`Search by ${formatKey(searchBy)}`}
-                      value={searchText}
-                      onChange={(e) => setSearchText(e.target.value)}
-                    />
-                  </div>
-                )}
-              </div>
-              {divider && <Divider />}
-            </div>
-          )}
           <div
             className={`overflow-auto w-full  ${
               isScrollable ? " max-h-96 " : ""
@@ -132,7 +52,7 @@ const Table = ({
               {...getTableProps()}
               className=" whitespace-nowrap w-full overflow-x-auto  text-gray-600 dark:text-gray-400"
             >
-              <thead className="sticky top-0 bg-white uppercase font-bold   text-gray-700   dark:text-gray-400">
+              <thead className="sticky top-0 bg-white uppercase font-bold overflow-x-auto   text-gray-700   dark:text-gray-400">
                 {headerGroups.map((headerGroup, index) => (
                   <tr
                     key={index} // Add key here
@@ -215,7 +135,7 @@ const Table = ({
               <span>
                 Page
                 <strong>
-                  {pageIndex + 1} of {Math.ceil(filteredData.length / 10)}
+                  {pageIndex + 1} of {Math.ceil(tableData.length / 10)}
                 </strong>
               </span>
               <Button
@@ -230,14 +150,6 @@ const Table = ({
       )}
     </>
   );
-};
-
-const formatKey = (key) => {
-  const formattedKey = key.replace(/_/g, " ");
-  const titleCaseKey = formattedKey
-    .replace(/([a-z])([A-Z])/g, "$1 $2")
-    .replace(/\b\w/g, (char) => char.toUpperCase());
-  return titleCaseKey;
 };
 
 export default Table;

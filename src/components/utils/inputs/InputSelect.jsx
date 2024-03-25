@@ -29,6 +29,8 @@ const InputSelect = ({
     }
   };
 
+  const isLoading = !options || options.length === 0; // Check if options array is empty or undefined
+
   return (
     <div
       className={`flex justify-end w-full ${isHorizontal ? "" : "flex-col"} ${
@@ -54,6 +56,7 @@ const InputSelect = ({
           defaultValue &&
           options.find((option) => option.value === defaultValue)
         }
+        isLoading={isLoading} // Show loading indicator if options array is empty or undefined
       />
     </div>
   );

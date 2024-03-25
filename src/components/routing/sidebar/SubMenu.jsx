@@ -33,8 +33,8 @@ const SubMenu = ({ data }) => {
         }
         className="flex h-0 flex-col pl-14 text-[0.8rem] font-normal overflow-hidden"
       >
-        {data.subRoutes?.map((route) => (
-          <li key={route}>
+        {data.subRoutes?.map((route, index) => (
+          <li key={index}>
             {/* className="hover:text-blue-600 hover:font-medium" */}
             <Link href={route.href} className="link !bg-transparent capitalize">
               {route.name}

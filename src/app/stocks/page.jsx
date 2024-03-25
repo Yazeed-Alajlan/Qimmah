@@ -1,8 +1,10 @@
 "use client";
 import PageWrapper from "@/components/PageWrapper";
+import Skeleton from "@/components/Skeleton";
 import Divider from "@/components/utils/Divider";
 import { Card } from "@/components/utils/cards/Card";
 import StocksTable from "@/components/utils/table/StocksTable";
+import Table from "@/components/utils/table/Table";
 import { useStocksData } from "@/context/StocksDataContext";
 import React, { useEffect, useState } from "react";
 
@@ -26,20 +28,14 @@ const StocksPage = () => {
 
   return (
     <PageWrapper>
-      {filteredData && (
-        <Card>
-          <StocksTable
-            className="w-full z-10"
-            filterBy={"sectorNameAr"}
-            searchBy={"company"}
+      <Card>
+        {filteredData ? (
+          <Table
             tableData={filteredData}
             tableColumns={[
               {
                 Header: "الشركة",
                 accessor: "company",
-                maxWidth: 400,
-                minWidth: 140,
-                width: 400,
               },
               {
                 Header: "الإفتتاح",
@@ -73,18 +69,74 @@ const StocksPage = () => {
                 Header: "القيمة المتداولة",
                 accessor: "trade_value",
               },
-              {
-                Header: "الأعلى آخر 52 أسبوع",
-                accessor: "fifty_two_week_high",
-              },
-              {
-                Header: "الأدنى آخر 52 أسبوع",
-                accessor: "fifty_two_week_low",
-              },
+              // {
+              //   Header: "الأعلى اخر 52 أسبوع",
+              //   accessor: "fifty_two_week_high",
+              // },
+              // {
+              //   Header: "الأدنى آخر 52 أسبوع",
+              //   accessor: "fifty_two_week_low",
+              // },
             ]}
           />
-        </Card>
-      )}
+        ) : (
+          // <StocksTable
+          //   filterBy={"sectorNameAr"}
+          //   searchBy={"company"}
+          //   tableData={filteredData}
+          //   tableColumns={[
+          //     {
+          //       Header: "الشركة",
+          //       accessor: "company",
+          //       maxWidth: 400,
+          //       minWidth: 140,
+          //       width: 400,
+          //     },
+          //     {
+          //       Header: "الإفتتاح",
+          //       accessor: "open",
+          //     },
+          //     {
+          //       Header: "الأعلى",
+          //       accessor: "high",
+          //     },
+          //     {
+          //       Header: "الأدنى",
+          //       accessor: "low",
+          //     },
+          //     {
+          //       Header: "الإغلاق",
+          //       accessor: "close",
+          //     },
+          //     {
+          //       Header: "التغيير",
+          //       accessor: "change_value",
+          //     },
+          //     {
+          //       Header: "التغيير (%)",
+          //       accessor: "change_ratio",
+          //     },
+          //     {
+          //       Header: "الكمية المتداولة",
+          //       accessor: "trade_count",
+          //     },
+          //     {
+          //       Header: "القيمة المتداولة",
+          //       accessor: "trade_value",
+          //     },
+          //     {
+          //       Header: "الأعلى آخر 52 أسبوع",
+          //       accessor: "fifty_two_week_high",
+          //     },
+          //     {
+          //       Header: "الأدنى آخر 52 أسبوع",
+          //       accessor: "fifty_two_week_low",
+          //     },
+          //   ]}
+          // />
+          <Skeleton></Skeleton>
+        )}
+      </Card>
     </PageWrapper>
   );
 };

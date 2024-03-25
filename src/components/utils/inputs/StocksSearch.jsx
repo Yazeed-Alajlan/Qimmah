@@ -9,17 +9,17 @@ const StocksSearch = ({ className, onStockSelect, label }) => {
   const { push } = useRouter();
 
   const handleStockSelect = (selectedOption) => {
-    console.log(selectedOption);
     setSelectedStock(selectedOption);
-
-    if (onStockSelect) {
-      // Call the onStockSelect callback with the selected stock
-      onStockSelect(selectedOption);
-    } else {
-      // If onStockSelect prop is not provided, push to the URL
-      push(
-        `/stock/${selectedOption.sector}/${selectedOption.value}/information`
-      );
+    if (selectedOption) {
+      if (onStockSelect) {
+        // Call the onStockSelect callback with the selected stock
+        onStockSelect(selectedOption);
+      } else {
+        // If onStockSelect prop is not provided, push to the URL
+        push(
+          `/stock/${selectedOption.sector}/${selectedOption.value}/information`
+        );
+      }
     }
   };
 

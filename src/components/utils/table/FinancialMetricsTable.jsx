@@ -153,62 +153,71 @@ const FinancialMetricsTable = ({
               {...getTableProps()}
               className="whitespace-nowrap w-full overflow-x-auto  text-gray-600 dark:text-gray-400 "
             >
-              <thead className="sticky bg-white top-0 uppercase font-bold   text-gray-700   dark:text-gray-400">
-                {headerGroups.map((headerGroup, index) => (
-                  <tr
-                    key={index} // Add key here
-                    className="border-b-4"
-                    {...headerGroup.getHeaderGroupProps()}
-                  >
-                    {headerGroup.headers.map((column) => (
-                      <th
-                        key={index} // Add key here
-                        {...column.getHeaderProps(
+              <thead className="sticky bg-white top-0 uppercase font-bold text-gray-700 dark:text-gray-400">
+                {headerGroups.map((headerGroup, index) => {
+                  const { key, ...restHeaderGroupProps } =
+                    headerGroup.getHeaderGroupProps();
+                  return (
+                    <tr
+                      key={key} // Generate unique key for header group
+                      className="border-b-4"
+                      {...restHeaderGroupProps}
+                    >
+                      {headerGroup.headers.map((column, columnIndex) => {
+                        const { key, ...restColumn } = column.getHeaderProps(
                           column.getSortByToggleProps()
-                        )}
-                        className="text-primary gap-2 cursor-pointer"
-                        style={{
-                          minWidth: column.minWidth,
-                          width: column.width,
-                        }}
-                      >
-                        <span className="flex items-center gap-2">
-                          {column.render("Header")}
-                          <span>
-                            {column.isSorted ? (
-                              column.isSortedDesc ? (
-                                <TbSortDescending />
-                              ) : (
-                                <TbSortAscending />
-                              )
-                            ) : (
-                              ""
-                            )}
-                          </span>
-                        </span>
-                      </th>
-                    ))}
-                  </tr>
-                ))}
+                        );
+                        return (
+                          <th
+                            key={key} // Generate unique key for each column within the header group
+                            {...restColumn}
+                            className="text-primary gap-2 cursor-pointer"
+                            style={{
+                              minWidth: column.minWidth,
+                              width: column.width,
+                            }}
+                          >
+                            <span className="flex items-center gap-2">
+                              {column.render("Header")}
+                              <span>
+                                {column.isSorted ? (
+                                  column.isSortedDesc ? (
+                                    <TbSortDescending />
+                                  ) : (
+                                    <TbSortAscending />
+                                  )
+                                ) : (
+                                  ""
+                                )}
+                              </span>
+                            </span>
+                          </th>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
               </thead>
+
               <tbody className="" {...getTableBodyProps()}>
                 {dataToMap.map((row) => {
                   prepareRow(row);
+                  const { key, ...restRowProps } = row.getRowProps(); // Destructure key and restRowProps from getRowProps()
+
                   return (
                     <tr
-                      key={row.id} // Add key here
-                      {...row.getRowProps()}
-                      className="border-b-2 hover:bg-gray-200 text-sm "
+                      key={key} // Use key for each row
+                      {...restRowProps} // Spread restRowProps for other row properties
+                      className="border-b-2 hover:bg-gray-200 text-sm"
                     >
                       {row.cells.map((cell, index) => {
                         const columnsToCheck = [5, 6]; // Define columns to check for color change
-
                         const isColored = columnsToCheck.includes(index); // Check if this column needs coloring
                         const [symbol, name] = cell.value.split(" - ");
                         return (
                           <td
                             {...cell.getCellProps()}
-                            key={index}
+                            key={`${key}_cell_${index}`} // Generate unique key for each cell within the row
                             className={
                               isColored
                                 ? cell.value.includes("-")
@@ -229,7 +238,6 @@ const FinancialMetricsTable = ({
                                     text={symbol}
                                   />
                                 </span>
-
                                 <span>{name}</span>
                               </Link>
                             ) : (
