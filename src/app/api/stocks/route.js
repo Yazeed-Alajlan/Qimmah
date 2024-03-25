@@ -6,8 +6,9 @@ export async function GET(req, res) {
   try {
     // Connect to the MongoDB database
     await connectToDatabase();
-    const stocks = await StockInformation.find();
-
+    const stocks = await StockInformation.find().select(
+      "symbol companyNameEN sectorNameEn tradingNameEn sectorNameAr tradingNameAr companyNameAR market_type summary"
+    );
     if (!stocks) {
       return new NextResponse({
         status: 404,

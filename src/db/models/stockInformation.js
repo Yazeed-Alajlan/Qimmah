@@ -40,33 +40,35 @@ const stockInformationSchema = new mongoose.Schema({
       book_value_per_share_ttm: String,
     },
   ],
+  StatsOverview: [{}],
+  tradeUpdates: [{}],
+  shareholdingInformation: {
+    boardOfDirectors: [],
+    foreignOwnership: [],
+    majorShareHolders: [],
+  },
+  ComparisonData: [{}],
+  companyProfile: {
+    companyOverview: String,
+    companyHistory: String,
+    DateEstablished: String,
+    FinancialYearEnd: String,
+    ListingDate: String,
+    ExternalAuditors: String,
+  },
 
-  capital: [
-    {
-      announceDate: String,
-      issueTypeDesc: String,
-      dueDate: String,
-      newCApital: String,
-      prevCApital: String,
-      dueDateCompare: String,
-    },
-  ],
-  profile: [
-    {
-      authorizedCapital: String,
-      issuedShares: String,
-      paidCapital: String,
-      parValueShare: String,
-      paidUpValueShare: String,
-      lastUpdate: String,
-    },
-  ],
-  foreignOwnership: [
-    {
-      date: String,
-      percentage: String,
-    },
-  ],
+  equityProfile: [{}],
+  subsidiary: [{}],
+  financial: {
+    balanceSheetAnnually: [],
+    balanceSheetQuarterly: [],
+    incomeSheeAnnually: [],
+    incomeSheetQuarterly: [],
+    cashFlowAnnually: [],
+    cashFlowQuarterly: [],
+  },
+
+  dividends: [],
 });
 
 const StockInformation =
