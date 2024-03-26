@@ -21,7 +21,6 @@ const StockInformation = () => {
   } = useQuery(["stockInformationData", symbol], () =>
     fetchStockInformationData(symbol)
   );
-  console.log(stockInformationData);
   const data = [
     {
       name: "القيمة السوقية",
@@ -97,24 +96,27 @@ const StockInformation = () => {
           }
           tableColumns={[
             {
-              Header: "shareholders",
+              Header: "المساهمون",
               accessor: "shareholders",
             },
             {
-              Header: "tradingDate",
+              Header: "المنصب",
+              accessor: "designation",
+            },
+            {
+              Header: "التاريخ",
               accessor: "tradingDate",
             },
             {
-              Header: "sharesHeldPrevTradingDay",
+              Header: "الأسهم المملوكة في آخر تاريخ",
+              accessor: "sharesHeldTradingDay",
+            },
+            {
+              Header: "الأسهم المملوكة في يوم التداول السابق	",
               accessor: "sharesHeldPrevTradingDay",
             },
             {
-              Header: "sharesHeldTradingDay",
-              accessor: "sharesHeldTradingDay",
-            },
-
-            {
-              Header: "change",
+              Header: "التغير",
               accessor: "change",
             },
           ]}
@@ -128,6 +130,7 @@ const StockInformation = () => {
         <>
           <div>
             <span>ملكيه جميع المستثمرين الاجانب</span>
+            <span>{" (عدا ملكية المستثمر الاستراتيجي الأجنبي) "}</span>
             <Text
               title={"الملكية الفعلية (%)"}
               text={
@@ -207,47 +210,93 @@ const StockInformation = () => {
     <>
       {stockInformationData ? (
         <>
-          <div className="grid grid-cols-5 gap-4 ">
-            <div className="md:col-span-3 col-span-5">
-              <Card header="تحركات السهم">
-                <StockPriceChart symbol={symbol} />
-              </Card>
+          <div className="flex flex-col flex-wrap gap-8">
+            <div className="grid grid-cols-5 gap-4 ">
+              <div className="md:col-span-3 col-span-5">
+                <Card header="تحركات السهم">
+                  <StockPriceChart symbol={symbol} />
+                </Card>
+              </div>
+              <div className="md:col-span-2 col-span-5 ">
+                <Card>
+                  <ButtonGroup buttons={periodButtons} />
+                </Card>
+              </div>
             </div>
-            <div className="md:col-span-2 col-span-5 ">
-              <Card>
-                <ButtonGroup buttons={periodButtons} />
-              </Card>
-            </div>
+            <Card header={"ملف السهم"}>
+              <div className="flex  gap-4 flex-wrap">
+                {" "}
+                {Object.entries(stockInformationData.equityProfile[0]).map(
+                  ([key, value]) => (
+                    <div
+                      key={key}
+                      className="flex flex-col flex-grow text-center border-l-2 border-primary h-28 p-2 gap-4"
+                    >
+                      <span>{key} </span>
+                      <span className="font-semibold">{value}</span>
+                    </div>
+                  )
+                )}
+              </div>
+            </Card>
+            <Card className={"flex flex-col gap-4 "} header={"ملف الشركة"}>
+              <Text
+                title="نبذة عن نشاط الشركة"
+                text={stockInformationData.companyProfile.companyOverview}
+              />
+              <Text
+                title="نبذة عن تاريخ الشركة"
+                text={stockInformationData.companyProfile.companyHistory}
+              />
+              <Text
+                title="تاريخ التأسيس"
+                text={stockInformationData.companyProfile.DateEstablished}
+              />
+              <Text
+                title="تاريخ الادراج"
+                text={stockInformationData.companyProfile.ListingDate}
+              />
+              <Text
+                title="نهاية السنة المالية"
+                text={stockInformationData.companyProfile.FinancialYearEnd}
+              />
+              <Text
+                title="المدققون الخارجيون"
+                text={stockInformationData.companyProfile.ExternalAuditors}
+              />
+            </Card>
+            <Card header={"معلومات عن نسبة التملك"}>
+              <ButtonGroup buttons={shareholdingButtons} />
+            </Card>
+            <Card header={"الشركات التابعة"}>
+              <Table
+                isScrollable
+                tableData={stockInformationData.subsidiary}
+                tableColumns={[
+                  {
+                    Header: "اسم الشركة التابعة",
+                    accessor: "nameOfSubsidiary",
+                  },
+                  {
+                    Header: "نسبة الملكية",
+                    accessor: "percentageOfProperty",
+                  },
+                  {
+                    Header: "النشاط الرئيسي",
+                    accessor: "mainBusiness",
+                  },
+                  {
+                    Header: "مكان العمليات",
+                    accessor: "locationOfOperation",
+                  },
+                  {
+                    Header: "مكان التأسيس",
+                    accessor: "countryOfOperation",
+                  },
+                ]}
+              />
+            </Card>
           </div>
-          <Card className={"flex flex-col gap-4 mt-4"} header={"ملف الشركة"}>
-            <Text
-              title="نبذة عن نشاط الشركة"
-              text={stockInformationData.companyProfile.companyOverview}
-            />
-            <Text
-              title="نبذة عن تاريخ الشركة"
-              text={stockInformationData.companyProfile.companyHistory}
-            />
-            <Text
-              title="تاريخ التأسيس"
-              text={stockInformationData.companyProfile.DateEstablished}
-            />
-            <Text
-              title="تاريخ الادراج"
-              text={stockInformationData.companyProfile.ListingDate}
-            />
-            <Text
-              title="نهاية السنة المالية"
-              text={stockInformationData.companyProfile.FinancialYearEnd}
-            />
-            <Text
-              title="المدققون الخارجيون"
-              text={stockInformationData.companyProfile.ExternalAuditors}
-            />
-          </Card>
-          <Card>
-            <ButtonGroup buttons={shareholdingButtons} />
-          </Card>
         </>
       ) : (
         <p>loading</p>

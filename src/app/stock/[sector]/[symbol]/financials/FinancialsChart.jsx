@@ -6,6 +6,7 @@ import ChartCard from "@/components/utils/cards/ChartCard";
 import DynamicChart from "@/components/utils/charts/DynamicChart";
 
 const FinancialsChart = ({ stockFinancialData }) => {
+  console.log(stockFinancialData);
   const balanceSheetKeys =
     stockFinancialData.balanceSheet.length > 0
       ? Object.keys(stockFinancialData.balanceSheet[0]).slice(1)

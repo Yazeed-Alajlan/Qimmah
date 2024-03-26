@@ -12,7 +12,10 @@ import { Card } from "@/components/utils/cards/Card";
 import { useParams } from "next/navigation";
 import { Tab, Tabs } from "@/components/utils/tabs/TabsButtons";
 import FinancialsTable from "./FinancialsTable";
-import { fetchStockFinancialData } from "@/services/FetchServices";
+import {
+  fetchStockFinancialData,
+  fetchStockInformationData,
+} from "@/services/FetchServices";
 import { useQuery } from "react-query";
 import ButtonGroup from "@/components/utils/buttons/ButtonGroup";
 
@@ -27,13 +30,30 @@ const Financials = () => {
   } = useQuery(["stockFinancialData", symbol], () =>
     fetchStockFinancialData(symbol)
   );
-
+  // const { data: stockInformationData } = useQuery(
+  //   ["stockInformationData", symbol],
+  //   () => fetchStockInformationData(symbol)
+  // );
   const [displayAnnual, setDisplayAnnual] = useState(0);
   const [financialData, setFinancialData] = useState();
 
   useEffect(() => {
     if (stockFinancialData) {
+      //       ? stockInformationData.financial.balanceSheetAnnually
+      // : stockInformationData.financial.balanceSheetQuarterly,
       setFinancialData({
+        // balanceSheet:
+        //   displayAnnual === 0
+        //     ? stockInformationData.financial.balanceSheetAnnually
+        //     : stockInformationData.financial.balanceSheetQuarterly,
+        // incomeSheet:
+        //   displayAnnual === 0
+        //     ? stockInformationData.financial.incomeSheeAnnually
+        //     : stockInformationData.financial.incomeSheetQuarterly,
+        // cashFlow:
+        //   displayAnnual === 0
+        //     ? stockInformationData.financial.cashFlowAnnually
+        //     : stockInformationData.financial.cashFlowQuarterly,
         balanceSheet:
           displayAnnual === 0
             ? stockFinancialData.balanceSheet
