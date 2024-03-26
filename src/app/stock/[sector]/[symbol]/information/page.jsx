@@ -21,6 +21,7 @@ const StockInformation = () => {
   } = useQuery(["stockInformationData", symbol], () =>
     fetchStockInformationData(symbol)
   );
+  console.log(stockInformationData);
   const data = [
     {
       name: "القيمة السوقية",

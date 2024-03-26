@@ -46,8 +46,6 @@ async function prepareFinancialMetricsComparisonTableData() {
       name: data.tradingNameAr,
       sectorNameAr: data.sectorNameAr,
       ...data.summary[data.summary.length - 1],
-      ...data.capital[data.capital.length - 1],
-      ...data.profile[data.profile.length - 1],
     }));
     return formattedData;
   }

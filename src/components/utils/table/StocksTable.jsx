@@ -211,38 +211,17 @@ const StocksTable = ({
                       className="border-b-2 hover:bg-gray-200 text-sm"
                     >
                       {row.cells.map((cell, cellIndex) => {
-                        const columnsToCheck = [5, 6]; // Define columns to check for color change
-                        const isColored = columnsToCheck.includes(cellIndex); // Check if this column needs coloring
-                        const [symbol, name] = cell.value.split(" - ");
+                        const columnId = cell.column.id; // Get the column ID
                         return (
                           <td
                             {...cell.getCellProps()}
                             key={`cell_${rowIndex}_${cellIndex}`} // Generate unique key for each cell
-                            className={
-                              isColored
-                                ? cell.value.includes("-")
-                                  ? "text-danger px-6 py-3"
-                                  : "text-success px-6 py-3"
-                                : "text-black px-6 py-3" // Black color for columns not in columnsToCheck
-                            }
+                            className={`px-4 py-2 ${getColorBasedOnChange(
+                              cell.value,
+                              columnId
+                            )}`}
                           >
-                            {cellIndex === 0 ? (
-                              <Link
-                                href={`/stock/${row.original.sectorNameAr}/${symbol}/information`}
-                                className=""
-                              >
-                                <span>
-                                  <Badge
-                                    className="fw-bold me-2"
-                                    variant="primary" // Use variant instead of color
-                                    text={symbol}
-                                  />
-                                </span>
-                                <span>{name}</span>
-                              </Link>
-                            ) : (
-                              cell.render("Cell")
-                            )}
+                            {cell.render("Cell")}
                           </td>
                         );
                       })}
@@ -286,6 +265,13 @@ const formatKey = (key) => {
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .replace(/\b\w/g, (char) => char.toUpperCase());
   return titleCaseKey;
+};
+
+const getColorBasedOnChange = (value, columnId) => {
+  if (columnId === "التغيير" || columnId === "التغيير (%)") {
+    return parseFloat(value) < 0 ? "text-red-500" : "text-green-500";
+  }
+  return ""; // Return empty string for other columns
 };
 
 export default StocksTable;

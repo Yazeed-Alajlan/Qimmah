@@ -204,9 +204,9 @@ const StockPriceChart = ({
           )}
           <div className={`flex flex-col absolute top-0 right-2  z-10 `}>
             <div className="flex gap-10">
-              <div>
+              {/* <div>
                 <span>{stockInformationData?.tradingNameAr}</span>
-              </div>
+              </div> */}
               <Badge
                 variant={"transparent"}
                 text={
@@ -214,31 +214,22 @@ const StockPriceChart = ({
                   "   " +
                   stockInformationData?.symbol
                 }
-              ></Badge>
+                size={"sm"}
+              />
               <div
                 className={`flex flex-row-reverse justify-center text-sm  gap-4 text-${
                   legend.open > legend.close ? "danger" : "success"
                 }`}
               >
-                <span className="flex ">O {legend.open}</span>
-                <span className="flex ">H {legend.high}</span>
-                <span className="flex ">L {legend.low}</span>
-                <span className="flex ">C {legend.close}</span>
-                {legend.changePercent === "NaN" ? "" : legend.changePercent}%
-              </div>
-            </div>
-            <div>
-              <span className={`flex  gap-2 `}>
-                <span>Vol</span>
-                <span
-                  className={`text-${
-                    legend.open > legend.close ? "danger" : "success"
-                  }`}
-                >
-                  {" "}
-                  {legend.volume}
+                <span>O {legend.open}</span>
+                <span>H {legend.high}</span>
+                <span>L {legend.low}</span>
+                <span>C {legend.close}</span>
+                <span>
+                  {legend.changePercent === "NaN" ? "" : legend.changePercent}%
                 </span>
-              </span>
+                <span>Vol {legend.volume}</span>
+              </div>
             </div>
           </div>
           <div

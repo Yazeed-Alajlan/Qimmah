@@ -45,8 +45,15 @@ const badgeVariants = cva("text-xs font-medium me-2 px-2.5 py-0.5 rounded", {
   },
 });
 
-const Badge = ({ variant, text, className }) => {
-  const classes = `${badgeVariants({ variant })} ${className || ""}`;
+const Badge = ({ variant, text, size, className }) => {
+  const sizeClasses = {
+    sm: "text-xs px-2 py-0.5",
+    md: "text-sm px-3 py-1",
+    lg: "text-base px-4 py-2",
+  };
+  const classes = `${badgeVariants({ variant })} ${
+    sizeClasses[size] || sizeClasses.md
+  } ${className || ""}`;
   return <span className={classes}>{text}</span>;
 };
 
