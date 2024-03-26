@@ -10,6 +10,17 @@ async function fetchStockInformationData(symbol) {
       throw error;
     });
 }
+
+async function fetchDetailedStockInformationData(symbol) {
+  console.log(symbol);
+  return axios
+    .get(`/api/stocks/information/${symbol}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+      throw error;
+    });
+}
 async function fetchAllStocksInformationData() {
   return axios
     .get(`/api/stocks/`)
@@ -60,6 +71,7 @@ async function getStockPriceDataByDateInterval(symbol, dateFrom, dateEnd) {
 
 export {
   fetchStockInformationData,
+  fetchDetailedStockInformationData,
   fetchAllStocksInformationData,
   fetchStockFinancialData,
   fetchStockPriceData,
