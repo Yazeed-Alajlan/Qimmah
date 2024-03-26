@@ -1,13 +1,10 @@
 import React, { useMemo, useState } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
-import { Card } from "../cards/Card";
 import InputSelect from "../inputs/InputSelect";
 import { TbSortAscending, TbSortDescending } from "react-icons/tb";
 import SearchInput from "../inputs/SearchInput";
 import Button from "../buttons/Button";
 import Divider from "../Divider";
-import Badge from "../Badge";
-import Link from "next/link";
 
 const StocksTable = ({
   header,
@@ -46,8 +43,11 @@ const StocksTable = ({
     if (searchText) {
       data = data.filter(
         (row) =>
-          row[`${searchBy}`] &&
-          row[`${searchBy}`].toLowerCase().includes(searchText.toLowerCase())
+          (row[`${searchBy}`] &&
+            row[`${searchBy}`]
+              .toLowerCase()
+              .includes(searchText.toLowerCase())) ||
+          row.tradingNameAr.toLowerCase().includes(searchText.toLowerCase())
       );
     }
     if (filterOption) {
@@ -137,18 +137,12 @@ const StocksTable = ({
               <Divider />
             </>
           )}
-          <div
-            className={`overflow-x-auto  ${
-              isScrollable
-                ? "w-full  h-screen  overflow-auto"
-                : " overflow-auto"
-            }`}
-          >
+          <div className={`overflow-auto  ${isScrollable && "h-screen"}`}>
             <table
               {...getTableProps()}
-              className="whitespace-nowrap w-full overflow-x-auto  text-gray-600 dark:text-gray-400 "
+              className="w-full whitespace-nowrap  overflow-auto  text-gray-700 dark:text-gray-400 "
             >
-              <thead className="sticky top-0 uppercase font-bold text-gray-700 dark:text-gray-400">
+              <thead className="sticky top-0 bg-white uppercase text-lg font-semibold text-primary dark:text-gray-400 border-b-4">
                 {headerGroups.map((headerGroup, index) => {
                   const { key, ...restHeaderGroupProps } =
                     headerGroup.getHeaderGroupProps(); // Destructure key and restHeaderGroupProps from getHeaderGroupProps()
@@ -156,7 +150,6 @@ const StocksTable = ({
                     <tr
                       key={`headerRow_${index}`} // Use a unique key for each header row
                       {...restHeaderGroupProps}
-                      className="border-b-4"
                     >
                       {headerGroup.headers.map((column, columnIndex) => {
                         const { key, ...restColumn } = column.getHeaderProps(
@@ -166,7 +159,7 @@ const StocksTable = ({
                           <th
                             key={key} // Use key or generate a unique key for each header cell
                             {...restColumn}
-                            className="text-primary px-6 gap-2 cursor-pointer"
+                            className=" px-4 gap-2 cursor-pointer"
                             style={{
                               minWidth: column.minWidth,
                               width: column.width,
@@ -208,7 +201,7 @@ const StocksTable = ({
                           ? handleRowClick(row.original.symbol)
                           : null
                       }
-                      className="border-b-2 hover:bg-gray-200 text-sm"
+                      className="border-b-2 hover:bg-gray-200 text-md"
                     >
                       {row.cells.map((cell, cellIndex) => {
                         const columnId = cell.column.id; // Get the column ID

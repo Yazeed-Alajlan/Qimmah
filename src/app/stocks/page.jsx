@@ -8,33 +8,18 @@ import StocksTable from "@/components/utils/table/StocksTable";
 import Table from "@/components/utils/table/Table";
 import { useStocksData } from "@/context/StocksDataContext";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const StocksPage = () => {
   const { stocksData } = useStocksData();
-  const [filteredData, setFilteredData] = useState(null);
 
-  useEffect(() => {
-    if (stocksData) {
-      console.log(stocksData);
-      const formattedData = stocksData.map((data) => ({
-        company: data.symbol + " - " + data.tradingNameAr,
-        sectorNameAr: data.sectorNameEn,
-
-        ...data.summary[data.summary.length - 1],
-      }));
-      setFilteredData(formattedData);
-    }
-    console.log(stocksData);
-  }, [stocksData]);
-  console.log(stocksData);
   return (
     <PageWrapper>
       <Card>
-        {filteredData ? (
+        {stocksData ? (
           <StocksTable
             filterBy={"sectorNameAr"}
-            searchBy={"company"}
+            searchBy={"symbol"}
             tableData={stocksData}
             tableColumns={[
               {
@@ -44,8 +29,6 @@ const StocksPage = () => {
                   <>
                     <Link
                       href={`/stock/${row.original.sectorNameAr}/${row.original.symbol}/information`}
-                      // href={`/stock`}
-                      className=""
                     >
                       <span>
                         <Badge
@@ -60,10 +43,6 @@ const StocksPage = () => {
                   </>
                 ),
               },
-              // {
-              //   Header: "الاسم",
-              //   accessor: "tradingNameAr",
-              // },
               {
                 Header: "الافتتاح",
                 accessor: (row) => row?.summary[0]?.open,
