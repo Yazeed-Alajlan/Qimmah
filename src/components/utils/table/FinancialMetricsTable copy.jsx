@@ -5,15 +5,20 @@ import { TbSortAscending, TbSortDescending } from "react-icons/tb";
 import SearchInput from "../inputs/SearchInput";
 import Button from "../buttons/Button";
 import Divider from "../Divider";
+import Badge from "../Badge";
+import Link from "next/link";
+import Skeleton from "@/components/Skeleton";
 
-const StocksTable = ({
+const FinancialMetricsTable = ({
   tableData,
   tableColumns,
   searchBy,
   filterBy,
   removeFilterFromColumn,
   isScrollable,
-  handleRowClick,
+  deleteButton = true,
+  divider = true,
+  className,
 }) => {
   const columns = useMemo(() => {
     if (!tableData || tableData.length === 0) {
@@ -22,7 +27,12 @@ const StocksTable = ({
     const keys = Object.keys(tableData[0]);
 
     const filteredKeys = keys.filter((key) =>
-      removeFilterFromColumn ? key !== filterBy && key !== "_id" : true
+      removeFilterFromColumn
+        ? key !== filterBy &&
+          key !== "_id" &&
+          key !== "sectorNameAr" &&
+          key !== "sectorNameEn"
+        : true
     );
 
     const generatedColumns = filteredKeys.map((key) => ({
@@ -41,11 +51,8 @@ const StocksTable = ({
     if (searchText) {
       data = data.filter(
         (row) =>
-          (row[`${searchBy}`] &&
-            row[`${searchBy}`]
-              .toLowerCase()
-              .includes(searchText.toLowerCase())) ||
-          row.tradingNameAr.toLowerCase().includes(searchText.toLowerCase())
+          row[`${searchBy}`] &&
+          row[`${searchBy}`].toLowerCase().includes(searchText.toLowerCase())
       );
     }
     if (filterOption) {
@@ -59,7 +66,7 @@ const StocksTable = ({
   }, [tableData, searchText, filterOption]);
 
   const uniqueFilter = useMemo(() => {
-    const filters = [...new Set(tableData.map((row) => row[`${filterBy}`]))];
+    const filters = [...new Set(tableData?.map((row) => row[`${filterBy}`]))];
     return filters.filter((filter) => filter);
   }, [tableData]);
 
@@ -79,7 +86,7 @@ const StocksTable = ({
     {
       columns: tableColumns ? tableColumns : columns,
       data: filteredData,
-      initialState: { pageIndex: 0, pageSize: 15 },
+      initialState: { pageIndex: 0, pageSize: 5 },
     },
     useSortBy,
     usePagination
@@ -88,15 +95,15 @@ const StocksTable = ({
   const dataToMap = isScrollable ? rows : page;
   return (
     <div>
-      {tableData && (
+      {tableData ? (
         <div className="">
           {(filterBy || searchBy) && (
             <>
-              <div className=" grid md:grid-cols-7 sm:grid-cols-3 gap-4 ">
+              <div className=" grid grid-cols-6 gap-4 my-6 ">
                 {filterBy && (
-                  <div className="col-span-2">
+                  <div className="col-span-4">
                     <InputSelect
-                      placeholder="اختر القطاع"
+                      placeholder="تصفية حسب القطاع"
                       value={filterOption}
                       options={[
                         ...uniqueFilter.map((sector, index) => ({
@@ -113,51 +120,58 @@ const StocksTable = ({
                   </div>
                 )}
                 {searchBy && (
-                  <div className="col-span-4">
+                  <div className="col-span-3">
                     <SearchInput
-                      placeholder={`ابحث باسم الشركة أو الرمز`}
+                      placeholder={`Search by ${formatKey(searchBy)}`}
                       value={searchText}
                       onChange={(e) => setSearchText(e.target.value)}
                     />
                   </div>
                 )}
-                <div className="col-span-1 md:mx-auto ">
-                  <Button
-                    variant="danger"
-                    text={"حذف"}
-                    onClick={() => {
-                      setFilterOption("");
-                      setSearchText("");
-                    }}
-                  />
-                </div>
+                {deleteButton && (
+                  <div className="col-span-1 mx-auto ">
+                    <Button
+                      variant="danger"
+                      text={"حذف"}
+                      onClick={() => {
+                        setFilterOption("");
+                        setSearchText("");
+                      }}
+                    />
+                  </div>
+                )}
               </div>
-              <Divider />
+              {divider && <Divider />}
             </>
           )}
-          <div className={`overflow-auto  ${isScrollable && "h-screen"}`}>
+          <div
+            className={`overflow-x-auto  ${
+              isScrollable ? "w-full  h-80  overflow-auto" : ""
+            }`}
+          >
             <table
               {...getTableProps()}
-              className="w-full whitespace-nowrap  overflow-auto  text-gray-700 dark:text-gray-400 "
+              className="whitespace-nowrap w-full overflow-x-auto  text-gray-600 dark:text-gray-400 "
             >
-              <thead className="sticky top-0 bg-white uppercase text-lg font-semibold text-primary dark:text-gray-400 border-b-4">
+              <thead className="sticky bg-white top-0 uppercase font-bold text-gray-700 dark:text-gray-400">
                 {headerGroups.map((headerGroup, index) => {
                   const { key, ...restHeaderGroupProps } =
-                    headerGroup.getHeaderGroupProps(); // Destructure key and restHeaderGroupProps from getHeaderGroupProps()
+                    headerGroup.getHeaderGroupProps();
                   return (
                     <tr
-                      key={`headerRow_${index}`} // Use a unique key for each header row
+                      key={key} // Generate unique key for header group
+                      className="border-b-4"
                       {...restHeaderGroupProps}
                     >
                       {headerGroup.headers.map((column, columnIndex) => {
                         const { key, ...restColumn } = column.getHeaderProps(
                           column.getSortByToggleProps()
-                        ); // Destructure key and restColumn from getHeaderProps()
+                        );
                         return (
                           <th
-                            key={key} // Use key or generate a unique key for each header cell
+                            key={key} // Generate unique key for each column within the header group
                             {...restColumn}
-                            className=" px-4 gap-2 cursor-pointer"
+                            className="text-primary gap-2 cursor-pointer"
                             style={{
                               minWidth: column.minWidth,
                               width: column.width,
@@ -186,33 +200,49 @@ const StocksTable = ({
               </thead>
 
               <tbody className="" {...getTableBodyProps()}>
-                {dataToMap.map((row, rowIndex) => {
+                {dataToMap.map((row) => {
                   prepareRow(row);
                   const { key, ...restRowProps } = row.getRowProps(); // Destructure key and restRowProps from getRowProps()
 
                   return (
                     <tr
-                      key={`row_${rowIndex}`} // Use a unique key for each row
-                      {...restRowProps}
-                      onClick={() =>
-                        handleRowClick
-                          ? handleRowClick(row.original.symbol)
-                          : null
-                      }
-                      className="border-b-2 hover:bg-gray-200 text-md"
+                      key={key} // Use key for each row
+                      {...restRowProps} // Spread restRowProps for other row properties
+                      className="border-b-2 hover:bg-gray-200 text-sm"
                     >
-                      {row.cells.map((cell, cellIndex) => {
-                        const columnId = cell.column.id; // Get the column ID
+                      {row.cells.map((cell, index) => {
+                        const columnsToCheck = [5, 6]; // Define columns to check for color change
+                        const isColored = columnsToCheck.includes(index); // Check if this column needs coloring
+                        const [symbol, name] = cell.value.split(" - ");
                         return (
                           <td
                             {...cell.getCellProps()}
-                            key={`cell_${rowIndex}_${cellIndex}`} // Generate unique key for each cell
-                            className={`px-4 py-2 ${getColorBasedOnChange(
-                              cell.value,
-                              columnId
-                            )}`}
+                            key={`${key}_cell_${index}`} // Generate unique key for each cell within the row
+                            className={
+                              isColored
+                                ? cell.value.includes("-")
+                                  ? "text-danger px-6 py-3"
+                                  : "text-success px-6 py-3"
+                                : "text-black px-6 py-3" // Black color for columns not in columnsToCheck
+                            }
                           >
-                            {cell.render("Cell")}
+                            {index === 0 ? (
+                              <Link
+                                href={`/stock/${row.original.sectorNameEn}/${symbol}/information`}
+                                className=""
+                              >
+                                <span>
+                                  <Badge
+                                    className="fw-bold me-2"
+                                    variant="primary" // Use variant instead of color
+                                    text={symbol}
+                                  />
+                                </span>
+                                <span>{name}</span>
+                              </Link>
+                            ) : (
+                              cell.render("Cell")
+                            )}
                           </td>
                         );
                       })}
@@ -223,28 +253,32 @@ const StocksTable = ({
             </table>
           </div>
           {!isScrollable && (
-            <div className="flex justify-center items-center mt-2 gap-4">
+            <div className="flex justify-center items-center mt-2">
               <Button
-                variant="primary"
+                className="bg-primary mx-2"
                 onClick={() => previousPage()}
                 disabled={!canPreviousPage}
-                text="السابق"
+                text="Previous"
               />
               <span>
-                الصفحة
-                <span className="font-bold ms-2">
-                  {pageIndex + 1} من {Math.ceil(filteredData.length / 15)}
-                </span>
+                Page
+                <strong>
+                  {pageIndex + 1} of {Math.ceil(filteredData.length / 5)}
+                </strong>
               </span>
               <Button
-                variant="primary"
+                className="bg-primary mx-2"
                 onClick={() => nextPage()}
                 disabled={!canNextPage}
-                text="التالي"
+                text="Next"
               />
             </div>
           )}
         </div>
+      ) : (
+        <>
+          <Skeleton />
+        </>
       )}
     </div>
   );
@@ -258,11 +292,4 @@ const formatKey = (key) => {
   return titleCaseKey;
 };
 
-const getColorBasedOnChange = (value, columnId) => {
-  if (columnId === "التغيير" || columnId === "التغيير (%)") {
-    return parseFloat(value) < 0 ? "text-red-500" : "text-green-500";
-  }
-  return ""; // Return empty string for other columns
-};
-
-export default StocksTable;
+export default FinancialMetricsTable;

@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 
 export async function GET(req, res) {
   try {
-    console.log("GEEEEEEEEEEET ALLLL");
     // Connect to the MongoDB database
     await connectToDatabase();
     const stocks = await StockInformation.find().select(
@@ -16,7 +15,6 @@ export async function GET(req, res) {
         body: { error: "Stock not found" },
       });
     }
-    console.log("GEEEEEEEEEEET ALLLL DONENOEDONENOONEDON");
 
     return new NextResponse(JSON.stringify(stocks));
   } catch (error) {
