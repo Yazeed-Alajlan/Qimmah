@@ -1,10 +1,9 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 import InputSelect from "../inputs/InputSelect";
 import { TbSortAscending, TbSortDescending } from "react-icons/tb";
 import SearchInput from "../inputs/SearchInput";
 import Button from "../buttons/Button";
-import Divider from "../Divider";
 import Skeleton from "@/components/Skeleton";
 
 const FinancialMetricsTable = ({
@@ -13,11 +12,18 @@ const FinancialMetricsTable = ({
   isScrollable,
   handleRowClick,
 }) => {
-  if (!tableData) return <Skeleton />;
+  console.log(tableData);
+  console.log(tableColumns);
   const [searchText, setSearchText] = useState("");
   const [filterOption, setFilterOption] = useState("");
   const [data, setData] = useState(tableData);
-
+  useEffect(() => {
+    if (tableData) {
+      setData(tableData);
+    } else {
+      setData([]);
+    }
+  }, [tableData]);
   const handleSearch = (event) => {
     setSearchText(event.target.value);
     setData(
@@ -53,8 +59,8 @@ const FinancialMetricsTable = ({
     state: { pageIndex },
   } = useTable(
     {
-      columns: tableColumns,
-      data: data,
+      columns: tableColumns || [],
+      data: data || [],
       initialState: { pageIndex: 0, pageSize: 15 },
     },
     useSortBy,
@@ -83,13 +89,13 @@ const FinancialMetricsTable = ({
                 labelDirection="hr"
               />
             </div>
-            {/* <div className="w-1/2">
+            <div className="w-1/2">
               <SearchInput
                 placeholder={`ابحث باسم الشركة أو الرمز`}
                 value={searchText}
                 onChange={handleSearch}
               />
-            </div> */}
+            </div>
           </div>
           <div className={`overflow-auto  ${isScrollable && "h-80"}`}>
             <table
@@ -202,18 +208,12 @@ const FinancialMetricsTable = ({
           )}
         </div>
       ) : (
-        <Skeleton />
+        <>
+          <Skeleton />
+        </>
       )}
     </div>
   );
-};
-
-const formatKey = (key) => {
-  const formattedKey = key.replace(/_/g, " ");
-  const titleCaseKey = formattedKey
-    .replace(/([a-z])([A-Z])/g, "$1 $2")
-    .replace(/\b\w/g, (char) => char.toUpperCase());
-  return titleCaseKey;
 };
 
 const getColorBasedOnChange = (value, columnId) => {
