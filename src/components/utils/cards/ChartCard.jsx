@@ -5,6 +5,8 @@ import { Card } from "./Card";
 import { FaHeart } from "react-icons/fa";
 import { ButtonGroupSlidingIndicator } from "../buttons/ButtonGroupSlidingIndicator";
 import DynamicChart from "../charts/DynamicChart";
+import { MdShowChart } from "react-icons/md";
+import { MdOutlineBarChart } from "react-icons/md";
 
 const ChartCard = ({ data }) => {
   const [chartType, setChartType] = useState("bar");
@@ -16,27 +18,11 @@ const ChartCard = ({ data }) => {
     // Additional logic if needed
   };
   const buttons = [
-    { label: "Bar", value: "bar", icon: <FaHeart /> },
-    { label: "Line", value: "line", icon: <FaHeart /> },
+    { label: "Bar", value: "bar", icon: <MdOutlineBarChart /> },
+    { label: "Line", value: "line", icon: <MdShowChart /> },
     // { label: "Scatter", value: "scatter", icon: <FaHeart /> },
     // Add more buttons as needed
   ];
-
-  // const data = {
-  //   series: [
-  //     {
-  //       name: "Income",
-  //       color: "#31C48D",
-  //       data: ["1420", "1620", "1820", "1420", "1650", "2120"],
-  //     },
-  //     {
-  //       name: "Expense",
-  //       data: ["788", "810", "866", "788", "1100", "1200"],
-  //       color: "#F05252",
-  //     },
-  //   ],
-  //   categories: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-  // };
 
   return (
     <Card>

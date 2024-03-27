@@ -33,14 +33,14 @@ export const ButtonGroupSlidingIndicator = ({
 
   return (
     <div
-      className="flex-row justify-center text-primary text-xl  relative mx-auto me-auto flex h-12 rounded-xl border-4  px-2 backdrop-blur-sm"
+      className="flex-row justify-center  relative mx-auto me-auto flex h-12 rounded-3xl border border-black/40 bg-neutral-800 px-2 backdrop-blur-sm"
       style={{ width: fullWidth ? "100%" : "min-content" }}
     >
       <span
-        className="indicator absolute bottom-0 top-0 -z-10 flex overflow-hidden rounded-xl py-1 transition-all duration-300"
+        className="indicator absolute bottom-0 top-0 -z-10 flex overflow-hidden rounded-3xl py-2 transition-all duration-300"
         style={{ left: indicatorLeft, width: indicatorWidth }}
       >
-        <span className="h-full w-full rounded-xl bg-gray-200" />
+        <span className="h-full w-full rounded-3xl bg-gray-200/30" />
       </span>
       {buttons.map((button, index) => {
         const isActive = activeButtonIndex === index;
@@ -51,7 +51,7 @@ export const ButtonGroupSlidingIndicator = ({
             ref={(el) => (buttonsRef.current[index] = el)}
             className={`flex justify-center items-center ${
               isActive ? `` : `hover:text-neutral-300`
-            } my-auto cursor-pointer select-none rounded-full px-4 text-center font-light `}
+            } my-auto cursor-pointer select-none rounded-full px-4 text-center font-light text-white`}
             onClick={() => handleButtonClick(index, button.value, button.label)}
           >
             <span className="me-2"> {button.icon}</span>

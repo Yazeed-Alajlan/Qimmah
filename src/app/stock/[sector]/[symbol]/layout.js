@@ -86,14 +86,17 @@ const StockLayout = ({ children }) => {
               </div>
               <div>
                 <Badge
+                  size={"lg"}
                   title={"اسم التداول"}
                   text={stockInformationData.tradingNameAr}
                 />
                 <Badge
+                  size={"lg"}
                   title={"رمز التداول"}
                   text={stockInformationData.symbol}
                 />
                 <Badge
+                  size={"lg"}
                   title={"القطاع"}
                   text={stockInformationData.sectorNameAr}
                 />
