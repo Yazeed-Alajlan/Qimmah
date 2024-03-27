@@ -5,63 +5,39 @@ import { TbSortAscending, TbSortDescending } from "react-icons/tb";
 import SearchInput from "../inputs/SearchInput";
 import Button from "../buttons/Button";
 import Divider from "../Divider";
+import Skeleton from "@/components/Skeleton";
 
 const FinancialMetricsTable = ({
   tableData,
   tableColumns,
-  searchBy,
-  filterBy,
-  removeFilterFromColumn,
   isScrollable,
   handleRowClick,
 }) => {
-  const columns = useMemo(() => {
-    if (!tableData || tableData.length === 0) {
-      return [];
-    }
-    const keys = Object.keys(tableData[0]);
-
-    const filteredKeys = keys.filter((key) =>
-      removeFilterFromColumn ? key !== filterBy && key !== "_id" : true
-    );
-
-    const generatedColumns = filteredKeys.map((key) => ({
-      Header: formatKey(key),
-      accessor: key,
-    }));
-
-    return generatedColumns;
-  }, [tableData, tableColumns]);
-
+  if (!tableData) return <Skeleton />;
   const [searchText, setSearchText] = useState("");
   const [filterOption, setFilterOption] = useState("");
+  const [data, setData] = useState(tableData);
 
-  const filteredData = useMemo(() => {
-    let data = tableData;
-    if (searchText) {
-      data = data.filter(
-        (row) =>
-          (row[`${searchBy}`] &&
-            row[`${searchBy}`]
-              .toLowerCase()
-              .includes(searchText.toLowerCase())) ||
-          row.tradingNameAr.toLowerCase().includes(searchText.toLowerCase())
+  const handleSearch = (event) => {
+    setSearchText(event.target.value);
+    setData(
+      tableData.filter((item) =>
+        item.symbol.toLowerCase().includes(event.target.value.toLowerCase())
+      )
+    );
+  };
+  const handleFilter = (event) => {
+    if (event) {
+      setFilterOption(event.value);
+      setData(
+        tableData.filter((item) =>
+          item.sectorNameAr.toLowerCase().includes(event.value.toLowerCase())
+        )
       );
+    } else {
+      setData(tableData);
     }
-    if (filterOption) {
-      data = data.filter(
-        (row) =>
-          row[`${filterBy}`] &&
-          row[`${filterBy}`].toLowerCase() === filterOption.toLowerCase()
-      );
-    }
-    return data;
-  }, [tableData, searchText, filterOption]);
-
-  const uniqueFilter = useMemo(() => {
-    const filters = [...new Set(tableData.map((row) => row[`${filterBy}`]))];
-    return filters.filter((filter) => filter);
-  }, [tableData]);
+  };
 
   const {
     getTableProps,
@@ -77,8 +53,8 @@ const FinancialMetricsTable = ({
     state: { pageIndex },
   } = useTable(
     {
-      columns: tableColumns ? tableColumns : columns,
-      data: filteredData,
+      columns: tableColumns,
+      data: data,
       initialState: { pageIndex: 0, pageSize: 15 },
     },
     useSortBy,
@@ -86,57 +62,35 @@ const FinancialMetricsTable = ({
   );
 
   const dataToMap = isScrollable ? rows : page;
+
   return (
     <div>
-      {tableData && (
-        <div className="">
-          {(filterBy || searchBy) && (
-            <>
-              <div className=" grid md:grid-cols-7 sm:grid-cols-3 gap-4 ">
-                {filterBy && (
-                  <div className="col-span-4">
-                    <InputSelect
-                      placeholder="اختر القطاع"
-                      value={filterOption}
-                      options={[
-                        ...uniqueFilter.map((sector, index) => ({
-                          value: sector,
-                          label: sector,
-                        })),
-                      ]}
-                      onChange={(e) => {
-                        setFilterOption(e && e.value);
-                      }}
-                      isSearchable={true}
-                      labelDirection="hr"
-                    />
-                  </div>
-                )}
-                {searchBy && (
-                  <div className="col-span-4">
-                    <SearchInput
-                      placeholder={`ابحث باسم الشركة أو الرمز`}
-                      value={searchText}
-                      onChange={(e) => setSearchText(e.target.value)}
-                    />
-                  </div>
-                )}
-                {searchBy && filterBy && (
-                  <div className="col-span-1 md:mx-auto ">
-                    <Button
-                      variant="danger"
-                      text={"حذف"}
-                      onClick={() => {
-                        setFilterOption("");
-                        setSearchText("");
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
-              <Divider />
-            </>
-          )}
+      {tableData ? (
+        <div className="flex flex-col gap-4">
+          <div className="flex gap-4">
+            <div className="w-1/2">
+              <InputSelect
+                placeholder="اختر القطاع"
+                value={filterOption}
+                options={Array.from(
+                  new Set(tableData.map((item) => item.sectorNameAr))
+                ).map((sectorName) => ({
+                  value: sectorName,
+                  label: sectorName,
+                }))}
+                onChange={handleFilter}
+                isSearchable={true}
+                labelDirection="hr"
+              />
+            </div>
+            {/* <div className="w-1/2">
+              <SearchInput
+                placeholder={`ابحث باسم الشركة أو الرمز`}
+                value={searchText}
+                onChange={handleSearch}
+              />
+            </div> */}
+          </div>
           <div className={`overflow-auto  ${isScrollable && "h-80"}`}>
             <table
               {...getTableProps()}
@@ -247,6 +201,8 @@ const FinancialMetricsTable = ({
             </div>
           )}
         </div>
+      ) : (
+        <Skeleton />
       )}
     </div>
   );
