@@ -27,7 +27,7 @@ const StocksSearch = ({ className, onStockSelect, label }) => {
     <div className={className}>
       <InputSelect
         label={label}
-        className="z-50 w-w-96"
+        className="z-30 w-w-96"
         placeholder="ابحث  باسم الشركة أو الرمز"
         value={selectedStock}
         options={stocksData?.map((stock) => ({

@@ -32,19 +32,19 @@ const Sidebar = ({ routes }) => {
 
   const Nav_animation = isTabletMid
     ? {
+        closed: {
+          x: 250,
+          width: 0,
+          transition: {
+            damping: 40,
+            delay: 0.15,
+          },
+        },
         open: {
           x: 0,
           width: "16rem",
           transition: {
             damping: 40,
-          },
-        },
-        closed: {
-          x: -250,
-          width: 0,
-          transition: {
-            damping: 40,
-            delay: 0.15,
           },
         },
       }
@@ -64,7 +64,7 @@ const Sidebar = ({ routes }) => {
       };
 
   return (
-    <div className="md:sticky fixed top-0 z-10  h-full">
+    <div className="md:sticky fixed top-0 z-50  h-full">
       <div
         onClick={() => setOpen(false)}
         className={`md:hidden fixed inset-0 max-h-screen z-[998] bg-black/50 ${
