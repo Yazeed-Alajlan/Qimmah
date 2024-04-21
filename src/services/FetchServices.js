@@ -69,6 +69,29 @@ async function getStockPriceDataByDateInterval(symbol, dateFrom, dateEnd) {
     });
 }
 
+async function getTotalMarketCapitalizationOfTASI() {
+  const allStocksData = await fetchAllStocksInformationData();
+
+  let totalMarketCap = 0;
+
+  allStocksData.forEach((stockData) => {
+    console.log(stockData.symbol);
+
+    const issuedSharesString = stockData.equityProfile[0]["Issued Shares"];
+    const lastClosePriceString = stockData.summary[0]["close"];
+
+    const issuedShares = parseFloat(issuedSharesString.replace(/,/g, ""));
+    const lastClosePrice = parseFloat(lastClosePriceString.replace(/,/g, ""));
+    const marketCap = issuedShares * lastClosePrice;
+    console.log(lastClosePrice);
+    console.log(issuedShares);
+    console.log(marketCap);
+    totalMarketCap += marketCap;
+  });
+  console.log(totalMarketCap);
+  return totalMarketCap;
+}
+
 export {
   fetchStockInformationData,
   fetchDetailedStockInformationData,
@@ -77,4 +100,5 @@ export {
   fetchStockPriceData,
   getStockPriceDataByDate,
   getStockPriceDataByDateInterval,
+  getTotalMarketCapitalizationOfTASI,
 };

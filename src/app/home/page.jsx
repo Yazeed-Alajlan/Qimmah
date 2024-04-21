@@ -13,6 +13,7 @@ import FinancialMetricsComparisonTable from "../comparison/components/FinancialM
 import { useStocksData } from "@/context/StocksDataContext";
 import Link from "next/link";
 import Badge from "@/components/utils/Badge";
+import { getTotalMarketCapitalizationOfTASI } from "@/services/FetchServices";
 
 const Page = () => {
   const { stocksData } = useStocksData();
@@ -24,9 +25,14 @@ const Page = () => {
   const { data: lastChangeData } = useQuery(["lastChangeData"], () =>
     getLastDateForChange()
   );
+  // const { data: MarketCapitalizationOfTASI } = useQuery(
+  //   ["MarketCapitalizationOfTASI"],
+  //   () => getTotalMarketCapitalizationOfTASI()
+  // );
 
   return (
     <PageWrapper className={"gap-16"}>
+      {/* {MarketCapitalizationOfTASI} */}
       <Card header="مؤشر السوق الرئيسية (تاسي)">
         <StockPriceChart symbol={"2222"} />
       </Card>

@@ -226,7 +226,7 @@ const StockInformation = () => {
             </div>
             <Card header={"ملف السهم"}>
               <div className="flex  gap-4 flex-wrap">
-                {" "}
+                {console.log(stockInformationData.equityProfile[0])}
                 {Object.entries(stockInformationData.equityProfile[0]).map(
                   ([key, value]) => (
                     <div

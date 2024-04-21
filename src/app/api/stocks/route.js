@@ -7,7 +7,7 @@ export async function GET(req, res) {
     // Connect to the MongoDB database
     await connectToDatabase();
     const stocks = await StockInformation.find().select(
-      "symbol companyNameEN sectorNameEn tradingNameEn sectorNameAr tradingNameAr companyNameAR market_type summary"
+      "symbol companyNameEN sectorNameEn tradingNameEn sectorNameAr tradingNameAr companyNameAR market_type summary equityProfile"
     );
     if (!stocks) {
       return new NextResponse({
