@@ -45,43 +45,49 @@ const StocksPage = () => {
               },
               {
                 Header: "الافتتاح",
-                accessor: (row) => row?.summary[0]?.open,
+                accessor: (row) => row?.summary[row?.summary.length - 1]?.open,
               },
               {
                 Header: "الاغلاق",
-                accessor: (row) => row?.summary[0]?.close,
+                accessor: (row) => row?.summary[row?.summary.length - 1]?.close,
               },
               {
                 Header: "الأعلى",
-                accessor: (row) => row?.summary[0]?.high,
+                accessor: (row) => row?.summary[row?.summary.length - 1]?.high,
               },
               {
                 Header: "الأدنى",
-                accessor: (row) => row?.summary[0]?.low,
+                accessor: (row) => row?.summary[row?.summary.length - 1]?.low,
               },
               {
                 Header: "التغيير",
-                accessor: (row) => row?.summary[0]?.change_value,
+                accessor: (row) =>
+                  row?.summary[row?.summary.length - 1]?.change_value,
               },
               {
                 Header: "التغيير (%)",
-                accessor: (row) => row?.summary[0]?.change_ratio,
+                accessor: (row) =>
+                  row?.summary[row?.summary.length - 1]?.change_ratio,
               },
               {
                 Header: "الكمية المتداولة",
-                accessor: (row) => row?.summary[0]?.trade_count,
+                accessor: (row) =>
+                  row?.summary[row?.summary.length - 1]?.trade_count,
               },
               {
                 Header: "القيمة المتداولة",
-                accessor: (row) => row?.summary[0]?.trade_value,
+                accessor: (row) =>
+                  row?.summary[row?.summary.length - 1]?.trade_value,
               },
               {
                 Header: "الأعلى آخر 52 أسبوع",
-                accessor: (row) => row?.summary[0]?.fifty_two_week_high,
+                accessor: (row) =>
+                  row?.summary[row?.summary.length - 1]?.fifty_two_week_high,
               },
               {
                 Header: "الأدنى آخر 52 أسبوع",
-                accessor: (row) => row?.summary[0]?.fifty_two_week_low,
+                accessor: (row) =>
+                  row?.summary[row?.summary.length - 1]?.fifty_two_week_low,
               },
             ]}
           />
