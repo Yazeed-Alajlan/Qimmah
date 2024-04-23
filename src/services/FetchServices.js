@@ -82,36 +82,26 @@ async function getTotalMarketCapitalizationOfTASI() {
     const issuedShares = parseFloat(issuedSharesString.replace(/,/g, ""));
     const lastClosePrice = parseFloat(lastClosePriceString.replace(/,/g, ""));
     const marketCap = issuedShares * lastClosePrice;
-    // console.log(stockData.symbol);
-    // console.log(lastClosePrice);
-    // console.log(issuedShares);
-    // console.log(marketCap);
+
     totalMarketCap += marketCap;
   });
-  // console.log(totalMarketCap);
   return totalMarketCap;
 }
+
 async function getTotalCapitalOfTASI() {
   const allStocksData = await fetchAllStocksInformationData();
   let totalCap = 0;
+  let c = 0;
   allStocksData.forEach((stockData) => {
-    const stockCapString =
-      stockData.equityProfile[0]["Authorized Capital (SAR)"];
+    const stockCapString = stockData.equityProfile[0]["Paid Capital (SAR)"];
     const stockCap = parseFloat(stockCapString.replace(/,/g, ""));
-    console.log(stockData.symbol);
-    console.log(stockCap);
-
     totalCap += stockCap;
   });
   return totalCap;
 }
 
 async function getStockWeightInTasi(symbol) {
-  console.log(
-    "---------------------------------------------------------------------"
-  );
-  const totalTASICap = await getTotalCapitalOfTASI();
-  const totalTASIMarketCap = await getTotalMarketCapitalizationOfTASI(); // Assuming you have this function
+  const totalTASICap = await getTotalMarketCapitalizationOfTASI();
   const stockData = await fetchStockInformationData(symbol);
 
   const issuedSharesString = stockData?.equityProfile[0]["Issued Shares"];
@@ -121,13 +111,32 @@ async function getStockWeightInTasi(symbol) {
   const lastClosePrice = parseFloat(lastClosePriceString.replace(/,/g, ""));
   const stockMarketCap = issuedShares * lastClosePrice;
 
-  console.log(totalTASIMarketCap);
   console.log(totalTASICap);
   console.log(stockMarketCap);
+  console.log(stockMarketCap / totalTASICap);
+  return stockMarketCap / totalTASICap;
+}
+async function calculateNewTASIWithSymbol(initialTASI, symbol, newClosePrice) {
+  try {
+    // Fetch data for the specific stock
+    const stockData = await fetchStockInformationData(symbol);
+    const lastClosePriceString =
+      stockData?.summary[stockData?.summary.length - 1]["close"];
+    const lastClosePrice = parseFloat(lastClosePriceString.replace(/,/g, ""));
+    const closePriceChange = (newClosePrice - lastClosePrice) / lastClosePrice;
+    const stockWeight = await getStockWeightInTasi(symbol);
+    const newTASI = initialTASI * closePriceChange * stockWeight;
 
-  console.log((stockMarketCap / totalTASIMarketCap) * 100);
-  console.log((stockMarketCap / totalTASICap) * 100);
-  return (stockMarketCap / totalTASIMarketCap) * 100;
+    console.log(lastClosePrice);
+    console.log(newClosePrice);
+    console.log(closePriceChange);
+    console.log(stockWeight);
+    console.log(newTASI);
+    return newTASI;
+  } catch (error) {
+    console.error("Error calculating new TASI with symbol:", error);
+    throw error;
+  }
 }
 
 export {
@@ -140,4 +149,5 @@ export {
   getStockPriceDataByDateInterval,
   getTotalMarketCapitalizationOfTASI,
   getStockWeightInTasi,
+  calculateNewTASIWithSymbol,
 };

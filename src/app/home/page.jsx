@@ -16,7 +16,10 @@ import Badge from "@/components/utils/Badge";
 import {
   getStockWeightInTasi,
   getTotalMarketCapitalizationOfTASI,
+  calculateNewTASIWithSymbol,
 } from "@/services/FetchServices";
+
+//
 
 const Page = () => {
   const { stocksData } = useStocksData();
@@ -32,14 +35,17 @@ const Page = () => {
   //   ["MarketCapitalizationOfTASI"],
   //   () => getTotalMarketCapitalizationOfTASI()
   // );
-  const { data: StockWeightData } = useQuery(["StockWeightData"], () =>
-    getStockWeightInTasi("2222")
+  // const { data: StockWeightData } = useQuery(["StockWeightData"], () =>
+  //   getStockWeightInTasi("2222")
+  // );
+  const { data: newTasi } = useQuery(["newTasiData"], () =>
+    calculateNewTASIWithSymbol(12518.22, "2222", 35)
   );
 
   return (
     <PageWrapper className={"gap-16"}>
       {/* {MarketCapitalizationOfTASI} */}
-      {StockWeightData}
+      {newTasi}
       <Card header="مؤشر السوق الرئيسية (تاسي)">
         <StockPriceChart symbol={"2222"} />
       </Card>
