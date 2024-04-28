@@ -116,6 +116,9 @@ async function getStockWeightInTasi(symbol) {
   console.log(stockMarketCap / totalTASICap);
   return stockMarketCap / totalTASICap;
 }
+
+// 31.25
+
 async function calculateNewTASIWithSymbol(initialTASI, symbol, newClosePrice) {
   try {
     // Fetch data for the specific stock

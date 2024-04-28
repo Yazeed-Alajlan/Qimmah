@@ -27,7 +27,7 @@ export function TechnicalAnalysisProvider({ children }) {
     } catch (error) {
       console.log("Error fetching stock data:", error);
     }
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   }
 
