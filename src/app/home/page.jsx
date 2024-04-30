@@ -35,17 +35,17 @@ const Page = () => {
   //   ["MarketCapitalizationOfTASI"],
   //   () => getTotalMarketCapitalizationOfTASI()
   // );
-  // const { data: StockWeightData } = useQuery(["StockWeightData"], () =>
-  //   getStockWeightInTasi("2222")
-  // );
-  const { data: newTasi } = useQuery(["newTasiData"], () =>
-    calculateNewTASIWithSymbol(12518.22, "2222", 35)
+  const { data: StockWeightData } = useQuery(["StockWeightData"], () =>
+    getStockWeightInTasi("2222")
   );
+  // const { data: newTasi } = useQuery(["newTasiData"], () =>
+  //   calculateNewTASIWithSymbol(12518.22, "2222", 35)
+  // );
 
   return (
     <PageWrapper className={"gap-16"}>
-      {/* {MarketCapitalizationOfTASI} */}
-      {newTasi}
+      {StockWeightData}
+      {/* {newTasi} */}
       <Card header="مؤشر السوق الرئيسية (تاسي)">
         <StockPriceChart symbol={"2222"} />
       </Card>

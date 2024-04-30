@@ -11,7 +11,7 @@ export function useStocksData() {
 export function StocksDataProvider({ children }) {
   const [stocksData, setStocksData] = useState();
   const [selectedStock, setSelectedStock] = useState();
-  console.log(selectedStock);
+  // console.log(selectedStock);
   useEffect(() => {
     const fetchData = async () => {
       try {

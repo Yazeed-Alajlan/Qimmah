@@ -75,6 +75,7 @@ async function getTotalMarketCapitalizationOfTASI() {
   let totalMarketCap = 0;
 
   allStocksData.forEach((stockData) => {
+    console.log(stockData);
     const issuedSharesString = stockData.equityProfile[0]["Issued Shares"];
     const lastClosePriceString =
       stockData.summary[stockData?.summary.length - 1]["close"];
@@ -86,18 +87,6 @@ async function getTotalMarketCapitalizationOfTASI() {
     totalMarketCap += marketCap;
   });
   return totalMarketCap;
-}
-
-async function getTotalCapitalOfTASI() {
-  const allStocksData = await fetchAllStocksInformationData();
-  let totalCap = 0;
-  let c = 0;
-  allStocksData.forEach((stockData) => {
-    const stockCapString = stockData.equityProfile[0]["Paid Capital (SAR)"];
-    const stockCap = parseFloat(stockCapString.replace(/,/g, ""));
-    totalCap += stockCap;
-  });
-  return totalCap;
 }
 
 async function getStockWeightInTasi(symbol) {
