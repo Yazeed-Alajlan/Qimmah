@@ -69,14 +69,36 @@ async function getStockPriceDataByDateInterval(symbol, dateFrom, dateEnd) {
     });
 }
 
+async function getTopGainersAndLosers() {
+  console.log("HEEEEEELOEOLKMGEOGEJI");
+  const allStocksData = await fetchAllStocksInformationData();
+  allStocksData.sort(
+    (a, b) =>
+      parseFloat(a.summary[a.summary.length - 1].change_ratio) -
+      parseFloat(b.summary[b.summary.length - 1].change_ratio)
+  );
+
+  // Get the first 5 objects
+  const topGainers = allStocksData.slice(0, 5);
+
+  // Get the last 5 objects
+  const topLosers = allStocksData.slice(-5);
+  console.log(topGainers);
+  console.log(topLosers);
+  return { topGainers, topLosers };
+}
+
 async function getTotalMarketCapitalizationOfTASI() {
+  await getTopGainersAndLosers();
   const allStocksData = await fetchAllStocksInformationData();
 
   let totalMarketCap = 0;
 
   allStocksData.forEach((stockData) => {
-    console.log(stockData);
-    const issuedSharesString = stockData.equityProfile[0]["Issued Shares"];
+    const issuedSharesString =
+      "Outstanding Shares" in stockData.equityProfile[0]
+        ? stockData.equityProfile[0]["Outstanding Shares"]
+        : stockData.equityProfile[0]["Issued Shares"];
     const lastClosePriceString =
       stockData.summary[stockData?.summary.length - 1]["close"];
 
@@ -93,7 +115,10 @@ async function getStockWeightInTasi(symbol) {
   const totalTASICap = await getTotalMarketCapitalizationOfTASI();
   const stockData = await fetchStockInformationData(symbol);
 
-  const issuedSharesString = stockData?.equityProfile[0]["Issued Shares"];
+  const issuedSharesString =
+    "Outstanding Shares" in stockData.equityProfile[0]
+      ? stockData.equityProfile[0]["Outstanding Shares"]
+      : stockData.equityProfile[0]["Issued Shares"];
   const lastClosePriceString =
     stockData?.summary[stockData?.summary.length - 1]["close"];
   const issuedShares = parseFloat(issuedSharesString.replace(/,/g, ""));
@@ -142,4 +167,5 @@ export {
   getTotalMarketCapitalizationOfTASI,
   getStockWeightInTasi,
   calculateNewTASIWithSymbol,
+  getTopGainersAndLosers,
 };

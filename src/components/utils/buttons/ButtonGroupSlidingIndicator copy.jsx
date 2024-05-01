@@ -55,7 +55,11 @@ export const ButtonGroupSlidingIndicator = ({
             onClick={() => handleButtonClick(index, button.value, button.label)}
           >
             <span className="me-2"> {button.icon}</span>
-            {iconsOnly ? <></> : <span> {button.label}</span>}
+            {iconsOnly ? (
+              <></>
+            ) : (
+              <span className="text-wrap	"> {button.label}</span>
+            )}
           </button>
         );
       })}

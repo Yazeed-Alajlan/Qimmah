@@ -15,6 +15,7 @@ const StocksTable = ({
   isScrollable,
   handleRowClick,
 }) => {
+  console.log("HEEEEEEEEEEEEEEEELo");
   const columns = useMemo(() => {
     if (!tableData || tableData.length === 0) {
       return [];
