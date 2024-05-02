@@ -72,7 +72,7 @@ const StocksPage = () => {
               {
                 Header: "الكمية المتداولة",
                 accessor: (row) =>
-                  row?.summary[row?.summary.length - 1]?.trade_count,
+                  row?.summary[row?.summary.length - 1]?.trade_volume,
               },
               {
                 Header: "القيمة المتداولة",

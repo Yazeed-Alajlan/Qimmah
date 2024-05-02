@@ -77,15 +77,25 @@ async function getTopGainersAndLosers() {
       parseFloat(a.summary[a.summary.length - 1].change_ratio) -
       parseFloat(b.summary[b.summary.length - 1].change_ratio)
   );
+  const topLosers = allStocksData.slice(0, 5);
+  const topGainers = allStocksData.slice(-5);
+  allStocksData.sort(
+    (a, b) =>
+      parseFloat(b.summary[b.summary.length - 1].trade_volume) -
+      parseFloat(a.summary[a.summary.length - 1].trade_volume)
+  );
+  const topByCount = allStocksData.slice(0, 5);
+
+  allStocksData.sort(
+    (a, b) =>
+      parseFloat(b.summary[b.summary.length - 1].trade_value) -
+      parseFloat(a.summary[a.summary.length - 1].trade_value)
+  );
+  const topByValue = allStocksData.slice(0, 5);
 
   // Get the first 5 objects
-  const topGainers = allStocksData.slice(0, 5);
 
-  // Get the last 5 objects
-  const topLosers = allStocksData.slice(-5);
-  console.log(topGainers);
-  console.log(topLosers);
-  return { topGainers, topLosers };
+  return { topGainers, topLosers, topByCount, topByValue };
 }
 
 async function getTotalMarketCapitalizationOfTASI() {

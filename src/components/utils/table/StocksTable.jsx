@@ -14,8 +14,8 @@ const StocksTable = ({
   removeFilterFromColumn,
   isScrollable,
   handleRowClick,
+  removeButtons,
 }) => {
-  console.log("HEEEEEEEEEEEEEEEELo");
   const columns = useMemo(() => {
     if (!tableData || tableData.length === 0) {
       return [];
@@ -223,7 +223,7 @@ const StocksTable = ({
               </tbody>
             </table>
           </div>
-          {!isScrollable && (
+          {!isScrollable && filteredData.length > 15 && (
             <div className="flex justify-center items-center mt-2 gap-4">
               <Button
                 variant="primary"
