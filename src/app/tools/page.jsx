@@ -10,11 +10,17 @@ import { FaChartBar, FaSignal } from "react-icons/fa"; // Import FontAwesome ico
 import { CgArrowsShrinkV } from "react-icons/cg";
 import { FaRegFlag } from "react-icons/fa6";
 import { LuCandlestickChart } from "react-icons/lu";
+import { AiOutlineLineChart } from "react-icons/ai";
 
 const page = () => {
   return (
     <PageWrapper>
       <div className="flex justify-center flex-wrap gap-8">
+        <CardWithLink
+          to="tools/tasi-value-predictor"
+          label="TASI Value Predictor"
+          icon={<AiOutlineLineChart size={50} />}
+        />
         <CardWithLink
           to="tools/consolidating-stocks"
           label="Consolidating Stocks"

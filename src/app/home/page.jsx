@@ -13,12 +13,7 @@ import FinancialMetricsComparisonTable from "../comparison/components/FinancialM
 import { useStocksData } from "@/context/StocksDataContext";
 import Link from "next/link";
 import Badge from "@/components/utils/Badge";
-import {
-  getStockWeightInTasi,
-  getTotalMarketCapitalizationOfTASI,
-  calculateNewTASIWithSymbol,
-  getTopGainersAndLosers,
-} from "@/services/FetchServices";
+import { getTopGainersAndLosers } from "@/services/FetchServices";
 import ButtonGroup from "@/components/utils/buttons/ButtonGroup";
 import StocksTable from "@/components/utils/table/StocksTable";
 import Skeleton from "@/components/Skeleton";
@@ -35,13 +30,7 @@ const Page = () => {
   const { data: lastChangeData } = useQuery(["lastChangeData"], () =>
     getLastDateForChange()
   );
-  // const { data: MarketCapitalizationOfTASI } = useQuery(
-  //   ["MarketCapitalizationOfTASI"],
-  //   () => getTotalMarketCapitalizationOfTASI()
-  // );
-  // const { data: StockWeightData } = useQuery(["StockWeightData"], () =>
-  //   getStockWeightInTasi("2222")
-  // );
+
   const { data: stocksSummary } = useQuery(["stocksSummary"], () =>
     getTopGainersAndLosers()
   );
@@ -298,10 +287,8 @@ const Page = () => {
 
   return (
     <PageWrapper className={"gap-16"}>
-      {/* {StockWeightData} */}
-      {console.log(stocksSummary)}
       <Card header="مؤشر السوق الرئيسية (تاسي)">
-        <StockPriceChart symbol={"2222"} />
+        <StockPriceChart symbol={"TASI"} />
       </Card>
       <Card header={"نشاط اليوم"}>
         {stocksSummary ? (
