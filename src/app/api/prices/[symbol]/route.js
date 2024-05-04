@@ -1,4 +1,5 @@
 import { connectToDatabase } from "@/db/db";
+import Prices from "@/db/models/prices";
 import StockPrices from "@/db/models/stockPrices";
 import { NextResponse } from "next/server";
 
@@ -6,7 +7,7 @@ export async function GET(req, { params }) {
   try {
     await connectToDatabase();
     const symbol = params.symbol;
-    const stock = await StockPrices.findOne({ symbol: symbol });
+    const stock = await Prices.findOne({ symbol: symbol });
     const dateFrom = req.nextUrl.searchParams.get("dateFrom");
     const dateEnd = req.nextUrl.searchParams.get("dateEnd");
     const date = req.nextUrl.searchParams.get("date");

@@ -76,9 +76,14 @@ const StockPriceChart = ({
           },
         },
       });
-      const candlestickSeries = chart.addCandlestickSeries();
+      const candlestickSeries = chart.addCandlestickSeries({
+        upColor: "#26a69a",
+        downColor: "#ef5350",
+        borderVisible: false,
+        wickUpColor: "#26a69a",
+        wickDownColor: "#ef5350",
+      });
       candlestickSeries.setData(formattedData);
-
       new ResizeObserver((entries) => {
         if (
           entries.length === 0 ||

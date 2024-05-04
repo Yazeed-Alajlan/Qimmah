@@ -243,27 +243,27 @@ const StockInformation = () => {
             <Card className={"flex flex-col gap-4 "} header={"ملف الشركة"}>
               <Text
                 title="نبذة عن نشاط الشركة"
-                text={stockInformationData.companyProfile.companyOverview}
+                text={stockInformationData.companyProfile?.companyOverview}
               />
               <Text
                 title="نبذة عن تاريخ الشركة"
-                text={stockInformationData.companyProfile.companyHistory}
+                text={stockInformationData.companyProfile?.companyHistory}
               />
               <Text
                 title="تاريخ التأسيس"
-                text={stockInformationData.companyProfile.DateEstablished}
+                text={stockInformationData.companyProfile?.DateEstablished}
               />
               <Text
                 title="تاريخ الادراج"
-                text={stockInformationData.companyProfile.ListingDate}
+                text={stockInformationData.companyProfile?.ListingDate}
               />
               <Text
                 title="نهاية السنة المالية"
-                text={stockInformationData.companyProfile.FinancialYearEnd}
+                text={stockInformationData.companyProfile?.FinancialYearEnd}
               />
               <Text
                 title="المدققون الخارجيون"
-                text={stockInformationData.companyProfile.ExternalAuditors}
+                text={stockInformationData.companyProfile?.ExternalAuditors}
               />
             </Card>
             <Card header={"معلومات عن نسبة التملك"}>

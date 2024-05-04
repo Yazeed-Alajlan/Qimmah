@@ -165,7 +165,6 @@ const Page = () => {
         </>
       ),
     },
-    //--------------------------------------------------------------------------------------------
     {
       label: "الأكثر نشاطاً بالكمية",
       render: () => (
@@ -305,7 +304,14 @@ const Page = () => {
         <StockPriceChart symbol={"2222"} />
       </Card>
       <Card header={"نشاط اليوم"}>
-        {stocksSummary ? <ButtonGroup buttons={periodButtons} /> : <Skeleton />}
+        {stocksSummary ? (
+          <>
+            <ButtonGroup buttons={periodButtons} />
+            {lastChangeData}
+          </>
+        ) : (
+          <Skeleton />
+        )}
       </Card>
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2  gap-8">
         <Card header={"ربحية السهم الأساسية الأساسية"}>
