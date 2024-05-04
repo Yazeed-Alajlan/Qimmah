@@ -2,14 +2,13 @@
 import PageWrapper from "@/components/PageWrapper";
 import Button from "@/components/utils/buttons/Button";
 import { Card } from "@/components/utils/cards/Card";
-import StockPriceChart from "@/components/utils/charts/StockPriceChart";
 import Input from "@/components/utils/inputs/Input";
 import StocksSearch from "@/components/utils/inputs/StocksSearch";
 import { calculateNewTASIWithSymbol } from "@/services/FetchServices";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 
-const page = () => {
+const Page = () => {
   const [newPrice, setNewPrice] = useState(0);
   const [symbol, setSymbol] = useState();
 
@@ -84,4 +83,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
