@@ -130,7 +130,8 @@ const Sidebar = ({ routes }) => {
           </ul>
 
           {/* footer */}
-          {open && (
+
+          {/* {open && (
             <div className="flex-1 text-sm z-50  max-h-48 my-auto  whitespace-pre   w-full  font-medium  ">
               <div className="flex border-y border-slate-300 p-4 items-center justify-between">
                 <div>
@@ -142,7 +143,7 @@ const Sidebar = ({ routes }) => {
                 </p>
               </div>
             </div>
-          )}
+          )} */}
         </div>
         <motion.div
           onClick={() => {

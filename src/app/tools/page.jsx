@@ -61,6 +61,11 @@ const page = () => {
           icon={<TbDeviceAnalytics size={50} />}
         />
         <CardWithLink
+          to="tools/matrix-profile"
+          label="Matrix Profile"
+          icon={<TbDeviceAnalytics size={50} />}
+        />
+        <CardWithLink
           to="tools/moving-average"
           label="Moving Average"
           icon={<TbDeviceAnalytics size={50} />}
