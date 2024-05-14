@@ -14,21 +14,21 @@ import { MdMenu } from "react-icons/md";
 
 const Sidebar = ({ routes }) => {
   let isTabletMid = useMediaQuery({ query: "(max-width: 768px)" });
-  const [open, setOpen] = useState(isTabletMid ? false : true);
+  const [open, setOpen] = useState(isTabletMid ? false : false);
   const sidebarRef = useRef();
   const pathname = usePathname();
 
-  useEffect(() => {
-    if (isTabletMid) {
-      setOpen(false);
-    } else {
-      setOpen(true);
-    }
-  }, [isTabletMid]);
+  // useEffect(() => {
+  //   if (isTabletMid) {
+  //     setOpen(false);
+  //   } else {
+  //     setOpen(false);
+  //   }
+  // }, [isTabletMid]);
 
-  useEffect(() => {
-    isTabletMid && setOpen(true);
-  }, [pathname]);
+  // useEffect(() => {
+  //   isTabletMid && setOpen(true);
+  // }, [pathname]);
 
   const Nav_animation = isTabletMid
     ? {
@@ -111,6 +111,7 @@ const Sidebar = ({ routes }) => {
                   <div>
                     <Link
                       href={route.href}
+                      onClick={() => setOpen(false)}
                       className={`link hover:bg-gray-100 ${
                         route.href === "/"
                           ? pathname === route.href

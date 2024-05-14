@@ -207,11 +207,11 @@ const StockPriceChart = ({
               setIndicators={setIndicatorList}
             />
           )}
-          <div className={`flex flex-col absolute top-0 right-2  z-10 `}>
+          {/* <div className={`flex flex-col absolute top-0 right-2  z-10 `}>
             <div className="flex gap-10">
-              {/* <div>
+              <div>
                 <span>{stockInformationData?.tradingNameAr}</span>
-              </div> */}
+              </div>
               <Badge
                 variant={"transparent"}
                 text={
@@ -236,7 +236,7 @@ const StockPriceChart = ({
                 <span>Vol {legend.volume}</span>
               </div>
             </div>
-          </div>
+          </div> */}
           <div
             className="relative"
             id={chartContainerId}
