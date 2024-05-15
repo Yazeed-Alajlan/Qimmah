@@ -319,8 +319,7 @@ const Page = () => {
               },
               {
                 Header: "ربحية السهم الأساسية الأساسية",
-                accessor: (row) =>
-                  row?.summary[0]?.basic_earnings_per_share_ttm,
+                accessor: (row) => row?.summary?.basic_earnings_per_share_ttm,
               },
             ]}
           />
@@ -354,7 +353,7 @@ const Page = () => {
               },
               {
                 Header: "القيمة الدفترية",
-                accessor: (row) => row?.summary[0]?.book_value_per_share_ttm,
+                accessor: (row) => row?.summary?.book_value_per_share_ttm,
               },
             ]}
           />
