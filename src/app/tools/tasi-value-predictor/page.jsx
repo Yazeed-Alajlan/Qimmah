@@ -4,7 +4,7 @@ import Button from "@/components/utils/buttons/Button";
 import { Card } from "@/components/utils/cards/Card";
 import Input from "@/components/utils/inputs/Input";
 import StocksSearch from "@/components/utils/inputs/StocksSearch";
-import { calculateNewTASIWithSymbol } from "@/services/FetchServices";
+import { calculateNewTASIWithSymbol } from "@/services/UtilityServices";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 
