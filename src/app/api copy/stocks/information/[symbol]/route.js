@@ -1,0 +1,27 @@
+import { connectToDatabase } from "@/db/db";
+import StockInformation from "@/db/models/stockInformation";
+import { NextResponse } from "next/server";
+
+export async function GET(req, { params }) {
+  try {
+    await connectToDatabase();
+    const symbol = params.symbol;
+    const stock = await StockInformation.findOne({ symbol: symbol }).select(
+      "symbol companyNameEN sectorNameEn tradingNameEn sectorNameAr tradingNameAr companyNameAR market_type summary companyProfile"
+    );
+    if (!stock) {
+      return new NextResponse({
+        status: 404,
+        body: { error: "Stock not found" },
+      });
+    }
+
+    return new NextResponse(JSON.stringify(stock));
+  } catch (error) {
+    console.error("Error retrieving stock financials:", error);
+    return new NextResponse({
+      status: 500,
+      body: { error: "Internal server error" },
+    });
+  }
+}

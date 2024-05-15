@@ -2,13 +2,12 @@
 import React, { useEffect, useState } from "react";
 import Table from "@/components/utils/table/Table";
 import { Card } from "@/components/utils/cards/Card";
-import {
-  fetchStockFinancialData,
-  getStockPriceDataByDate,
-} from "@/services/FetchServices";
+
 import { useQuery } from "react-query";
 import { useParams } from "next/navigation";
 import DynamicChart from "@/components/utils/charts/DynamicChart";
+import { getStockFinancials } from "@/services/StockFinancialsServices";
+import { getStockPricesByDate } from "@/services/StockPricesServices";
 
 function extractKeyValue(arr, key, value) {
   return arr.reduce((result, obj) => {
@@ -29,7 +28,7 @@ const Dividend = () => {
     data: stockFinancialData,
     error,
   } = useQuery(["stockFinancialData", symbol], () =>
-    fetchStockFinancialData(symbol)
+    getStockFinancials(symbol)
   );
 
   const [data, setData] = useState();
@@ -55,11 +54,11 @@ const Dividend = () => {
             .toISOString()
             .split("T")[0];
 
-          const announcedDataStockPriceData = await getStockPriceDataByDate(
+          const announcedDataStockPriceData = await getStockPricesByDate(
             symbol,
             announced_date
           );
-          const eligibilityDateStockPriceData = await getStockPriceDataByDate(
+          const eligibilityDateStockPriceData = await getStockPricesByDate(
             symbol,
             eligibility_date
           );

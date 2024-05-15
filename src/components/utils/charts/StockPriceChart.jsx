@@ -1,9 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
-import {
-  fetchStockPriceData,
-  fetchStockInformationData,
-} from "@/services/FetchServices";
 import { createChart } from "lightweight-charts";
 import {
   formatCandlestickData,
@@ -15,6 +11,8 @@ import {
 import Indicators from "./Indicators";
 import Badge from "../Badge";
 import Skeleton from "@/components/Skeleton";
+import { getStockPrices } from "@/services/StockPricesServices";
+import { getStockInformation } from "@/services/StockInformationServices";
 const StockPriceChart = ({
   symbol,
   flagsPennantsData,
@@ -27,11 +25,7 @@ const StockPriceChart = ({
     isLoading,
     data: stockPriceData,
     error,
-  } = useQuery(["stockPriceData", symbol], () => fetchStockPriceData(symbol));
-  const { data: stockInformationData } = useQuery(
-    ["stockInformationData", symbol],
-    () => fetchStockInformationData(symbol)
-  );
+  } = useQuery(["stockPriceData", symbol], () => getStockPrices(symbol));
 
   const [legend, setLegend] = useState(() => ({
     close: "",

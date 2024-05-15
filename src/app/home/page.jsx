@@ -5,18 +5,18 @@ import StockPriceChart from "@/components/utils/charts/StockPriceChart";
 import FinancialMetricsTable from "@/components/utils/table/FinancialMetricsTable";
 import React from "react";
 import { useQuery } from "react-query";
-import {
-  getLastDateForChange,
-  prepareFinancialMetricsComparisonTableData,
-} from "@/services/FinancialServices";
+
 import FinancialMetricsComparisonTable from "../comparison/components/FinancialMetricsComparisonTable";
 import { useStocksData } from "@/context/StocksDataContext";
 import Link from "next/link";
 import Badge from "@/components/utils/Badge";
-import { getTopGainersAndLosers } from "@/services/FetchServices";
 import ButtonGroup from "@/components/utils/buttons/ButtonGroup";
 import StocksTable from "@/components/utils/table/StocksTable";
 import Skeleton from "@/components/Skeleton";
+import {
+  getLastDateForChange,
+  getTopGainersAndLosers,
+} from "@/services/UtilityServices";
 
 //
 
@@ -66,29 +66,27 @@ const Page = () => {
               },
               {
                 Header: "الافتتاح",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.open,
+                accessor: (row) => row?.summary?.open,
               },
               {
                 Header: "الاغلاق",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.close,
+                accessor: (row) => row?.summary?.close,
               },
               {
                 Header: "الأعلى",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.high,
+                accessor: (row) => row?.summary?.high,
               },
               {
                 Header: "الأدنى",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.low,
+                accessor: (row) => row?.summary?.low,
               },
               {
                 Header: "التغيير",
-                accessor: (row) =>
-                  row?.summary[row?.summary.length - 1]?.change_value,
+                accessor: (row) => row?.summary?.change_value,
               },
               {
                 Header: "التغيير (%)",
-                accessor: (row) =>
-                  row?.summary[row?.summary.length - 1]?.change_ratio,
+                accessor: (row) => row?.summary?.change_ratio,
               },
             ]}
           />
@@ -125,29 +123,27 @@ const Page = () => {
               },
               {
                 Header: "الافتتاح",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.open,
+                accessor: (row) => row?.summary?.open,
               },
               {
                 Header: "الاغلاق",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.close,
+                accessor: (row) => row?.summary?.close,
               },
               {
                 Header: "الأعلى",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.high,
+                accessor: (row) => row?.summary?.high,
               },
               {
                 Header: "الأدنى",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.low,
+                accessor: (row) => row?.summary?.low,
               },
               {
                 Header: "التغيير",
-                accessor: (row) =>
-                  row?.summary[row?.summary.length - 1]?.change_value,
+                accessor: (row) => row?.summary?.change_value,
               },
               {
                 Header: "التغيير (%)",
-                accessor: (row) =>
-                  row?.summary[row?.summary.length - 1]?.change_ratio,
+                accessor: (row) => row?.summary?.change_ratio,
               },
             ]}
           />
@@ -184,34 +180,31 @@ const Page = () => {
               },
               {
                 Header: "الافتتاح",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.open,
+                accessor: (row) => row?.summary?.open,
               },
               {
                 Header: "الاغلاق",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.close,
+                accessor: (row) => row?.summary?.close,
               },
               {
                 Header: "الأعلى",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.high,
+                accessor: (row) => row?.summary?.high,
               },
               {
                 Header: "الأدنى",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.low,
+                accessor: (row) => row?.summary?.low,
               },
               {
                 Header: "التغيير",
-                accessor: (row) =>
-                  row?.summary[row?.summary.length - 1]?.change_value,
+                accessor: (row) => row?.summary?.change_value,
               },
               {
                 Header: "التغيير (%)",
-                accessor: (row) =>
-                  row?.summary[row?.summary.length - 1]?.change_ratio,
+                accessor: (row) => row?.summary?.change_ratio,
               },
               {
                 Header: "الكمية المتداولة",
-                accessor: (row) =>
-                  row?.summary[row?.summary.length - 1]?.trade_volume,
+                accessor: (row) => row?.summary?.trade_volume,
               },
             ]}
           />
@@ -249,34 +242,31 @@ const Page = () => {
               },
               {
                 Header: "الافتتاح",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.open,
+                accessor: (row) => row?.summary?.open,
               },
               {
                 Header: "الاغلاق",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.close,
+                accessor: (row) => row?.summary?.close,
               },
               {
                 Header: "الأعلى",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.high,
+                accessor: (row) => row?.summary?.high,
               },
               {
                 Header: "الأدنى",
-                accessor: (row) => row?.summary[row?.summary.length - 1]?.low,
+                accessor: (row) => row?.summary?.low,
               },
               {
                 Header: "التغيير",
-                accessor: (row) =>
-                  row?.summary[row?.summary.length - 1]?.change_value,
+                accessor: (row) => row?.summary?.change_value,
               },
               {
                 Header: "التغيير (%)",
-                accessor: (row) =>
-                  row?.summary[row?.summary.length - 1]?.change_ratio,
+                accessor: (row) => row?.summary?.change_ratio,
               },
               {
                 Header: "القيمة المتداولة",
-                accessor: (row) =>
-                  row?.summary[row?.summary.length - 1]?.trade_value,
+                accessor: (row) => row?.summary?.trade_value,
               },
             ]}
           />

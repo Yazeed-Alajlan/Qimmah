@@ -12,12 +12,10 @@ import { Card } from "@/components/utils/cards/Card";
 import { useParams } from "next/navigation";
 import { Tab, Tabs } from "@/components/utils/tabs/TabsButtons";
 import FinancialsTable from "./FinancialsTable";
-import {
-  fetchStockFinancialData,
-  fetchStockInformationData,
-} from "@/services/FetchServices";
+
 import { useQuery } from "react-query";
 import ButtonGroup from "@/components/utils/buttons/ButtonGroup";
+import { getStockFinancials } from "@/services/StockFinancialsServices";
 
 const Financials = () => {
   const { symbol } = useParams();
@@ -28,7 +26,7 @@ const Financials = () => {
     data: stockFinancialData,
     error,
   } = useQuery(["stockFinancialData", symbol], () =>
-    fetchStockFinancialData(symbol)
+    getStockFinancials(symbol)
   );
   // const { data: stockInformationData } = useQuery(
   //   ["stockInformationData", symbol],

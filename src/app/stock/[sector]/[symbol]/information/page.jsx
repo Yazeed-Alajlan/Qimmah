@@ -2,13 +2,13 @@
 import React from "react";
 import { Card } from "@/components/utils/cards/Card";
 import { useParams } from "next/navigation";
-import { fetchStockInformationData } from "@/services/FetchServices";
 import { useQuery } from "react-query";
 import List from "./List";
 import ButtonGroup from "@/components/utils/buttons/ButtonGroup";
 import StockPriceChart from "@/components/utils/charts/StockPriceChart";
 import Text from "@/components/Text";
 import Table from "@/components/utils/table/Table";
+import { getDetailedStockInformation } from "@/services/StockInformationServices";
 
 const StockInformation = () => {
   const { symbol } = useParams();
@@ -19,61 +19,61 @@ const StockInformation = () => {
     data: stockInformationData,
     error,
   } = useQuery(["stockInformationData", symbol], () =>
-    fetchStockInformationData(symbol)
+    getDetailedStockInformation(symbol)
   );
   console.log(stockInformationData);
   const data = [
     {
       name: "القيمة السوقية",
       info: "daily",
-      value: stockInformationData?.summary[0]?.daily_price_to_earnings,
+      value: stockInformationData?.summary?.daily_price_to_earnings,
     },
     {
       name: "ربحية السهم EPS",
       info: "daily",
-      value: stockInformationData?.summary[0]?.basic_earnings_per_share_ttm,
+      value: stockInformationData?.summary?.basic_earnings_per_share_ttm,
     },
     {
       name: "مكرر الربحية",
       info: "daily",
-      value: stockInformationData?.summary[0]?.daily_price_to_earnings,
+      value: stockInformationData?.summary?.daily_price_to_earnings,
     },
     {
       name: "القيمة الدفترية",
       info: "daily",
-      value: stockInformationData?.summary[0]?.book_value_per_share_ttm,
+      value: stockInformationData?.summary?.book_value_per_share_ttm,
     },
     {
       name: "مضاعف القيمة الدفترية",
       info: "daily",
-      value: stockInformationData?.summary[0]?.basic_earnings_per_share_ttm,
+      value: stockInformationData?.summary?.basic_earnings_per_share_ttm,
     },
     {
       name: "نسبة التوزيعات النقدية",
       info: "daily",
-      value: stockInformationData?.summary[0]?.daily_price_to_earnings,
+      value: stockInformationData?.summary?.daily_price_to_earnings,
     },
-    {
-      name: "رأس المال المصرّح",
-      info: "daily",
-      value: stockInformationData?.capital?.[0]?.newCApital ?? "N/A",
-    },
+    // {
+    //   name: "رأس المال المصرّح",
+    //   info: "daily",
+    //   value: stockInformationData?.capital?.newCApital ?? "N/A",
+    // },
   ];
   const data2 = [
     {
       name: "القيمة السوقية",
       info: "daily",
-      value: stockInformationData?.summary[0]?.daily_price_to_earnings,
+      value: stockInformationData?.summary?.daily_price_to_earnings,
     },
     {
       name: "ربحية السهم EPS",
       info: "daily",
-      value: stockInformationData?.summary[0]?.basic_earnings_per_share_ttm,
+      value: stockInformationData?.summary?.basic_earnings_per_share_ttm,
     },
     {
       name: "مكرر الربحية",
       info: "daily",
-      value: stockInformationData?.summary[0]?.daily_price_to_earnings,
+      value: stockInformationData?.summary?.daily_price_to_earnings,
     },
   ];
 
@@ -135,15 +135,19 @@ const StockInformation = () => {
             <Text
               title={"الملكية الفعلية (%)"}
               text={
-                stockInformationData.shareholdingInformation.foreignOwnership[0]
-                  .totalForeignOwnership.actualPercentage
+                stockInformationData.shareholdingInformation.foreignOwnership[
+                  stockInformationData.shareholdingInformation.foreignOwnership
+                    .length - 1
+                ].totalForeignOwnership?.actualPercentage
               }
             />
             <Text
               title={"الحد الاعلى (%)"}
               text={
-                stockInformationData.shareholdingInformation.foreignOwnership[0]
-                  .totalForeignOwnership.maximumLimit
+                stockInformationData.shareholdingInformation.foreignOwnership[
+                  stockInformationData.shareholdingInformation.foreignOwnership
+                    .length - 1
+                ].totalForeignOwnership?.maximumLimit
               }
             />
           </div>
@@ -151,24 +155,23 @@ const StockInformation = () => {
           <Text
             title={"ملكية المستثمر الاستراتيجي الأجنبي"}
             text={
-              stockInformationData.shareholdingInformation.foreignOwnership[0]
-                .foreignStrategicInvestorsOwnership.actualPercentage
+              stockInformationData.shareholdingInformation.foreignOwnership[
+                stockInformationData.shareholdingInformation.foreignOwnership
+                  .length - 1
+              ].foreignStrategicInvestorsOwnership?.actualPercentage
             }
           />
-          {/* {console.log(
-            stockInformationData.shareholdingInformation.foreignOwnership[0]
-              .foreignStrategicInvestorsOwnership.actualPercentage
-          )} */}
           <div>
             تاريخ آخر تحديث
             <span>
               {
-                stockInformationData.shareholdingInformation.foreignOwnership[0]
-                  .date
+                stockInformationData.shareholdingInformation.foreignOwnership[
+                  stockInformationData.shareholdingInformation.foreignOwnership
+                    .length - 1
+                ].date
               }{" "}
             </span>
           </div>
-          {/* {} */}
         </>
       ),
     },
@@ -211,6 +214,7 @@ const StockInformation = () => {
     <>
       {stockInformationData ? (
         <>
+          {console.log(stockInformationData.shareholdingInformation)}
           <div className="flex flex-col flex-wrap gap-8">
             <div className="grid grid-cols-5 gap-4 ">
               <div className="md:col-span-3 col-span-5">
@@ -226,8 +230,7 @@ const StockInformation = () => {
             </div>
             <Card header={"ملف السهم"}>
               <div className="flex  gap-4 flex-wrap">
-                {console.log(stockInformationData.equityProfile[0])}
-                {Object.entries(stockInformationData.equityProfile[0]).map(
+                {Object.entries(stockInformationData.equityProfile).map(
                   ([key, value]) => (
                     <div
                       key={key}

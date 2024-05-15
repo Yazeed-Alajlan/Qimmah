@@ -1,8 +1,5 @@
 "use client";
-import { SidebarSelection } from "@/components/routing/SidebarSelection";
-import { getStockInformationData } from "@/services/FinancialServices";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useParams } from "next/navigation";
 import {
   TbInfoCircle,
@@ -13,11 +10,13 @@ import {
 } from "react-icons/tb";
 import StockPriceCard from "./utils/StockPriceCard";
 import Badge from "@/components/utils/Badge";
-import Divider from "@/components/utils/Divider";
 import PageWrapper from "@/components/PageWrapper";
 import { NavBar } from "@/components/routing/NavBar";
 import { useQuery } from "react-query";
-import { fetchStockInformationData } from "@/services/FetchServices";
+import {
+  getDetailedStockInformation,
+  getStockInformation,
+} from "@/services/StockInformationServices";
 
 const StockLayout = ({ children }) => {
   const { symbol, sector } = useParams();
@@ -28,7 +27,7 @@ const StockLayout = ({ children }) => {
     data: stockInformationData,
     error,
   } = useQuery(["stockInformationData", symbol], () =>
-    fetchStockInformationData(symbol)
+    getDetailedStockInformation(symbol)
   );
   const myRoutes = [
     {
@@ -62,7 +61,6 @@ const StockLayout = ({ children }) => {
       to: `/stock/${sector}/${symbol}/analysis`,
     },
   ];
-
   return (
     <PageWrapper className="gap-10">
       {stockInformationData ? (
@@ -70,11 +68,11 @@ const StockLayout = ({ children }) => {
           <div className="flex flex-col gap-4 ">
             <div className="flex flex-col gap-8 ">
               <div className="flex gap-4">
-                <Link className="text-decoration-none" href={"/companies/all"}>
+                <Link className="text-decoration-none" href={"/stocks"}>
                   الشركات
                 </Link>
                 /
-                <Link className="text-decoration-none" href={`/companies`}>
+                <Link className="text-decoration-none" href={`/stocks`}>
                   {stockInformationData.sectorNameAr}
                 </Link>
                 /<p>{stockInformationData.tradingNameAr}</p>
@@ -105,27 +103,12 @@ const StockLayout = ({ children }) => {
           </div>
 
           <div className="my-auto lg:ms-auto">
+            {console.log(stockInformationData)}
             <StockPriceCard
-              open={
-                stockInformationData.summary[
-                  stockInformationData.summary.length - 1
-                ].open
-              }
-              close={
-                stockInformationData.summary[
-                  stockInformationData.summary.length - 1
-                ].close
-              }
-              low={
-                stockInformationData.summary[
-                  stockInformationData.summary.length - 1
-                ].low
-              }
-              high={
-                stockInformationData.summary[
-                  stockInformationData.summary.length - 1
-                ].high
-              }
+              open={stockInformationData.summary?.open}
+              close={stockInformationData.summary?.close}
+              low={stockInformationData.summary?.low}
+              high={stockInformationData.summary?.high}
             />
           </div>
         </div>

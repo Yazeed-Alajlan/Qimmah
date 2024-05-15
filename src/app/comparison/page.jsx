@@ -3,12 +3,10 @@ import PageWrapper from "@/components/PageWrapper";
 import { Card } from "@/components/utils/cards/Card";
 import InputSelect from "@/components/utils/inputs/InputSelect";
 import { useStocksData } from "@/context/StocksDataContext";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ComparisonChart from "./components/ComparisonChart";
 import { useQuery } from "react-query";
-import { fetchStockFinancialData } from "@/services/FetchServices";
-import FinancialMetricsComparisonTable from "./components/FinancialMetricsComparisonTable";
-import { prepareFinancialMetricsComparisonTableData } from "@/services/FinancialServices";
+import { getStockFinancials } from "@/services/StockFinancialsServices";
 
 const Page = () => {
   const { stocksData } = useStocksData();
@@ -24,7 +22,7 @@ const Page = () => {
     ["stockFinancialData", selectedStocks],
     () =>
       Promise.all(
-        selectedStocks.map((option) => fetchStockFinancialData(option.value))
+        selectedStocks.map((option) => getStockFinancials(option.value))
       ),
     {
       enabled: selectedStocks.length > 0,
