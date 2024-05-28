@@ -387,7 +387,7 @@ const Page = () => {
               },
               {
                 Header: "نسبة السعر الى الأرباح",
-                accessor: (row) => row?.summary[0]?.daily_price_to_earnings,
+                accessor: (row) => row?.summary?.daily_price_to_earnings,
               },
             ]}
           />
@@ -421,7 +421,7 @@ const Page = () => {
               },
               {
                 Header: "رأس المال السوقي اليومي",
-                accessor: (row) => row?.summary[0]?.daily_market_capitalization,
+                accessor: (row) => row?.summary?.daily_market_capitalization,
               },
             ]}
           />
