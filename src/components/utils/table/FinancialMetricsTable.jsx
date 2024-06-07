@@ -12,6 +12,7 @@ const FinancialMetricsTable = ({
   isScrollable,
   handleRowClick,
 }) => {
+  console.log(tableData);
   const [searchText, setSearchText] = useState("");
   const [filterOption, setFilterOption] = useState("");
   const [data, setData] = useState(tableData);
