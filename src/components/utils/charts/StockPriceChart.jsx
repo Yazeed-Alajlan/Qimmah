@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
-import { createChart } from "lightweight-charts";
+import { createChart, CrosshairMode } from "lightweight-charts";
 import {
   formatCandlestickData,
   formatIndicatorData,
@@ -87,11 +87,17 @@ const StockPriceChart = ({
         }
         const newRect = entries[0].contentRect;
 
-        chart.applyOptions({ height: newRect.height, width: newRect.width });
+        chart.applyOptions({
+          height: newRect.height,
+          width: newRect.width,
+          crosshair: {
+            mode: CrosshairMode.Normal,
+          },
+        });
         // chart.applyOptions({ height: 500, width: newRect.width });
       }).observe(chartContainerRef.current);
 
-      createTooltip(chartContainerId, chart, candlestickSeries);
+      // createTooltip(chartContainerId, chart, candlestickSeries);
       const volumeSeries = addVolumeHistogram(chart, stockPriceData.quotes);
       addLegend(
         chart,
@@ -201,36 +207,25 @@ const StockPriceChart = ({
               setIndicators={setIndicatorList}
             />
           )}
-          {/* <div className={`flex flex-col absolute top-0 right-2  z-10 `}>
-            <div className="flex gap-10">
-              <div>
-                <span>{stockInformationData?.tradingNameAr}</span>
-              </div>
-              <Badge
-                variant={"transparent"}
-                text={
-                  stockInformationData?.tradingNameAr +
-                  "   " +
-                  stockInformationData?.symbol
-                }
-                size={"sm"}
-              />
-              <div
-                className={`flex flex-row-reverse justify-center text-sm  gap-4 text-${
-                  legend.open > legend.close ? "danger" : "success"
-                }`}
-              >
-                <span>O {legend.open}</span>
-                <span>H {legend.high}</span>
-                <span>L {legend.low}</span>
-                <span>C {legend.close}</span>
-                <span>
-                  {legend.changePercent === "NaN" ? "" : legend.changePercent}%
-                </span>
-                <span>Vol {legend.volume}</span>
-              </div>
+          <div className={`flex flex-col absolute top-0 left-20  z-10 `}>
+            <div className="flex flex-row-reverse">
+              <Badge variant={"transparent"} text={symbol} size={"sm"} />
             </div>
-          </div> */}
+            <div
+              className={`flex flex-row-reverse  text-sm  gap-4 text-${
+                legend.open > legend.close ? "danger" : "success"
+              }`}
+            >
+              <span>O {legend.open}</span>
+              <span>H {legend.high}</span>
+              <span>L {legend.low}</span>
+              <span>C {legend.close}</span>
+              <span>
+                {legend.changePercent === "NaN" ? "" : legend.changePercent}%
+              </span>
+              <span>Vol {legend.volume}</span>
+            </div>
+          </div>
           <div
             className="relative"
             id={chartContainerId}

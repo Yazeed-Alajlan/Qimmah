@@ -2,7 +2,7 @@
 import React from "react";
 import { cva } from "class-variance-authority";
 
-const badgeVariants = cva(" font-medium me-2 px-2.5 py-0.5 rounded", {
+const badgeVariants = cva(" font-medium  px-2.5 py-0.5 rounded", {
   variants: {
     variant: {
       primary:
